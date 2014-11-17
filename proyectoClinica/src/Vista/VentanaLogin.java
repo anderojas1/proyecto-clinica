@@ -185,7 +185,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         
             if (validarAcceso() == true) {
             
-                JOptionPane.showMessageDialog(this, "Nos encontramos en desarrollo", "Módulo sin desarrollar", JOptionPane.INFORMATION_MESSAGE);
+                VentanaAdministracion admin = new VentanaAdministracion();
             
             }
         
