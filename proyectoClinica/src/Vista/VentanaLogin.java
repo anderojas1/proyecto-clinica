@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import com.sun.glass.events.KeyEvent;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     public VentanaLogin() {
         initComponents();
         validadorDatos = new Validador();
+        setResizable(false);
     }
 
     /**
@@ -80,6 +82,11 @@ public class VentanaLogin extends javax.swing.JFrame {
                 jbIniciarMouseClicked(evt);
             }
         });
+        jbIniciar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbIniciarKeyPressed(evt);
+            }
+        });
 
         jpfcontraseña.setToolTipText("Ingrese su contraseña");
         jpfcontraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -87,11 +94,21 @@ public class VentanaLogin extends javax.swing.JFrame {
                 jpfcontraseñaActionPerformed(evt);
             }
         });
+        jpfcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpfcontraseñaKeyPressed(evt);
+            }
+        });
 
         jtfUsuario.setToolTipText("Ingrese su usuario");
         jtfUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfUsuarioActionPerformed(evt);
+            }
+        });
+        jtfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfUsuarioKeyPressed(evt);
             }
         });
 
@@ -172,7 +189,11 @@ public class VentanaLogin extends javax.swing.JFrame {
             
             }
         
-            else JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+            else {
+                
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+                jpfcontraseña.setText("");
+            }
             
         } catch (ExcepcionCamposVacios ex) {
             
@@ -209,6 +230,21 @@ public class VentanaLogin extends javax.swing.JFrame {
         
         iniciarSesion ();
     }//GEN-LAST:event_jbIniciarMouseClicked
+
+    private void jbIniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbIniciarKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbIniciarKeyPressed
+
+    private void jpfcontraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpfcontraseñaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) iniciarSesion();
+    }//GEN-LAST:event_jpfcontraseñaKeyPressed
+
+    private void jtfUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfUsuarioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) iniciarSesion();
+    }//GEN-LAST:event_jtfUsuarioKeyPressed
 
    
 
