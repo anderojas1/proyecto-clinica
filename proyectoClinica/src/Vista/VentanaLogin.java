@@ -171,7 +171,9 @@ public class VentanaLogin extends javax.swing.JFrame {
     
     private boolean validarAcceso () {
         
-        if (jtfUsuario.equals("admin") && jpfcontraseña.getPassword().toString().equals("12345")) {
+        String pass = new String(jpfcontraseña.getPassword());
+        
+        if (jtfUsuario.getText().equals("admin") && pass.equals("12345")) {
             
             return true;
         }
