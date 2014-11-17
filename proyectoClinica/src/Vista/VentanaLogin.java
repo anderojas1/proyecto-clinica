@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import excepciones.ExcepcionCamposVacios;
+import excepciones.Validador;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,12 +15,15 @@ import javax.swing.JOptionPane;
  * @author anderojas
  */
 public class VentanaLogin extends javax.swing.JFrame {
+    
+    private Validador validadorDatos;
 
     /**
      * Creates new form VentanaLogin
      */
     public VentanaLogin() {
         initComponents();
+        validadorDatos = new Validador();
     }
 
     /**
@@ -158,20 +164,35 @@ public class VentanaLogin extends javax.swing.JFrame {
     
     public void iniciarSesion () {
         
-        if (validarAcceso() == true) {
+        try {
+        
+            if (validarAcceso() == true) {
             
-            JOptionPane.showMessageDialog(this, "Nos encontramos en desarrollo", "Módulo sin desarrollar", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Nos encontramos en desarrollo", "Módulo sin desarrollar", JOptionPane.INFORMATION_MESSAGE);
+            
+            }
+        
+            else JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos obligatorios sin llenar", JOptionPane.ERROR_MESSAGE);
             
         }
-        
-        else JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
         
     }
     
     
-    private boolean validarAcceso () {
+    private boolean validarAcceso () throws ExcepcionCamposVacios {
         
         String pass = new String(jpfcontraseña.getPassword());
+        String user = jtfUsuario.getText();
+        
+        ArrayList <String> campos = new ArrayList<>();
+        campos.add(user);
+        campos.add(pass);
+        
+        validadorDatos.validarModulos(campos);
         
         return jtfUsuario.getText().equals("admin") && pass.equals("12345");
     }
