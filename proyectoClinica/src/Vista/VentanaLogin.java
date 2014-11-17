@@ -173,12 +173,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         
         String pass = new String(jpfcontraseña.getPassword());
         
-        if (jtfUsuario.getText().equals("admin") && pass.equals("12345")) {
-            
-            return true;
-        }
-        
-        return false;
+        return jtfUsuario.getText().equals("admin") && pass.equals("12345");
     }
     
     private void jpfcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfcontraseñaActionPerformed
