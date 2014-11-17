@@ -6,6 +6,8 @@
 
 package logica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Santa Gutierrez
@@ -13,11 +15,13 @@ package logica;
 public class Enfermera extends Empleado{
     
     private int anios_exp;
-    private String habilidad;
+    private ArrayList<String> habilidad;
     
-    public Enfermera(String nombre_completo, String doc_id, String direccion_residencia, String num_telefono, String cargo_emp, 
-            String correo_e, double salario, int anios_exp, String habilidad){
-        super(nombre_completo, doc_id, direccion_residencia, num_telefono, cargo_emp, correo_e, salario); 
+    public Enfermera(String nombre_completo, String doc_id, String direccion_residencia, String num_telefono, String cod_area, String cargo_emp, 
+                    String correo_e, double salario, String jefe, int anios_exp, ArrayList<String> habilidad){
+       
+        super(nombre_completo, doc_id, direccion_residencia, num_telefono, cod_area, cargo_emp, correo_e, salario, jefe); 
+       
      this.anios_exp = anios_exp;
      this.habilidad = habilidad;
     }
@@ -29,6 +33,15 @@ public class Enfermera extends Empleado{
     public void setAnios_exp(int anios_exp) {
         this.anios_exp = anios_exp;
     }
-    
+
+    public ArrayList<String> getHabilidad() {
+        return habilidad;
+    }
+
+    public void setHabilidad(ArrayList<String> habilidad) {
+        this.habilidad = habilidad;
+    }
+
+ 
     
 }
