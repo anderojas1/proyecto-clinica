@@ -15,6 +15,9 @@ public class Area {
     private String descripcion;
     private String nombre;
     
+    public Area(){
+    }
+    
     public Area(String codigo, String descripcion, String nombre){
         this.codigo = codigo;
         this.descripcion = descripcion;

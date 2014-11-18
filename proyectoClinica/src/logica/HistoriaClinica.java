@@ -22,4 +22,30 @@ public class HistoriaClinica {
         this.f_apertura = f_apertura;
         this.identificacion = identificacion;
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getF_apertura() {
+        return f_apertura;
+    }
+
+    public void setF_apertura(String f_apertura) {
+        this.f_apertura = f_apertura;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+    
+    
 }
