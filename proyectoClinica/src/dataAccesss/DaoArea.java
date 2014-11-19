@@ -25,26 +25,15 @@ public class DaoArea {
         fachadaConectar = new Fachada();
     }
     
-    public void ejecutarSentenciaUpdate () throws SQLException {
+    public void ejecutarSentenciaUpdate () throws SQLException, NullPointerException {
+                          
+        conectar = fachadaConectar.conectar();
+
+        sentencia = conectar.createStatement();
+        sentencia.executeUpdate(sentenciaSql);
+
+        conectar.close();            
         
-        try{
-            
-            conectar= fachadaConectar.conectar();
-            
-            sentencia = conectar.createStatement();
-            sentencia.executeUpdate(sentenciaSql);
-            
-            conectar.close();
-            
-        } catch(SQLException ex) { 
-            
-            throw ex;
-        
-        } catch (NullPointerException ex) {
-            
-            JOptionPane.showMessageDialog(null, "Error en base de datos. No se puede conectar");
-            
-        }
     }
     
     public void crearArea(Area area)throws SQLException{

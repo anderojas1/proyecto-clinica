@@ -5,7 +5,7 @@
  */
 package Vista;
 
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.*;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
 import java.util.ArrayList;
