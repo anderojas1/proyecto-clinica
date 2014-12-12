@@ -48,7 +48,7 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de nacimiento");
 
-        jButton1.setText("Registrar");
+        jButton1.setText("Guardar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

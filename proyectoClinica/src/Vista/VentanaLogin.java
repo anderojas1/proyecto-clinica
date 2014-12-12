@@ -185,8 +185,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         
             if (validarAcceso() == true) {
             
-                VentanaAdministrar admin = new VentanaAdministrar();
-                
+                VentanaAdministrador ventAdmin = new VentanaAdministrador();
+                             
+               ventAdmin.setVisible(true);
+               ventAdmin.setLocationRelativeTo(null);
+               
                 dispose();
             
             }
