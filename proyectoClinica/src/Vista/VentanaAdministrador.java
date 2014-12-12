@@ -431,7 +431,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Areas", jPanel6);
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("/afs/eisc.univalle.edu.co/user/pregrado/2012/juliancv/Escritorio/BD1/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
 
         jButton1.setText("Cerrar Sesion");
 
@@ -488,7 +488,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, Short.MAX_VALUE)
         );
 
         pack();
