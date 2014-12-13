@@ -347,8 +347,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(254, 254, 254));
 
         btListaEmpleados.setBorderPainted(false);
+        btListaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btListaEmpleadosMouseClicked(evt);
+            }
+        });
 
         btCuentasEmpleados.setBorderPainted(false);
+        btCuentasEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btCuentasEmpleadosMouseClicked(evt);
+            }
+        });
 
         lbListaEmpleados.setText("Lista Empleados");
 
@@ -618,9 +628,33 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarUsuMouseClicked
 
+<<<<<<< HEAD
     private void btCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btCerrarSesionActionPerformed
+=======
+    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
+       
+        VentanaListadoEmpleados ventList = new VentanaListadoEmpleados();
+        ventList.setVisible(true);
+        ventList.setLocationRelativeTo(null);
+        ventList.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_btListaEmpleadosMouseClicked
+
+    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
+       
+        ventanaCuentas ventCuen = new ventanaCuentas();
+        ventCuen.setVisible(true);
+        ventCuen.setLocationRelativeTo(null);
+        ventCuen.acomodarVentana(this);
+        
+        dispose();
+        
+        
+    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
+>>>>>>> 98241014305f27778f6f31c7b283cb77dc807897
 
     
     public void acomodarVentana(VentanaLogin ventLog){

@@ -50,6 +50,8 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
         lbAsigCama = new javax.swing.JLabel();
         btAsignarCita = new javax.swing.JButton();
         lbAsignarCita = new javax.swing.JLabel();
+        btModificarCita = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,39 +72,69 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
         btAsignarCama.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/camaPaciente.jpg")); // NOI18N
         btAsignarCama.setBorderPainted(false);
+        btAsignarCama.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAsignarCamaMouseClicked(evt);
+            }
+        });
 
         lbAsigCama.setText("Asignar Cama Paciente");
 
         btAsignarCita.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/Agenda2.jpg")); // NOI18N
         btAsignarCita.setBorderPainted(false);
+        btAsignarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAsignarCitaMouseClicked(evt);
+            }
+        });
 
         lbAsignarCita.setText("Asignar cita");
+
+        btModificarCita.setBackground(new java.awt.Color(254, 254, 254));
+        btModificarCita.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/cambiarCita.png")); // NOI18N
+        btModificarCita.setBorderPainted(false);
+        btModificarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btModificarCitaMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setText("Cambiar cita");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbBienvenida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbNombreUser))
-                    .addComponent(btCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(66, 66, 66))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
+                        .addGap(29, 29, 29)
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btAsignarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbAsigCama))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAsignarCita)
+                            .addComponent(btAsignarCita))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btAsignarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbAsigCama))
-                .addGap(109, 109, 109)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbAsignarCita)
-                    .addComponent(btAsignarCita))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbBienvenida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbNombreUser))
+                            .addComponent(btCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(66, 66, 66))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(btModificarCita))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,17 +150,17 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btAsignarCita)
-                        .addGap(30, 30, 30)
-                        .addComponent(lbAsignarCita))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btAsignarCama)
-                        .addGap(16, 16, 16)
-                        .addComponent(lbAsigCama)))
-                .addContainerGap(157, Short.MAX_VALUE))
+                    .addComponent(btAsignarCama)
+                    .addComponent(btAsignarCita)
+                    .addComponent(btModificarCita))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbAsigCama)
+                    .addComponent(lbAsignarCita)
+                    .addComponent(jLabel1))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,6 +186,41 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btCerrarSesionMouseClicked
+
+    private void btAsignarCamaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarCamaMouseClicked
+       
+        VentanaRegCamaPaciente ventAsigCama = new VentanaRegCamaPaciente();
+        
+        ventAsigCama.setVisible(true);
+        ventAsigCama.setLocationRelativeTo(null);
+        ventAsigCama.acomodarVentana(this);
+        
+        dispose();
+        
+    }//GEN-LAST:event_btAsignarCamaMouseClicked
+
+    private void btAsignarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarCitaMouseClicked
+       
+        VentanaAsignacionCita ventAsigcita = new VentanaAsignacionCita();
+        
+        ventAsigcita.setVisible(true);
+        ventAsigcita.setLocationRelativeTo(null);
+        ventAsigcita.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_btAsignarCitaMouseClicked
+
+    private void btModificarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btModificarCitaMouseClicked
+       
+        VentanaModificarCita ventModiCita = new VentanaModificarCita();
+        
+        ventModiCita.setVisible(true);
+        ventModiCita.setLocationRelativeTo(null);
+        ventModiCita.acomodarVentana(this);
+        
+       dispose();
+                
+    }//GEN-LAST:event_btModificarCitaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,6 +261,8 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
     private javax.swing.JButton btAsignarCama;
     private javax.swing.JButton btAsignarCita;
     private javax.swing.JButton btCerrarSesion;
+    private javax.swing.JButton btModificarCita;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbAsigCama;
     private javax.swing.JLabel lbAsignarCita;
