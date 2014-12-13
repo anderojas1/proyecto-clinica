@@ -54,8 +54,9 @@ REFERENCES Persona (identificacion)
 CREATE TABLE AccesoSistema (
 
 username varchar(20) NOT NULL PRIMARY KEY,
-passzz varchar(30),
+pass varchar(30),
 identificacion varchar(30) NOT NULL,
+perfil varchar(20) NOT NULL,
 estado_cuenta varchar(20) NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
@@ -305,6 +306,6 @@ on update cascade on delete no action
 
 
 INSERT INTO Persona (identificacion, nombres, apellido_uno, apellido_dos, direccion, estado)
-    VALUES ('1144171818', 'Anderson', 'Enriquez', 'Rojas', '----', true);
+    VALUES ('admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
 
-INSERT INTO AccesoSistema VALUES ('admin', '12345', '1144171818', 'activo');
+INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', 'activo');

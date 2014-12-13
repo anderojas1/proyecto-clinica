@@ -6,6 +6,7 @@
 package dataAccesss;
 
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Persona;
 import logica.Telefono;
 
@@ -66,6 +67,60 @@ public class DaoPersona {
                 + ",'" + numero.getTipo() + "');";
         
         ejecutarUpdate();
+        
+    }
+    
+    
+    public String consultarUsuario (String username, String pass) throws SQLException {
+        
+        String perfil = "ninguno";
+        
+        sentenciaSql = "SELECT perfil FROM AccesoSistema WHERE username = '" + username + "' and pass = '" + pass + "';";
+        ejecutarConsulta();
+        
+        if (registros.next() == true) perfil = registros.getString(1);
+        
+        return perfil;
+        
+    }
+    
+    
+    public Persona consultarPersona (String identificacion) throws SQLException {
+        
+        sentenciaSql = "SELECT * FROM Persona where identificacion = '" + identificacion + "';";
+        ejecutarConsulta();
+        
+        if (registros.next() == true) {
+            
+            String nombre = registros.getString(2);
+            String apellido1 = registros.getString(3);
+            String apellido2 = registros.getString(4);
+            String direccion = registros.getString(5);
+            boolean estado = registros.getBoolean(6);
+            
+            sentenciaSql = "SELECT * FROM Telefonos_Persona WHERE identificacion = '" + identificacion + "';";
+            ejecutarConsulta();
+            
+            ArrayList<Telefono> numeros_tel = new ArrayList<>();
+            
+            while (registros.next()) {
+                
+                String numero = registros.getString(2);
+                String tipo = registros.getString(3);
+                
+                Telefono tel = new Telefono(numero, tipo);
+                
+                numeros_tel.add(tel);
+                
+            }
+            
+            Persona persona = new Persona(identificacion, nombre, apellido1, apellido2, numeros_tel, direccion, estado);
+            
+            return persona;
+            
+        }
+        
+        return null;
         
     }
     
