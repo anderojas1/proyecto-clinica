@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import controlador.*;
 import java.awt.event.*;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;

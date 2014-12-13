@@ -11,7 +11,6 @@ package dataAccesss;
  * @author Santa Gutierrez
  */
 import java.sql.*;
-import javax.swing.JOptionPane;
 import logica.Area;
 public class DaoArea {
     
@@ -25,7 +24,7 @@ public class DaoArea {
         fachadaConectar = new Fachada();
     }
     
-    public void ejecutarSentenciaUpdate () throws SQLException, NullPointerException {
+    public void ejecutarUpdate () throws SQLException, NullPointerException {
                           
         conectar = fachadaConectar.conectar();
 
@@ -36,36 +35,42 @@ public class DaoArea {
         
     }
     
+    
+    public void ejecutarConsulta () throws SQLException {
+        
+        conectar = fachadaConectar.conectar();
+        sentencia = conectar.createStatement();
+        
+        registros = sentencia.executeQuery(sentenciaSql);
+        
+        conectar.close();
+        
+    }
+    
     public void crearArea(Area area)throws SQLException{
         
         sentenciaSql="INSERT INTO Area VALUES ('"+area.getCodigo()+"', '"+area.getNombre()+"', '"+area.getDescripcion()+"');";
         
-        ejecutarSentenciaUpdate();   
+        ejecutarUpdate();
+        
     }
     
     public Area consultarArea(String codigo) throws SQLException{
+        
         Area area = new Area();
         
         sentenciaSql = "SELECT * FROM Area WHERE codigo = '"+codigo+"';";
-         try{
-            conectar= fachadaConectar.conectar();
-            
-            sentencia = conectar.createStatement();
+        
+        while (registros.next()) {
 
-            registros = sentencia.executeQuery(sentenciaSql);
-            
-            while(registros.next()){
-                
-               area.setCodigo(registros.getString(1));
-               area.setNombre(registros.getString(2));
-               area.setDescripcion(registros.getString(3));
+            area.setCodigo(registros.getString(1));
+            area.setNombre(registros.getString(2));
+            area.setDescripcion(registros.getString(3));
 
-            }
-            conectar.close();
-         }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println(e); }
+        }
+            
         return area;
+        
     }
     
     public void actualizarArea(){
@@ -74,8 +79,9 @@ public class DaoArea {
     
     public void borrarArea(String codigo)throws SQLException{
         
-        sentenciaSql = "DELETE * FROM Area WHERE codigo = '"+codigo+"';";
-        ejecutarSentenciaUpdate();
+        sentenciaSql = "UPDATE Area SET estado = false WHERE codigo = '"+codigo+"';";
+        ejecutarUpdate();
+        
     }
     
 }

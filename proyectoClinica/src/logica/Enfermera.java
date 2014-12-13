@@ -17,10 +17,12 @@ public class Enfermera extends Empleado{
     private int anios_exp;
     private ArrayList<String> habilidad;
     
-    public Enfermera(String nombre_completo, String doc_id, String direccion_residencia, String num_telefono, String cod_area, String cargo_emp, 
+    public Enfermera(String doc_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
+                String direccion_residencia, boolean estado, String cod_area, String cargo_emp, 
                     String correo_e, double salario, String jefe, int anios_exp, ArrayList<String> habilidad){
        
-        super(nombre_completo, doc_id, direccion_residencia, num_telefono, cod_area, cargo_emp, correo_e, salario, jefe); 
+        super(doc_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado, cod_area, 
+                cargo_emp, correo_e, salario, jefe); 
        
      this.anios_exp = anios_exp;
      this.habilidad = habilidad;

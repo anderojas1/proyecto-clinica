@@ -6,6 +6,8 @@
 
 package logica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Santa Gutierrez
@@ -17,12 +19,15 @@ public class Medico extends Empleado{
     private String universidad; 
     private String num_licencia;
 
-    public Medico(String nombre_completo, String doc_id, String direccion_residencia, String num_telefono, String cod_area, String cargo_emp, 
+    public Medico(String doc_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
+                String direccion_residencia, boolean estado, String cod_area, String cargo_emp, 
                     String correo_e, double salario, String jefe, String especialidad, String universidad, String num_licencia){
-       super(nombre_completo, doc_id, direccion_residencia, num_telefono, cod_area, cargo_emp, correo_e, salario, jefe); 
-       this.especialidad = especialidad;
-       this.universidad = universidad;
-       this.num_licencia = num_licencia;
+       
+        super(doc_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado, cod_area, 
+                cargo_emp, correo_e, salario, jefe); 
+        this.especialidad = especialidad;
+        this.universidad = universidad;
+        this.num_licencia = num_licencia;
     }
 
     public String getEspecialidad() {

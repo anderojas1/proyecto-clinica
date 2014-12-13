@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Paciente extends Persona {
 	
 	private String fechaNacimiento;
@@ -7,10 +9,10 @@ public class Paciente extends Persona {
 	private String actividadEconomica;
 	
 	
-	public Paciente (String nombre_completo, String doc_id, String direccion_residencia, String num_telefono, String num_seguridad,
-						String actividad, String fecha_nac) {
+	public Paciente (String doc_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
+                String direccion_residencia, boolean estado, String num_seguridad, String actividad, String fecha_nac) {
 							
-		super (nombre_completo, doc_id, direccion_residencia, num_telefono);
+		super (doc_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado);
 		
 		numeroSeguridadSocial = num_seguridad;
 		actividadEconomica = actividad;
