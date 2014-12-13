@@ -628,11 +628,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarUsuMouseClicked
 
-<<<<<<< HEAD
+
     private void btCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btCerrarSesionActionPerformed
-=======
+
     private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
        
         VentanaListadoEmpleados ventList = new VentanaListadoEmpleados();
@@ -654,7 +654,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
->>>>>>> 98241014305f27778f6f31c7b283cb77dc807897
+
 
     
     public void acomodarVentana(VentanaLogin ventLog){
