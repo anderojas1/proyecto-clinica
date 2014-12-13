@@ -47,16 +47,16 @@ public class DaoMedicamento {
     
         public void registrarMedicamento (Medicamento medicamento) throws SQLException {
         
-        sentenciaSql = "INSERT INTO Cama VALUES ('" + medicamento.getCodigo() + "','" + medicamento.getNombre()+ "',"
+        sentenciaSql = "INSERT INTO Medicamento VALUES ('" + medicamento.getCodigo() + "','" + medicamento.getNombre()+ "',"
                 + medicamento.getCosto()+ ",'" + medicamento.getDescripcion()+ "'," + "true" + ");";
         
         ejecutarUpdate();
         
     }
         
-    public void eliminarMedicamento (Medicamento medicamento) throws SQLException {
+    public void eliminarMedicamento (String codigo) throws SQLException {
         
-        sentenciaSql = "UPDATE Medicamento SET estado = " + false + " WHERE codigo = '" + medicamento.getCodigo()+ "';";
+        sentenciaSql = "UPDATE Medicamento SET estado = " + false + " WHERE codigo = '" + codigo + "';";
         
         ejecutarUpdate();
         
