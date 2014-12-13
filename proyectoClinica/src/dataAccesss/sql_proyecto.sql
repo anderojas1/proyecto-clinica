@@ -22,7 +22,7 @@ CREATE TABLE  Area (
 
 codigo VARCHAR(20) NOT NULL PRIMARY KEY,
 nombre VARCHAR(30) NOT NULL,
-descripcion VARCHAR(50) NOT NULL ,
+descripcion VARCHAR(1000) NOT NULL ,
 estado bool NOT NULL 
 
 );
@@ -309,3 +309,18 @@ INSERT INTO Persona (identificacion, nombres, apellido_uno, apellido_dos, direcc
     VALUES ('admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
 
 INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', 'activo');
+
+INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
+es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 
+patologías de ginecología general y oncológicas', true),
+('002', 'Medicina Fisica', 'Optimizar las capacidades de los usuarios con discapacidad, para lograr su
+integración a la vida familiar, social y laboral, a través de la utilización de los
+recursos en Medicina Física, Fisioterapia, Terapia Ocupacional, Terapia del Lenguaje, Trabajo Social y Psicología, 
+con criterios de calidad, oportunidad y efectividad', true),
+('003', 'Medicina Interna', 'Evaluar integralmente al usuario mayor de 14 años, con ayudas diagnósticas y personal altamente 
+calificado, con recursos tecnológicos modernos, proporcionando una atención médica de altísima calidad científica y humana, 
+ofreciendo un personal capacitado y preocupado por prestar un excelente servicio y establecer una buena relación médico-usuario y
+familia, para mejorar la calidad de vida de nuestra comunidad.', true),
+('004', 'Neurocirugia', 'Brindar al paciente Neuroquirúrgico y su familia, una atención oportuna y de calidad; 
+Consolidar el vínculo docente asistencial con las entidades en que tienen convenio la Institución y que sus estudiantes 
+realizan prácticas en la UES de Neurocirugía. Mantener ambiente de cordialidad y respeto', true);
