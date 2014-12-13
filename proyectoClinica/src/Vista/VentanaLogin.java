@@ -9,6 +9,7 @@ import controlador.*;
 import java.awt.event.*;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -21,13 +22,18 @@ import javax.swing.JTextField;
 public class VentanaLogin extends javax.swing.JFrame {
     
     private Validador validadorDatos;
+    private final DriverPersona controladorPersona;
 
     /**
      * Creates new form VentanaLogin
      */
     public VentanaLogin() {
         initComponents();
+        
         validadorDatos = new Validador();
+        
+        controladorPersona = new DriverPersona();
+        
         setResizable(false);
     }
 
@@ -185,20 +191,22 @@ public class VentanaLogin extends javax.swing.JFrame {
     public void iniciarSesion () {
         
         try {
+            
+            String perfil = validarAcceso();
         
-            if (validarAcceso() == "admin") {
+            if ("administrador".equals(perfil)) {
             
                VentanaAdministrador ventAdmin = new VentanaAdministrador();
                              
                ventAdmin.setVisible(true);
                ventAdmin.setLocationRelativeTo(null);
                ventAdmin.acomodarVentana(this);
-               
-               
+                System.out.println(jtfUsuario.getText());
+               ventAdmin.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));               
                
                dispose();
             
-            }else if(validarAcceso() == "enfer"){
+            } else if("enfermera".equals(perfil)){
                 
                 VentanaAdminEnfermera ventEnfer =  new VentanaAdminEnfermera();
                 
@@ -208,7 +216,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                                 
                 dispose();           
             
-            }else if(validarAcceso() == "doc"){
+            } else if("medico".equals(perfil)){
                 
                 VentanaAdminMedico ventDoc = new VentanaAdminMedico();
                 
@@ -219,22 +227,26 @@ public class VentanaLogin extends javax.swing.JFrame {
                 dispose();
             
             
-            }else {
+            } else {
                 
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
                 jpfcontraseña.setText("");
+                
             }
             
         } catch (ExcepcionCamposVacios ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos obligatorios sin llenar", JOptionPane.ERROR_MESSAGE);
             
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Verificación fallida", JOptionPane.ERROR_MESSAGE);
         }
         
     }
     
     
-    private String validarAcceso () throws ExcepcionCamposVacios {
+    private String validarAcceso () throws ExcepcionCamposVacios, SQLException {
         
         String pass = new String(jpfcontraseña.getPassword());
         String user = jtfUsuario.getText();
@@ -244,23 +256,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         campos.add(pass);
         
         validadorDatos.validarModulos(campos);
-        
-          
-        if(jtfUsuario.getText().equals("admin") && pass.equals("12345")){
-        
-            return "admin";
             
-        }else if(jtfUsuario.getText().equals("enfer") && pass.equals("12345")){
-            
-            return "enfer";
+        String perfil = controladorPersona.consultarPerfil(user, pass);
+
+        return perfil;
         
-        }else if(jtfUsuario.getText().equals("doc") && pass.equals("12345")){
-        
-            return "doc";
-        
-        }
-        
-        return "ninguno";
     }
     
     private void jpfcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfcontraseñaActionPerformed

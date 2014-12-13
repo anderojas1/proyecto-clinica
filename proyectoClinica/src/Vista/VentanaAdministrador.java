@@ -4,6 +4,11 @@
  */
 package Vista;
 
+import logica.Persona;
+import controlador.*;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juliancv
@@ -11,12 +16,45 @@ package Vista;
 public class VentanaAdministrador extends javax.swing.JFrame {
 
     private VentanaLogin ventLog;
+    private Persona sesion;
+    
+    private DriverArea area;
     
     /**
      * Creates new form VentanaAdministrador
      */
     public VentanaAdministrador() {
         initComponents();
+        area = new DriverArea();
+    }
+    
+    
+    public void datosUsuario (Persona usuario) {
+        
+        sesion = usuario;
+        lbUser.setText("@" + sesion.getNombre());
+        
+    }
+    
+    public void registrarArea () {
+        
+        String codigo = campoCodigoArea.getText();
+        String nombre = campoNombreArea.getText();
+        String descripcion = areaDescripArea.getText();
+        boolean estado = true;
+        
+        try {
+            
+            area.registrarArea(codigo, nombre, descripcion, estado);
+            JOptionPane.showMessageDialog(this, "Se ha registrado el área correctamente", 
+                    "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
     }
 
     /**
@@ -136,7 +174,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(lbEstadoCama)
                             .addComponent(lbCodAreaCama)
                             .addComponent(lbDescripCama))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1)
                             .addComponent(comboEstadocama, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,7 +259,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(357, 357, 357)
                         .addComponent(jLabel3)))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,10 +311,17 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         lbDescripArea.setText("Descripcion");
 
         areaDescripArea.setColumns(20);
+        areaDescripArea.setLineWrap(true);
         areaDescripArea.setRows(5);
+        areaDescripArea.setWrapStyleWord(true);
         jScrollPane3.setViewportView(areaDescripArea);
 
         btAgregarArea.setText("Agregar");
+        btAgregarArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarAreaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -286,33 +331,28 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGap(137, 137, 137)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(lbSubTituloArea))
+                        .addGap(172, 172, 172)
+                        .addComponent(lbSubTituloArea))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addComponent(lbNombreArea)
+                            .addGap(143, 143, 143)
+                            .addComponent(campoNombreArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbCodigoArea)
+                                .addComponent(lbDescripArea))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(lbNombreArea)
-                                    .addGap(143, 143, 143)
-                                    .addComponent(campoNombreArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbCodigoArea)
-                                        .addComponent(lbDescripArea))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(campoCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(436, 436, 436)
-                        .addComponent(btAgregarArea, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(240, Short.MAX_VALUE))
+                                .addComponent(campoCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btAgregarArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(lbSubTituloArea)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -335,7 +375,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(254, 254, 254));
 
-        btListaEmpleados.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/listado.jpg")); // NOI18N
         btListaEmpleados.setBorderPainted(false);
         btListaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -343,7 +382,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        btCuentasEmpleados.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/cuentas.jpg")); // NOI18N
         btCuentasEmpleados.setBorderPainted(false);
         btCuentasEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -371,7 +409,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +497,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(jLabel2)))
-                .addGap(0, 109, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,39 +543,48 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Administracion de usuarios", jPanel2);
 
-        lbLogo.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
-
-        btCerrarSesion.setText("Cerrar Sesion");
+        btCerrarSesion.setBackground(new java.awt.Color(254, 254, 254));
+        btCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/black-logout-256.png"))); // NOI18N
+        btCerrarSesion.setText("Cerrar sesión");
+        btCerrarSesion.setToolTipText("Cerrar sesión");
+        btCerrarSesion.setBorder(null);
+        btCerrarSesion.setBorderPainted(false);
+        btCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCerrarSesion.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        btCerrarSesion.setFocusPainted(false);
         btCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btCerrarSesionMouseClicked(evt);
             }
         });
+        btCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCerrarSesionActionPerformed(evt);
+            }
+        });
 
-        lbBienvenido.setText("Bienvenido @");
-
-        lbUser.setText("Administrado");
+        lbBienvenido.setText("Bienvenido");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbBienvenido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbUser))
-                            .addComponent(btCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(lbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -548,12 +595,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbBienvenido)
-                            .addComponent(lbUser))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btCerrarSesion)))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -567,7 +614,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
         );
 
         pack();
@@ -610,6 +657,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarUsuMouseClicked
 
+
+    private void btCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCerrarSesionActionPerformed
+
     private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
        
         VentanaListadoEmpleados ventList = new VentanaListadoEmpleados();
@@ -632,52 +684,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
 
+    private void btAgregarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAreaActionPerformed
+        
+        registrarArea();
+        
+    }//GEN-LAST:event_btAgregarAreaActionPerformed
+
+
     
     public void acomodarVentana(VentanaLogin ventLog){
     
     this.ventLog = ventLog;
         
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new VentanaAdministrador().setVisible(true);
-            }
-        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AreaDescripCama;
