@@ -337,9 +337,19 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         btListaEmpleados.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/listado.jpg")); // NOI18N
         btListaEmpleados.setBorderPainted(false);
+        btListaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btListaEmpleadosMouseClicked(evt);
+            }
+        });
 
         btCuentasEmpleados.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/cuentas.jpg")); // NOI18N
         btCuentasEmpleados.setBorderPainted(false);
+        btCuentasEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btCuentasEmpleadosMouseClicked(evt);
+            }
+        });
 
         lbListaEmpleados.setText("Lista Empleados");
 
@@ -599,6 +609,28 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btAgregarUsuMouseClicked
+
+    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
+       
+        VentanaListadoEmpleados ventList = new VentanaListadoEmpleados();
+        ventList.setVisible(true);
+        ventList.setLocationRelativeTo(null);
+        ventList.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_btListaEmpleadosMouseClicked
+
+    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
+       
+        ventanaCuentas ventCuen = new ventanaCuentas();
+        ventCuen.setVisible(true);
+        ventCuen.setLocationRelativeTo(null);
+        ventCuen.acomodarVentana(this);
+        
+        dispose();
+        
+        
+    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
 
     
     public void acomodarVentana(VentanaLogin ventLog){
