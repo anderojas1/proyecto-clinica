@@ -21,6 +21,7 @@ public class DaoArea {
     private ResultSet registros;
     
     public DaoArea(){
+        
         fachadaConectar = new Fachada();
     }
     
@@ -49,7 +50,8 @@ public class DaoArea {
     
     public void crearArea(Area area)throws SQLException{
         
-        sentenciaSql="INSERT INTO Area VALUES ('"+area.getCodigo()+"', '"+area.getNombre()+"', '"+area.getDescripcion()+"');";
+        sentenciaSql="INSERT INTO Area VALUES ('"+area.getCodigo()+"', '"+area.getNombre()+"', '"+area.getDescripcion()+""
+                + "', " + area.getEstado() + ");";
         
         ejecutarUpdate();
         
@@ -57,19 +59,21 @@ public class DaoArea {
     
     public Area consultarArea(String codigo) throws SQLException{
         
-        Area area = new Area();
-        
         sentenciaSql = "SELECT * FROM Area WHERE codigo = '"+codigo+"';";
         
         while (registros.next()) {
 
-            area.setCodigo(registros.getString(1));
-            area.setNombre(registros.getString(2));
-            area.setDescripcion(registros.getString(3));
+            String nombre = registros.getString(2);
+            String descripcion = registros.getString(3);
+            boolean estado = registros.getBoolean(4);
+            
+            Area area = new Area(codigo, descripcion, nombre, estado);
+            
+            return area;
 
         }
             
-        return area;
+        return null;
         
     }
     
@@ -77,9 +81,9 @@ public class DaoArea {
         
     }
     
-    public void borrarArea(String codigo)throws SQLException{
+    public void habilitarArea(Area area, boolean estado)throws SQLException{
         
-        sentenciaSql = "UPDATE Area SET estado = false WHERE codigo = '"+codigo+"';";
+        sentenciaSql = "UPDATE Area SET estado = " + estado + " WHERE codigo = '"+ area.getCodigo() + "';";
         ejecutarUpdate();
         
     }
