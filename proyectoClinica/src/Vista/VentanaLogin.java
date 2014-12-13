@@ -183,18 +183,37 @@ public class VentanaLogin extends javax.swing.JFrame {
         
         try {
         
-            if (validarAcceso() == true) {
+            if (validarAcceso() == "admin") {
             
-                VentanaAdministrador ventAdmin = new VentanaAdministrador();
+               VentanaAdministrador ventAdmin = new VentanaAdministrador();
                              
                ventAdmin.setVisible(true);
                ventAdmin.setLocationRelativeTo(null);
                
+               
+               
+               dispose();
+            
+            }else if(validarAcceso() == "enfer"){
+                
+                VentanaAdminEnfermera ventEnfer =  new VentanaAdminEnfermera();
+                
+                ventEnfer.setVisible(true);
+                ventEnfer.setLocationRelativeTo(null);
+                                
+                dispose();           
+            
+            }else if(validarAcceso() == "doc"){
+                
+                VentanaAdminMedico ventDoc = new VentanaAdminMedico();
+                
+                ventDoc.setVisible(true);
+                ventDoc.setLocationRelativeTo(null);
+                
                 dispose();
             
-            }
-        
-            else {
+            
+            }else {
                 
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
                 jpfcontraseña.setText("");
@@ -209,7 +228,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
     
     
-    private boolean validarAcceso () throws ExcepcionCamposVacios {
+    private String validarAcceso () throws ExcepcionCamposVacios {
         
         String pass = new String(jpfcontraseña.getPassword());
         String user = jtfUsuario.getText();
@@ -220,7 +239,22 @@ public class VentanaLogin extends javax.swing.JFrame {
         
         validadorDatos.validarModulos(campos);
         
-        return jtfUsuario.getText().equals("admin") && pass.equals("12345");
+          
+        if(jtfUsuario.getText().equals("admin") && pass.equals("12345")){
+        
+            return "admin";
+            
+        }else if(jtfUsuario.getText().equals("enfer") && pass.equals("12345")){
+            
+            return "enfer";
+        
+        }else if(jtfUsuario.getText().equals("doc") && pass.equals("12345")){
+        
+            return "doc";
+        
+        }
+        
+        return "ninguno";
     }
     
     private void jpfcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfcontraseñaActionPerformed
