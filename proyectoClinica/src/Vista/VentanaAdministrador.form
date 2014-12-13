@@ -591,17 +591,11 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btListaEmpleados">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/listado.jpg"/>
-                    </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btCuentasEmpleados">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/cuentas.jpg"/>
-                    </Property>
                     <Property name="borderPainted" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -821,11 +815,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lbLogo">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btCerrarSesion">
           <Properties>
