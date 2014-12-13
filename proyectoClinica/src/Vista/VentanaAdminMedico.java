@@ -19,7 +19,7 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void acomodarVentana(VentanaLogin ventLog){
+    public void acomodarVentana(VentanaLogin ventLog){
     
     this.ventLog = ventLog;
         
@@ -34,54 +34,59 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        lbLogo = new javax.swing.JLabel();
+        lbBienvenido = new javax.swing.JLabel();
+        lbUser = new javax.swing.JLabel();
+        btCerrarSesion = new javax.swing.JButton();
+        btAgenda = new javax.swing.JButton();
+        lbAgenda = new javax.swing.JLabel();
+        lbHistoriaClin = new javax.swing.JLabel();
+        btCrearCamp = new javax.swing.JButton();
+        lbCrearCamp = new javax.swing.JLabel();
+        btAdminCamp = new javax.swing.JButton();
+        lbAdminCamp = new javax.swing.JLabel();
+        btHistoriaClin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
+        lbLogo.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
 
-        jLabel2.setText("Bienvenido @");
+        lbBienvenido.setText("Bienvenido @");
 
-        jLabel3.setText("Medico");
+        lbUser.setText("Medico");
 
-        jButton1.setText("Cerrar Sesion");
+        btCerrarSesion.setText("Cerrar Sesion");
+        btCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btCerrarSesionMouseClicked(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(254, 254, 254));
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/Agenda.jpg")); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton2.setBorderPainted(false);
+        btAgenda.setBackground(new java.awt.Color(254, 254, 254));
+        btAgenda.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/Agenda.jpg")); // NOI18N
+        btAgenda.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btAgenda.setBorderPainted(false);
 
-        jLabel4.setText("Ver Agenda");
+        lbAgenda.setText("Ver Agenda");
 
-        jLabel5.setText("Historias Clinicas");
+        lbHistoriaClin.setText("Historias Clinicas");
 
-        jButton4.setBackground(new java.awt.Color(254, 254, 254));
-        jButton4.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/CMedico.png")); // NOI18N
-        jButton4.setBorderPainted(false);
+        btCrearCamp.setBackground(new java.awt.Color(254, 254, 254));
+        btCrearCamp.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/CMedico.png")); // NOI18N
+        btCrearCamp.setBorderPainted(false);
 
-        jLabel6.setText("Crear campaña");
+        lbCrearCamp.setText("Crear campaña");
 
-        jButton5.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/PCampReg.jpg")); // NOI18N
-        jButton5.setBorderPainted(false);
+        btAdminCamp.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/PCampReg.jpg")); // NOI18N
+        btAdminCamp.setBorderPainted(false);
 
-        jLabel7.setText("Administrar campaña ");
+        lbAdminCamp.setText("Administrar campaña ");
 
-        jButton6.setBackground(new java.awt.Color(254, 254, 254));
-        jButton6.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/HClinica.jpg")); // NOI18N
-        jButton6.setBorderPainted(false);
+        btHistoriaClin.setBackground(new java.awt.Color(254, 254, 254));
+        btHistoriaClin.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/HClinica.jpg")); // NOI18N
+        btHistoriaClin.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,35 +96,35 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(lbBienvenido)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel3))
-                            .addComponent(jButton1)))
+                                .addComponent(lbUser))
+                            .addComponent(btCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(134, 134, 134)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jButton5))))
+                                    .addComponent(lbAgenda)
+                                    .addComponent(btAdminCamp))))
                         .addGap(88, 88, 88)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6)
-                            .addComponent(jLabel5))
+                            .addComponent(btHistoriaClin)
+                            .addComponent(lbHistoriaClin))
                         .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbCrearCamp)
+                            .addComponent(btCrearCamp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(123, 123, 123)
-                        .addComponent(jLabel7)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                        .addComponent(lbAdminCamp)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,34 +132,34 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lbBienvenido)
+                            .addComponent(lbUser))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btCerrarSesion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btCrearCamp, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
+                            .addComponent(lbAgenda)
+                            .addComponent(lbCrearCamp))
                         .addGap(67, 67, 67)
-                        .addComponent(jButton5)
+                        .addComponent(btAdminCamp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
+                        .addComponent(lbAdminCamp)
                         .addContainerGap(87, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(btHistoriaClin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
+                        .addComponent(lbHistoriaClin)
                         .addGap(264, 264, 264))))
         );
 
@@ -162,7 +167,7 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,6 +176,14 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCerrarSesionMouseClicked
+        
+        ventLog.setVisible(true);
+        ventLog.getJpfcontraseña().setText("");
+        ventLog.getJtfUsuario().setText("");
+        dispose();
+    }//GEN-LAST:event_btCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -214,18 +227,18 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton btAdminCamp;
+    private javax.swing.JButton btAgenda;
+    private javax.swing.JButton btCerrarSesion;
+    private javax.swing.JButton btCrearCamp;
+    private javax.swing.JButton btHistoriaClin;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbAdminCamp;
+    private javax.swing.JLabel lbAgenda;
+    private javax.swing.JLabel lbBienvenido;
+    private javax.swing.JLabel lbCrearCamp;
+    private javax.swing.JLabel lbHistoriaClin;
+    private javax.swing.JLabel lbLogo;
+    private javax.swing.JLabel lbUser;
     // End of variables declaration//GEN-END:variables
 }

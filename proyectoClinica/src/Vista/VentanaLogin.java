@@ -10,6 +10,8 @@ import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -189,6 +191,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                              
                ventAdmin.setVisible(true);
                ventAdmin.setLocationRelativeTo(null);
+               ventAdmin.acomodarVentana(this);
                
                
                
@@ -200,6 +203,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 
                 ventEnfer.setVisible(true);
                 ventEnfer.setLocationRelativeTo(null);
+                ventEnfer.acomodarVentana(this);
                                 
                 dispose();           
             
@@ -209,6 +213,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 
                 ventDoc.setVisible(true);
                 ventDoc.setLocationRelativeTo(null);
+                ventDoc.acomodarVentana(this);
                 
                 dispose();
             
@@ -284,6 +289,22 @@ public class VentanaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) iniciarSesion();
     }//GEN-LAST:event_jtfUsuarioKeyPressed
+
+    public JPasswordField getJpfcontraseña() {
+        return jpfcontraseña;
+    }
+
+    public void setJpfcontraseña(JPasswordField jpfcontraseña) {
+        this.jpfcontraseña = jpfcontraseña;
+    }
+
+    public JTextField getJtfUsuario() {
+        return jtfUsuario;
+    }
+
+    public void setJtfUsuario(JTextField jtfUsuario) {
+        this.jtfUsuario = jtfUsuario;
+    }
 
    
 
