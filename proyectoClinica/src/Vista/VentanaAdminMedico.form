@@ -73,7 +73,10 @@
                           <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btHistoriaClin" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbHistoriaClin" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lbHistoriaClin" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -179,6 +182,9 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btAgendaMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbAgenda">
           <Properties>
@@ -187,7 +193,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbHistoriaClin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Historias Clinicas"/>
+            <Property name="text" type="java.lang.String" value="Consulta"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btCrearCamp">
@@ -200,6 +206,9 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btCrearCampMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbCrearCamp">
           <Properties>
@@ -213,6 +222,9 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btAdminCampMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbAdminCamp">
           <Properties>
@@ -229,6 +241,9 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btHistoriaClinMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

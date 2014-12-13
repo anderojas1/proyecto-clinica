@@ -68,25 +68,45 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         btAgenda.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/Agenda.jpg")); // NOI18N
         btAgenda.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btAgenda.setBorderPainted(false);
+        btAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAgendaMouseClicked(evt);
+            }
+        });
 
         lbAgenda.setText("Ver Agenda");
 
-        lbHistoriaClin.setText("Historias Clinicas");
+        lbHistoriaClin.setText("Consulta");
 
         btCrearCamp.setBackground(new java.awt.Color(254, 254, 254));
         btCrearCamp.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/CMedico.png")); // NOI18N
         btCrearCamp.setBorderPainted(false);
+        btCrearCamp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btCrearCampMouseClicked(evt);
+            }
+        });
 
         lbCrearCamp.setText("Crear campaña");
 
         btAdminCamp.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/PCampReg.jpg")); // NOI18N
         btAdminCamp.setBorderPainted(false);
+        btAdminCamp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAdminCampMouseClicked(evt);
+            }
+        });
 
         lbAdminCamp.setText("Administrar campaña ");
 
         btHistoriaClin.setBackground(new java.awt.Color(254, 254, 254));
         btHistoriaClin.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/HClinica.jpg")); // NOI18N
         btHistoriaClin.setBorderPainted(false);
+        btHistoriaClin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btHistoriaClinMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,7 +136,9 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                         .addGap(88, 88, 88)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btHistoriaClin)
-                            .addComponent(lbHistoriaClin))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbHistoriaClin)
+                                .addGap(15, 15, 15)))
                         .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbCrearCamp)
@@ -184,6 +206,52 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         ventLog.getJtfUsuario().setText("");
         dispose();
     }//GEN-LAST:event_btCerrarSesionMouseClicked
+
+    private void btAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgendaMouseClicked
+       
+       VentanaAgendaMedico ventAgen = new VentanaAgendaMedico();
+       
+       ventAgen.setVisible(true);
+       ventAgen.setLocationRelativeTo(null);
+       ventAgen.acomodarVentana(this);
+       
+       dispose();
+    }//GEN-LAST:event_btAgendaMouseClicked
+
+    private void btHistoriaClinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btHistoriaClinMouseClicked
+      
+        VentanaConsulta ventConsulta = new VentanaConsulta();
+        
+        ventConsulta.setVisible(true);
+        ventConsulta.setLocationRelativeTo(null);
+        ventConsulta.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_btHistoriaClinMouseClicked
+
+    private void btCrearCampMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCrearCampMouseClicked
+      
+        ventanaRegistroCamp ventRegCamp = new ventanaRegistroCamp();
+        
+        ventRegCamp.setVisible(true);
+        ventRegCamp.setLocationRelativeTo(null);
+        ventRegCamp.acomodarVentana(this);
+        
+        dispose();
+        
+    }//GEN-LAST:event_btCrearCampMouseClicked
+
+    private void btAdminCampMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAdminCampMouseClicked
+       
+        VentanaRegistroCampPaciente ventRegCampPac = new VentanaRegistroCampPaciente();
+        
+        ventRegCampPac.setVisible(true);
+        ventRegCampPac.setLocationRelativeTo(null);
+        ventRegCampPac.acomodarVentana(this);
+        
+        dispose();
+        
+    }//GEN-LAST:event_btAdminCampMouseClicked
 
     /**
      * @param args the command line arguments

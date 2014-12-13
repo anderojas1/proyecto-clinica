@@ -46,68 +46,68 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="255" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="156" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="273" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="campoCodigoCamp" min="-2" pref="248" max="-2" attributes="0"/>
-                              <Component id="campoNombreCamp" min="-2" pref="248" max="-2" attributes="0"/>
-                              <Component id="campobjetivoCamp" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btCancelar" min="-2" pref="92" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btAgregarCampana" min="-2" pref="92" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btCancelar" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btAgregar" min="-2" pref="82" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="campoFecha" min="-2" pref="246" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="campoCodCausa" max="32767" attributes="0"/>
+                                      <Component id="campoNombreCausa" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane1" alignment="0" min="-2" pref="345" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace pref="115" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="campoNombreCamp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoCodCausa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="campoCodigoCamp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoNombreCausa" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel4" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="campobjetivoCamp" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="144" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="campoFecha" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btAgregarCampana" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -115,45 +115,51 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registro de Campa&#xf1;as"/>
+            <Property name="text" type="java.lang.String" value="Nueva Causa Consulta"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre"/>
+            <Property name="text" type="java.lang.String" value="Codigo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Codigo"/>
+            <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Objetivo"/>
+            <Property name="text" type="java.lang.String" value="Descripcion"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha Realizacion"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="campoCodCausa">
         </Component>
-        <Component class="javax.swing.JTextField" name="campoNombreCamp">
+        <Component class="javax.swing.JTextField" name="campoNombreCausa">
         </Component>
-        <Component class="javax.swing.JTextField" name="campobjetivoCamp">
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoCodigoCamp">
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="campoFecha">
-        </Component>
-        <Component class="javax.swing.JButton" name="btAgregarCampana">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="areaDescripCausa">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="btAgregar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btCancelar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="text" type="java.lang.String" value="cancelar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btCancelarMouseClicked"/>
