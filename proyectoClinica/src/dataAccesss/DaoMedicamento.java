@@ -54,7 +54,7 @@ public class DaoMedicamento {
         
     }
         
-    public void eliminarMedicamento (String codigo, boolean estado) throws SQLException {
+    public void estadoMedicamento (String codigo, boolean estado) throws SQLException {
         
         sentenciaSql = "UPDATE Medicamento SET estado = " + estado + " WHERE codigo = '" + codigo + "';";
         

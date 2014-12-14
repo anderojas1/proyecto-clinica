@@ -59,7 +59,7 @@ public class DriverMedicamento {
         }
     }
     
-    public void estadoMedicamento(String codigo){
+    public void eliminarMedicamento(String codigo){
         
         try{
         daoMedicamento.estadoMedicamento(codigo, false);
