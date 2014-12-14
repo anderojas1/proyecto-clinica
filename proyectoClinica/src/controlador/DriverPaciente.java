@@ -23,12 +23,12 @@ public class DriverPaciente {
     
     public void registrarPaciente (String doc_id, String tipo, String nombre, String apellido1, String apellido2, 
             ArrayList<Telefono> num_telefonos, String direccion_residencia, boolean estado, String num_seguridad, 
-            String actividad, String fecha_nac) throws SQLException {
+            String actividad, String fecha_nac, String tipoUsuario) throws SQLException {
         
         Paciente nuevoPaciente = new Paciente(doc_id, tipo, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, 
                 estado, num_seguridad, actividad, fecha_nac, true);
         
-        persona.crearPersona(nuevoPaciente);
+        persona.crearPersona(nuevoPaciente, tipoUsuario);
         persona.registrarTelefono(nuevoPaciente, num_telefonos);
         
         paciente.registrarPaciente(nuevoPaciente);        

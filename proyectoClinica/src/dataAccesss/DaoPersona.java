@@ -50,11 +50,17 @@ public class DaoPersona {
         
     }
     
-    public void crearPersona (Persona persona) throws SQLException {
+    public void crearPersona (Persona persona, String tipoUsuario) throws SQLException {
         
         sentenciaSql = "INSERT INTO Persona VALUES ('" + persona.getIdentificacion() + "', '" + persona.getTipoDocumento() + "','"
                 + persona.getNombre() + "','" + persona.getApellidoUno() + "','" + persona.getApellidoDos() + "','" + 
                 persona.getDireccion() + "'," + persona.getEstado() + ");";
+        
+        ejecutarUpdate();
+        
+        sentenciaSql = "INSERT INTO AccesoSistema (username, identificacion, perfil, estado_cuenta) VALUES ("
+                + "'" + persona.getIdentificacion() + "', '" + persona.getIdentificacion() + "', '" + tipoUsuario + "'," + 
+                true +");";
         
         ejecutarUpdate();
         

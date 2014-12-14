@@ -58,7 +58,7 @@ username varchar(20) NOT NULL PRIMARY KEY,
 pass varchar(30),
 identificacion varchar(30) NOT NULL,
 perfil varchar(20) NOT NULL,
-estado_cuenta varchar(20) NOT NULL,
+estado_cuenta boolean NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES Persona(identificacion)
@@ -309,7 +309,7 @@ on update cascade on delete no action
 INSERT INTO Persona (identificacion, tipo, nombres, apellido_uno, apellido_dos, direccion, estado)
     VALUES ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
 
-INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', 'activo');
+INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', true);
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 

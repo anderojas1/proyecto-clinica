@@ -182,7 +182,7 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
             DriverPaciente controlador = new DriverPaciente();
             
             controlador.registrarPaciente(datosPersonales[4], datosPersonales[3], datosPersonales[0], datosPersonales[1], 
-                    datosPersonales[2], telefonos, datosPersonales[5], true, seguridadSocial, actividad, fecha);
+                    datosPersonales[2], telefonos, datosPersonales[5], true, seguridadSocial, actividad, fecha, datosPersonales[6]);
             
             JOptionPane.showMessageDialog(this, "Paciente registrado exitosamente", "Registro exitoso", 
                     JOptionPane.INFORMATION_MESSAGE);
