@@ -29,4 +29,22 @@ public class Validador {
         
     }
     
+    public void validarContraseñas (String pass1, String pass2) throws PasswordNoMatchException {
+        
+        if (!pass1.equals(pass2)) throw new PasswordNoMatchException();
+        
+    }
+    
+    public void validarTipoDocumento (String tipoDocumento, String categoria) throws CategoriaExcepcion {
+        
+        if (categoria.equals("Empleado")) {
+            
+            if (tipoDocumento.equalsIgnoreCase("tarjeta de identidad") || tipoDocumento.equalsIgnoreCase("registro civil")) {
+                
+                throw new CategoriaExcepcion("El tipo de documento es inválido");
+                
+            }
+        }
+    }
+    
 }

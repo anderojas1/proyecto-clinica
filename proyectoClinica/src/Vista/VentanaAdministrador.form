@@ -638,25 +638,25 @@
                                       <Component id="btAgregarUsu" min="-2" pref="94" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbNombreUsu" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="LbTipoUsu" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbNumIdenUsu" min="-2" max="-2" attributes="0"/>
                                               <Component id="lbSApellidoUsu" min="-2" max="-2" attributes="0"/>
                                               <Component id="lbPApellidoUsu" min="-2" max="-2" attributes="0"/>
                                               <Component id="lbTipoIdenUsu" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbDirUsu" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbTelUsu" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbTelUsu" min="-2" pref="77" max="-2" attributes="0"/>
+                                              <Component id="lbDirUsu" min="-2" pref="119" max="-2" attributes="0"/>
+                                              <Component id="lbNombreUsu" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <Component id="lbNumIdenUsu" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="campoDirUsu" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="campoTelUsu" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="campoNumIdenUsu" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="campoSApellido" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="campoPApellido" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="campoNomUsu" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="combotipoUsu" min="-2" pref="301" max="-2" attributes="0"/>
-                                              <Component id="comboTipoIdent" min="-2" pref="301" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="campoDirUsu" pref="301" max="32767" attributes="0"/>
+                                              <Component id="campoSApellido" alignment="0" pref="301" max="32767" attributes="0"/>
+                                              <Component id="campoPApellido" alignment="0" pref="301" max="32767" attributes="0"/>
+                                              <Component id="campoNomUsu" alignment="0" pref="301" max="32767" attributes="0"/>
+                                              <Component id="combotipoUsu" pref="301" max="32767" attributes="0"/>
+                                              <Component id="comboTipoIdent" pref="301" max="32767" attributes="0"/>
+                                              <Component id="campoTelUsu" max="32767" attributes="0"/>
+                                              <Component id="campoNumIdenUsu" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -666,58 +666,57 @@
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="49" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lbNombreUsu" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoNomUsu" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="campoPApellido" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbPApellidoUsu" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="campoNomUsu" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="campoPApellido" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="campoSApellido" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="comboTipoIdent" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="campoNumIdenUsu" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="campoDirUsu" pref="28" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="combotipoUsu" min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Component id="lbNombreUsu" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="lbPApellidoUsu" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="lbSApellidoUsu" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lbTipoIdenUsu" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lbNumIdenUsu" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lbDirUsu" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="LbTipoUsu" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbSApellidoUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoSApellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoTelUsu" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="lbTelUsu" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbTipoIdenUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboTipoIdent" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbTelUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoTelUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbDirUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoDirUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="LbTipoUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="combotipoUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbNumIdenUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="campoNumIdenUsu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btAgregarUsu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

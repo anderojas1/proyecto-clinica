@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package validacion;
+package excepciones;
 
 /**
  *
  * @author anderojas
  */
-public class EmptyFieldsException extends Exception {
+public class CategoriaExcepcion extends Exception {
     
-    public EmptyFieldsException () {
+    public CategoriaExcepcion (String excepcion) {
         
-        super ("Hay campos requeridos sin llenar");
+        super(excepcion);
         
     }
     

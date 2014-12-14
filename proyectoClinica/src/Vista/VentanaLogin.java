@@ -33,7 +33,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         validadorDatos = new Validador();
         
         controladorPersona = new DriverPersona();
-        
+                
         setResizable(false);
     }
 
