@@ -54,7 +54,7 @@ public class DaoMedicamento {
         
     }
         
-    public void estadoMedicamento (String codigo, boolean estado) throws SQLException {
+    public void eliminarMedicamento (String codigo, boolean estado) throws SQLException {
         
         sentenciaSql = "UPDATE Medicamento SET estado = " + estado + " WHERE codigo = '" + codigo + "';";
         
@@ -78,7 +78,6 @@ public class DaoMedicamento {
             
             medicamento = new Medicamento(codigo,nombre,costo,descripcion);
         }
-        System.out.println(medicamento.getNombre());
         return medicamento;
                 
     }

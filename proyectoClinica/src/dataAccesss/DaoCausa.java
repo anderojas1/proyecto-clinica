@@ -56,9 +56,9 @@ public class DaoCausa {
         
     }
         
-    public void eliminarCausa (String codigo) throws SQLException {
+    public void estadoCausa (String codigo, boolean estado) throws SQLException {
         
-        sentenciaSql = "UPDATE Causa SET estado = " + false + " WHERE codigo = '" + codigo + "';";
+        sentenciaSql = "UPDATE Causa SET estado = " + estado + " WHERE codigo = '" + codigo + "';";
         
         ejecutarUpdate();
         
@@ -70,14 +70,22 @@ public class DaoCausa {
         
         sentenciaSql = "SELECT * FROM Causa WHERE codigo = '" + codigo + "';";
         
+        ejecutarConsulta();
+        
         while (registros.next()) {
             
             causa.setCodigo(registros.getString(1));
             causa.setNombre(registros.getString(2));
             causa.setDescripcion(registros.getString(3));
         }
-        
+
         return causa;
                 
+    }
+    
+            public void editarCausa(Causa causa)throws SQLException{
+        
+        sentenciaSql = "UPDATE Causa SET nombre = '"+causa.getNombre()+"', descripcion = '"+causa.getDescripcion()+"' WHERE codigo = '"+causa.getCodigo()+"';";
+        ejecutarUpdate();
     }
 }
