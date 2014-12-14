@@ -60,9 +60,10 @@ public class DaoArea {
     
     public Area consultarArea(String codigo) throws SQLException{
         
-        Area area = new Area();
+        Area area = null;
         
         sentenciaSql = "SELECT * FROM Area WHERE codigo = '"+codigo+"';";
+        ejecutarConsulta();
         
         while (registros.next()) {
 
@@ -94,7 +95,7 @@ public class DaoArea {
     }
     
     
-    public ArrayList<String[]> consultarAreas () throws SQLException {
+    public ArrayList<String[]> consultarAreasRegistroEmpleados () throws SQLException {
         
         sentenciaSql = "SELECT * FROM Area WHERE estado = TRUE";
         ejecutarConsulta();

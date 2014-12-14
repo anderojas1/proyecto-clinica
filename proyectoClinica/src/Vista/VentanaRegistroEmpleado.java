@@ -6,10 +6,12 @@ package Vista;
 
 import java.util.ArrayList;
 import logica.Telefono;
-import controlador.DriverEmpleado;
-import controlador.DriverEnfermera;
+import controlador.*;
+import excepciones.ExcepcionCamposVacios;
+import excepciones.Validador;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -21,8 +23,10 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private VentanaAdministrador ventAdmin;
     private String [] datosPersonales;
     private ArrayList<Telefono> telefonos;
+    private ArrayList<String[]> infoAreas;
     private DriverEmpleado controladorEmpleado = new DriverEmpleado();
     private DriverEnfermera infoEnfermeras = new DriverEnfermera ();
+    private DriverArea areas = new DriverArea();
     
     /**
      * Creates new form VentanaRegistroEmpleado
@@ -49,6 +53,25 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private void consultarAreasClinica () {
         
         comboAreaEmpleado.removeAllItems();
+        
+        try {
+            
+            infoAreas = areas.consultarAreas();
+            
+            for (String[] nombreArea : infoAreas) {
+                
+                comboAreaEmpleado.addItem(nombreArea[1]);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de módulo", JOptionPane.ERROR_MESSAGE);
+            ventAdmin.setVisible(true);
+            
+            dispose();
+            
+        }
         
     }
     
@@ -122,6 +145,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         });
 
         comboCargoEmpleado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Medico", "Enfermera" }));
+        comboCargoEmpleado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCargoEmpleadoItemStateChanged(evt);
+            }
+        });
 
         comboJefes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "jefe" }));
 
@@ -167,9 +195,9 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(168, 168, 168)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboCargoEmpleado, 0, 226, Short.MAX_VALUE)
+                            .addComponent(campoEmailEmpleado)
                             .addComponent(comboJefes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoEmailEmpleado))))
+                            .addComponent(comboCargoEmpleado, 0, 226, Short.MAX_VALUE))))
                 .addGap(117, 117, 117))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(255, 255, 255)
@@ -187,28 +215,27 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(comboAreaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboAreaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(campoSalarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoEmailEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboCargoEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboJefes, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btAgregar)
-                            .addComponent(btAtras)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoSalarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEmailEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboCargoEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboJefes, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAgregar)
+                    .addComponent(btAtras))
                 .addGap(56, 56, 56))
         );
 
@@ -238,27 +265,66 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
 
     private void btAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarMouseClicked
         
-        if(comboCargoEmpleado.getSelectedItem() == "Medico"){
-        
-            VentanaRegistroMedico ventRegMedico = new VentanaRegistroMedico();
-            ventRegMedico.setVisible(true);
-            ventRegMedico.setLocationRelativeTo(null);
-            ventRegMedico.acomodarVentana(this);
+        try {
             
-            dispose();
+            String area = infoAreas.get(comboAreaEmpleado.getSelectedIndex())[0];        
+            String salario = campoSalarioEmpleado.getText();
+            String email = campoEmailEmpleado.getText();
+            String tipoUsuario = comboCargoEmpleado.getSelectedItem().toString();
+            String jefe = null;
             
-        }else if(comboCargoEmpleado.getSelectedItem() == "Enfermera"){
-        
-            VentanaRegEnfermera ventRegEnfermera =  new VentanaRegEnfermera();
-            ventRegEnfermera.setVisible(true);
-            ventRegEnfermera.setLocationRelativeTo(null);
-            ventRegEnfermera.acomodarVentana(this);
+            if (comboJefes.getSelectedItem() != null) jefe = comboJefes.getSelectedItem().toString();
             
-            dispose();            
+            String [] validarDatos = {salario, email};
+            
+            Validador validar = new Validador();
+            validar.validarModulos(validarDatos);
+            
+            double salarioEmpleado = Double.parseDouble(salario);
+            
+            Object [] datosEmpleado = {area, salarioEmpleado, email, tipoUsuario, jefe};
         
+            if(comboCargoEmpleado.getSelectedItem() == "Medico"){
+        
+                VentanaRegistroMedico ventRegMedico = new VentanaRegistroMedico();
+                ventRegMedico.setVisible(true);
+                ventRegMedico.setLocationRelativeTo(null);
+                ventRegMedico.acomodarVentana(this);
+
+                dispose();
+
+            } else if (comboCargoEmpleado.getSelectedItem() == "Enfermera") {
+
+                VentanaRegEnfermera ventRegEnfermera = new VentanaRegEnfermera();
+                ventRegEnfermera.setVisible(true);
+                ventRegEnfermera.setLocationRelativeTo(null);
+                ventRegEnfermera.acomodarVentana(this);
+
+                dispose();
+
+            }
+            
+        } catch (NumberFormatException ex) {
+            
+            JOptionPane.showMessageDialog(this, "El campo salario debe ser numérico", "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
+            
         }
                 
     }//GEN-LAST:event_btAgregarMouseClicked
+
+    private void comboCargoEmpleadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCargoEmpleadoItemStateChanged
+        
+        
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            
+            consultarEmpleadosClinica();
+            
+        }
+    }//GEN-LAST:event_comboCargoEmpleadoItemStateChanged
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

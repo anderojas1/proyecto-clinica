@@ -45,7 +45,7 @@ public class DriverArea {
     
     public ArrayList<String[]> consultarAreas () throws SQLException {
         
-        return area.consultarAreas();
+        return area.consultarAreasRegistroEmpleados();
         
     }
     
