@@ -743,11 +743,20 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
                     registrarPaciente.acomodarVentana(this);
                     registrarPaciente.setDatosPersonales(datosPersonales, telefonos);
-                    registrarPaciente.setVisible(true);
                     
-                    dispose();
+                    setVisible(false);
                     
-                }
+                }; break;
+                    
+                case "Empleado": {
+                    
+                    VentanaRegistroEmpleado registrarEmpleado = new VentanaRegistroEmpleado();
+                    registrarEmpleado.acomodarVentana(this);
+                    registrarEmpleado.setDatosPersonales(datosPersonales, telefonos);
+                                        
+                    setVisible(false);
+                    
+                }; break;
             }
             
         } catch (ExcepcionCamposVacios ex) {
