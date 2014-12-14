@@ -7,8 +7,7 @@ package Vista;
 
 import controlador.*;
 import java.awt.event.*;
-import excepciones.ExcepcionCamposVacios;
-import excepciones.Validador;
+import excepciones.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
