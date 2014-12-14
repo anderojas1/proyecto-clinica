@@ -7,7 +7,6 @@ public class Paciente extends Persona {
 	private String fechaNacimiento;
 	private String numeroSeguridadSocial;
 	private String actividadEconomica;
-        private boolean activoClinica;
         
         public Paciente(){
             
@@ -16,14 +15,13 @@ public class Paciente extends Persona {
 	
 	public Paciente (String doc_id, String tipo, String nombre, String apellido1, String apellido2, 
                 ArrayList<Telefono> num_telefonos, String direccion_residencia, boolean estado, String num_seguridad, 
-                String actividad, String fecha_nac, boolean activo) {
+                String actividad, String fecha_nac) {
 							
 		super (doc_id, tipo, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado);
 		
 		numeroSeguridadSocial = num_seguridad;
 		actividadEconomica = actividad;
 		fechaNacimiento = fecha_nac;
-                activoClinica = activo;
 		
 	}
 
@@ -52,16 +50,5 @@ public class Paciente extends Persona {
     }
 
     
-    public void setActivoClinica (boolean estado) {
-        
-        activoClinica = estado;
-        
-    }
-        
     
-    public boolean getActivoClinica () {
-        
-        return activoClinica;
-        
-    }
 }

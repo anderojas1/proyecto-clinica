@@ -54,8 +54,7 @@ public class DaoPaciente {
     public void registrarPaciente (Paciente usuario) throws SQLException {
         
         sentenciaSql = "INSERT INTO Paciente VALUES ('" + usuario.getIdentificacion() + "','" + usuario.getActividadEconomica() + "'"
-                + ",'" + usuario.getNumeroSeguridadSocial() + "','" + usuario.getFechaNacimiento() + "'," + usuario.getActivoClinica()
-                + ");";
+                + ",'" + usuario.getNumeroSeguridadSocial() + "','" + usuario.getFechaNacimiento() + "');";
         
         ejecutarUpdate();
         

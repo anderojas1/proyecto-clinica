@@ -26,7 +26,7 @@ public class DriverPaciente {
             String actividad, String fecha_nac, String tipoUsuario) throws SQLException {
         
         Paciente nuevoPaciente = new Paciente(doc_id, tipo, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, 
-                estado, num_seguridad, actividad, fecha_nac, true);
+                estado, num_seguridad, actividad, fecha_nac);
         
         persona.crearPersona(nuevoPaciente, tipoUsuario);
         persona.registrarTelefono(nuevoPaciente, num_telefonos);

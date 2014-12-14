@@ -73,7 +73,6 @@ identificacion VARCHAR(30) NOT NULL,
 act_economica VARCHAR(100) NOT NULL,
 num_seg_social VARCHAR(25) NOT NULL,
 f_nacimiento DATE NOT NULL,
-estado bool NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES PERSONA (identificacion)
@@ -87,8 +86,7 @@ cod_area VARCHAR(20) NOT NULL,
 salario	FLOAT NOT NULL,
 email VARCHAR(25) NOT NULL,
 cargo VARCHAR(30) NOT NULL,
-jefe VARCHAR(60) , 
-estado bool NOT NULL ,
+jefe VARCHAR(60),
 
 CONSTRAINT identificacion_pk PRIMARY KEY(identificacion),
 
@@ -113,7 +111,6 @@ identificacion VARCHAR(30) NOT NULL,
 especialidad VARCHAR(30) NOT NULL,
 universidad VARCHAR(20) NOT NULL, 
 num_licencia VARCHAR(15) NOT NULL,
-estado bool NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES Persona (identificacion)
@@ -125,7 +122,6 @@ CREATE TABLE Enfermera (
 
 identificacion VARCHAR(30) NOT NULL,
 anos_exp INTEGER NOT NULL,
-estado bool NOT NULL,
 
 CONSTRAINT indentificacion_fk  FOREIGN KEY (identificacion)
 REFERENCES Persona (identificacion)
