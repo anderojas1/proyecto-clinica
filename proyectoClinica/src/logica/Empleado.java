@@ -9,11 +9,10 @@ public class Empleado extends Persona {
     private String email;
     private double salario;
     private String jefe;
-    private boolean trabajador_activo;
 
     public Empleado(String doc_id, String tipo, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos,
             String direccion_residencia, boolean estado, String cod_area, String cargo_emp, String correo_e,
-            double salario, String jefe, boolean trabaja) {
+            double salario, String jefe) {
 
         super(doc_id, tipo, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado);
 
@@ -22,8 +21,7 @@ public class Empleado extends Persona {
         this.salario = salario;
         this.cod_area = cod_area;
         this.jefe = jefe;
-        trabajador_activo = trabaja;
-
+        
     }
 
     public String getCargo() {
@@ -66,17 +64,5 @@ public class Empleado extends Persona {
         this.jefe = jefe;
     }
     
-    
-    public void setTrabajadorActivo (boolean activo) {
-        
-        trabajador_activo = activo;
-        
-    }
-    
-    public boolean getTrabajadorActivo () {
-        
-        return trabajador_activo;
-        
-    }
 
 }
