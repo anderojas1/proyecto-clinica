@@ -751,7 +751,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     
                     VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
                     registrarPaciente.acomodarVentana(this);
-                    registrarPaciente.setDatosPersonales(datosPersonales);
+                    registrarPaciente.setDatosPersonales(datosPersonales, telefonos);
                     registrarPaciente.setVisible(true);
                     
                     dispose();
