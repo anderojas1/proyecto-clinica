@@ -713,6 +713,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         VentanaRegistrarTelefono registrarNumeros = new VentanaRegistrarTelefono(telefonos);
         registrarNumeros.setVisible(true);
         registrarNumeros.setVentanaAdministrador(this);
+        registrarNumeros.setAlwaysOnTop(true);
+        
+        setEnabled(false);
         
     }//GEN-LAST:event_registrarTelefonoActionPerformed
 
