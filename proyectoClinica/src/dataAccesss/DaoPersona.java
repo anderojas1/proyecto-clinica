@@ -52,21 +52,37 @@ public class DaoPersona {
     
     public void crearPersona (Persona persona) throws SQLException {
         
-        sentenciaSql = "INSERT INTO Persona VALUES ('" + persona.getIdentificacion() + "', '" + persona.getNombre() + "'"
-                + ",'" + persona.getApellidoUno() + "','" + persona.getApellidoDos() + "','" + persona.getDireccion() + "'"
-                + "," + persona.getEstado() + ");";
+        sentenciaSql = "INSERT INTO Persona VALUES ('" + persona.getIdentificacion() + "', '" + persona.getTipoDocumento() + "','"
+                + persona.getNombre() + "','" + persona.getApellidoUno() + "','" + persona.getApellidoDos() + "','" + 
+                persona.getDireccion() + "'," + persona.getEstado() + ");";
         
         ejecutarUpdate();
         
     }
     
     
-    public void registrarTelefono (Persona persona, Telefono numero) throws SQLException {
+    public void registrarTelefono (Persona persona, ArrayList<Telefono> numero) throws SQLException {
         
-        sentenciaSql = "INSERT INTO Telefonos_Persona VALUES ('" + persona.getIdentificacion() + "','" + numero.getNumero() + "'"
-                + ",'" + numero.getTipo() + "');";
+        String totalNumeros = "";
         
-        ejecutarUpdate();
+        if (!numero.isEmpty()) {
+            
+            for (Telefono tel : numero) {
+            
+                totalNumeros += "('"+ persona.getIdentificacion() + "','" + tel.getNumero() + "', '" + tel.getTipo() + "'),";
+                
+            }
+        
+            totalNumeros = totalNumeros.substring(0, totalNumeros.length() - 1);
+            
+        }
+        
+        if (!totalNumeros.isEmpty()) {
+            
+            sentenciaSql = "INSERT INTO Telefonos_Persona VALUES " + totalNumeros + ";";
+            ejecutarUpdate();
+            
+        }
         
     }
     

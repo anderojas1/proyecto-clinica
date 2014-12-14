@@ -249,6 +249,24 @@ public class VentanaRegistrarTelefono extends javax.swing.JFrame {
 
     private void terminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminarActionPerformed
         
+        for (int i = 0; i < tablaInformacionNumeros.getRowCount(); i++) {
+            
+            ArrayList<String>datos = new ArrayList<>();
+            
+            for (int j = 0; j < tablaInformacionNumeros.getColumnCount(); j++) {
+                
+                datos.add(tablaInformacionNumeros.getValueAt(i, j).toString());
+                
+            }
+            
+            String num = datos.get(0);
+            String tipo = datos.get(1);
+            
+            Telefono tel = new Telefono(num, tipo);
+            
+            numeros.add(tel);
+            
+        }
         admin.setEnabled(true);
         
         dispose();

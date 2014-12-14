@@ -200,7 +200,6 @@ public class VentanaLogin extends javax.swing.JFrame {
                ventAdmin.setVisible(true);
                ventAdmin.setLocationRelativeTo(null);
                ventAdmin.acomodarVentana(this);
-                System.out.println(jtfUsuario.getText());
                ventAdmin.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));               
                
                dispose();

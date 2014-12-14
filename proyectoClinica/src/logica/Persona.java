@@ -84,4 +84,10 @@ public class Persona {
         return estadoSistema;
         
     }
+    
+    public String getTipoDocumento () {
+        
+        return tipoDocumento;
+        
+    }
 }

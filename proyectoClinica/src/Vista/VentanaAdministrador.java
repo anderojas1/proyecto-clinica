@@ -770,6 +770,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btAgregarUsuActionPerformed
 
     
+    public void limpiarCampos () {
+        
+        campoNomUsu.setText("");
+        campoSApellido.setText("");
+        campoPApellido.setText("");
+        campoNumIdenUsu.setText("");
+        campoDirUsu.setText("");
+        comboTipoIdent.setSelectedIndex(0);
+        combotipoUsu.setSelectedIndex(0);
+        
+    }
+    
 
     public void acomodarVentana(VentanaLogin ventLog){
     

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logica.Telefono;
 import controlador.DriverPaciente;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -167,6 +169,8 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
         
         String actividad = campoActividadEcoPac.getText();
         String seguridadSocial = campoNumSegSocPac.getText();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = formato.format(calendarNaciPaciente.getDate());
         
         String [] campos = {actividad, seguridadSocial};
         Validador validar = new Validador();
@@ -177,12 +181,24 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
             
             DriverPaciente controlador = new DriverPaciente();
             
+            controlador.registrarPaciente(datosPersonales[4], datosPersonales[3], datosPersonales[0], datosPersonales[1], 
+                    datosPersonales[2], telefonos, datosPersonales[5], true, seguridadSocial, actividad, fecha);
             
+            JOptionPane.showMessageDialog(this, "Paciente registrado exitosamente", "Registro exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            ventAdmin.limpiarCampos();
+            ventAdmin.setVisible(true);
+            
+            dispose();
             
         } catch (ExcepcionCamposVacios ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
             
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btGuardarActionPerformed

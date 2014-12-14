@@ -29,8 +29,9 @@ public class DriverPaciente {
                 estado, num_seguridad, actividad, fecha_nac, true);
         
         persona.crearPersona(nuevoPaciente);
+        persona.registrarTelefono(nuevoPaciente, num_telefonos);
         
-        paciente.registrarPaciente(nuevoPaciente);
+        paciente.registrarPaciente(nuevoPaciente);        
         
     }
     

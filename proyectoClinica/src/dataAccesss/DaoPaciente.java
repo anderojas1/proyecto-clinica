@@ -53,7 +53,7 @@ public class DaoPaciente {
         
         sentenciaSql = "INSERT INTO Paciente VALUES ('" + usuario.getIdentificacion() + "','" + usuario.getActividadEconomica() + "'"
                 + ",'" + usuario.getNumeroSeguridadSocial() + "','" + usuario.getFechaNacimiento() + "'," + usuario.getActivoClinica()
-                + ";";
+                + ");";
         
         ejecutarUpdate();
         

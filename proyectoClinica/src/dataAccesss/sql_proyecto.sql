@@ -306,8 +306,8 @@ on update cascade on delete no action
 );
 
 
-INSERT INTO Persona (identificacion, nombres, apellido_uno, apellido_dos, direccion, estado)
-    VALUES ('admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
+INSERT INTO Persona (identificacion, tipo, nombres, apellido_uno, apellido_dos, direccion, estado)
+    VALUES ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
 
 INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', 'activo');
 
