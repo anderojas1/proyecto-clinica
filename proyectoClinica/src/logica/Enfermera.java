@@ -18,11 +18,11 @@ public class Enfermera extends Empleado{
     private ArrayList<String> habilidad;
     
     public Enfermera(String doc_id, String tipoID, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
-                String direccion_residencia, boolean estado, String cod_area, String cargo_emp, 
-                    String correo_e, double salario, String jefe, int anios_exp, ArrayList<String> habilidad){
+                String direccion_residencia, boolean estado, String cod_area, String cargo_emp, String correo_e, double salario, 
+                String jefe, int anios_exp, ArrayList<String> habilidad, boolean trabaja){
        
         super(doc_id, tipoID, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado, cod_area, 
-                cargo_emp, correo_e, salario, jefe); 
+                cargo_emp, correo_e, salario, jefe, trabaja); 
        
      this.anios_exp = anios_exp;
      this.habilidad = habilidad;
