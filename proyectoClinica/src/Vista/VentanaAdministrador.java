@@ -8,6 +8,8 @@ import logica.Persona;
 import controlador.*;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.*;
+import logica.Telefono;
 
 /**
  *
@@ -19,6 +21,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private Persona sesion;
     
     private DriverArea area;
+    
+    private ArrayList <Telefono> telefonos = new ArrayList<>();
     
     /**
      * Creates new form VentanaAdministrador
@@ -122,11 +126,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         campoPApellido = new javax.swing.JTextField();
         comboTipoIdent = new javax.swing.JComboBox();
         campoNumIdenUsu = new javax.swing.JTextField();
-        campoTelUsu = new javax.swing.JTextField();
         campoDirUsu = new javax.swing.JTextField();
         combotipoUsu = new javax.swing.JComboBox();
         btAgregarUsu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        registrarTelefono = new javax.swing.JButton();
         lbLogo = new javax.swing.JLabel();
         btCerrarSesion = new javax.swing.JButton();
         lbBienvenido = new javax.swing.JLabel();
@@ -422,7 +426,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbListaEmpleados)
                     .addComponent(lbCuentasEmpleados))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(320, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
@@ -461,8 +465,20 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 btAgregarUsuMouseClicked(evt);
             }
         });
+        btAgregarUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarUsuActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nuevo Usuario");
+
+        registrarTelefono.setText("registrar teléfono");
+        registrarTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarTelefonoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -486,14 +502,14 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                                     .addComponent(lbNumIdenUsu))
                                 .addGap(140, 140, 140)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campoDirUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                     .addComponent(campoSApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                     .addComponent(campoPApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                     .addComponent(campoNomUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                     .addComponent(combotipoUsu, 0, 301, Short.MAX_VALUE)
                                     .addComponent(comboTipoIdent, 0, 301, Short.MAX_VALUE)
-                                    .addComponent(campoTelUsu)
-                                    .addComponent(campoNumIdenUsu)))))
+                                    .addComponent(campoNumIdenUsu)
+                                    .addComponent(campoDirUsu)
+                                    .addComponent(registrarTelefono)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(361, 361, 361)
                         .addComponent(jLabel2)))
@@ -517,8 +533,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campoNumIdenUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoDirUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoDirUsu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combotipoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -526,22 +542,21 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbPApellidoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(lbTipoIdenUsu)
                         .addGap(18, 18, 18)
                         .addComponent(lbNumIdenUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(lbDirUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LbTipoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LbTipoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoTelUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbTelUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btAgregarUsu)
-                .addGap(13, 13, 13))
+                    .addComponent(lbTelUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(registrarTelefono))
+                .addGap(25, 25, 25)
+                .addComponent(btAgregarUsu))
         );
 
         jTabbedPane1.addTab("Administracion de usuarios", jPanel2);
@@ -693,6 +708,19 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarAreaActionPerformed
 
+    private void registrarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarTelefonoActionPerformed
+        
+        VentanaRegistrarTelefono registrarNumeros = new VentanaRegistrarTelefono(telefonos);
+        registrarNumeros.setVisible(true);
+        registrarNumeros.setVentanaAdministrador(this);
+        
+    }//GEN-LAST:event_registrarTelefonoActionPerformed
+
+    private void btAgregarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarUsuActionPerformed
+        
+        
+    }//GEN-LAST:event_btAgregarUsuActionPerformed
+
     
 
     public void acomodarVentana(VentanaLogin ventLog){
@@ -723,7 +751,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField campoNumeroCama;
     private javax.swing.JTextField campoPApellido;
     private javax.swing.JTextField campoSApellido;
-    private javax.swing.JTextField campoTelUsu;
     private javax.swing.JComboBox comboAreasCama;
     private javax.swing.JComboBox comboEstadocama;
     private javax.swing.JComboBox comboTipoIdent;
@@ -766,5 +793,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel lbTelUsu;
     private javax.swing.JLabel lbTipoIdenUsu;
     private javax.swing.JLabel lbUser;
+    private javax.swing.JButton registrarTelefono;
     // End of variables declaration//GEN-END:variables
 }
