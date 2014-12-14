@@ -4,8 +4,12 @@
  */
 package Vista;
 
+import excepciones.ExcepcionCamposVacios;
+import excepciones.Validador;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Telefono;
+import controlador.DriverPaciente;
 
 /**
  *
@@ -70,6 +74,11 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
         jLabel4.setText("Fecha de nacimiento");
 
         btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -153,6 +162,30 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btAtrasMouseClicked
+
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+        
+        String actividad = campoActividadEcoPac.getText();
+        String seguridadSocial = campoNumSegSocPac.getText();
+        
+        String [] campos = {actividad, seguridadSocial};
+        Validador validar = new Validador();
+        
+        try {
+            
+            validar.validarModulos(campos);
+            
+            DriverPaciente controlador = new DriverPaciente();
+            
+            
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+    }//GEN-LAST:event_btGuardarActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

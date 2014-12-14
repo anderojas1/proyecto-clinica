@@ -92,11 +92,12 @@ public class DaoPersona {
         
         if (registros.next() == true) {
             
-            String nombre = registros.getString(2);
-            String apellido1 = registros.getString(3);
-            String apellido2 = registros.getString(4);
-            String direccion = registros.getString(5);
-            boolean estado = registros.getBoolean(6);
+            String tipoId = registros.getString(2);
+            String nombre = registros.getString(3);
+            String apellido1 = registros.getString(4);
+            String apellido2 = registros.getString(5);
+            String direccion = registros.getString(6);
+            boolean estado = registros.getBoolean(7);
             
             sentenciaSql = "SELECT * FROM Telefonos_Persona WHERE identificacion = '" + identificacion + "';";
             ejecutarConsulta();
@@ -114,7 +115,7 @@ public class DaoPersona {
                 
             }
             
-            Persona persona = new Persona(identificacion, nombre, apellido1, apellido2, numeros_tel, direccion, estado);
+            Persona persona = new Persona(identificacion, tipoId, nombre, apellido1, apellido2, numeros_tel, direccion, estado);
             
             return persona;
             

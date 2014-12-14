@@ -19,11 +19,11 @@ public class Medico extends Empleado{
     private String universidad; 
     private String num_licencia;
 
-    public Medico(String doc_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
+    public Medico(String doc_id, String tipo_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
                 String direccion_residencia, boolean estado, String cod_area, String cargo_emp, 
                     String correo_e, double salario, String jefe, String especialidad, String universidad, String num_licencia){
        
-        super(doc_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado, cod_area, 
+        super(doc_id, tipo_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado, cod_area, 
                 cargo_emp, correo_e, salario, jefe); 
         this.especialidad = especialidad;
         this.universidad = universidad;

@@ -10,11 +10,11 @@ public class Empleado extends Persona {
     private double salario;
     private String jefe;
 
-    public Empleado(String doc_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos,
+    public Empleado(String doc_id, String tipo, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos,
             String direccion_residencia, boolean estado, String cod_area, String cargo_emp, String correo_e,
             double salario, String jefe) {
 
-        super(doc_id, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado);
+        super(doc_id, tipo, nombre, apellido1, apellido2, num_telefonos, direccion_residencia, estado);
 
         cargo = cargo_emp;
         email = correo_e;
