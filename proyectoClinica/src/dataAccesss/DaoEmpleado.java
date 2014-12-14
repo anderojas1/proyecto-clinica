@@ -6,6 +6,7 @@
 package dataAccesss;
 
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Empleado;
 
 /**
@@ -56,6 +57,35 @@ public class DaoEmpleado {
                 + "'" + empleado.getJefe() + "');";
         
         ejecutarUpdate();
+        
+    }
+    
+    
+    public ArrayList<String[]> consultarEmpleadosActivos (boolean buscar) throws SQLException {
+        
+        if (buscar) sentenciaSql = "SELECT e.identificacion, e.cod_area, e.cargo FROM Empleado as e NATURAL JOIN Persona as p "
+                + "WHERE p.estado = TRUE;";
+        
+        else sentenciaSql = "SELECT e.identificacion, e.cod_area, e.cargo FROM Empleado as e NATURAL JOIN Persona WHERE estado = TRUE AND"
+                + " identificacion IN (SELECT identificacion FROM Enfermera);";
+        
+        ejecutarConsulta();
+        
+        ArrayList<String[]> empleados = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String identificacion = registros.getString(1);
+            String cod_area = registros.getString(2);            
+            String cargo = registros.getString(3);
+            
+            String [] datos = {identificacion, cod_area, cargo};
+            
+            empleados.add(datos);
+            
+        }
+        
+        return empleados;
         
     }
 }

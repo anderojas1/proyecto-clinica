@@ -58,7 +58,6 @@ username varchar(20) NOT NULL PRIMARY KEY,
 pass varchar(30),
 identificacion varchar(30) NOT NULL,
 perfil varchar(20) NOT NULL,
-estado_cuenta boolean NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES Persona(identificacion)

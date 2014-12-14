@@ -35,4 +35,11 @@ public class DriverEmpleado {
         
     }
     
+    
+    public ArrayList<String[]> consultarEmpleados (boolean buscarTodos) throws SQLException {
+        
+        return datosEmpleado.consultarEmpleadosActivos(buscarTodos);
+        
+    }
+    
 }
