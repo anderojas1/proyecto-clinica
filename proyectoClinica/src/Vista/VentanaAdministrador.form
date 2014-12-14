@@ -775,10 +775,11 @@
                 <Component class="javax.swing.JComboBox" name="comboTipoIdent">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="C&#xe9;dula de Ciudadania"/>
-                        <StringItem index="1" value="Tarjeta de Indentidad"/>
-                        <StringItem index="2" value="Registro Civil"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="Cedula de Ciudadania"/>
+                        <StringItem index="1" value="Cedula de Extranjeria"/>
+                        <StringItem index="2" value="Tarjeta de Identidad"/>
+                        <StringItem index="3" value="Registro Civil"/>
                       </StringArray>
                     </Property>
                   </Properties>

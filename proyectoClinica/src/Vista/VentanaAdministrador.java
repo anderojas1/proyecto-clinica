@@ -451,7 +451,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        comboTipoIdent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cédula de Ciudadania", "Tarjeta de Indentidad", "Registro Civil" }));
+        comboTipoIdent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cedula de Ciudadania", "Cedula de Extranjeria", "Tarjeta de Identidad", "Registro Civil" }));
 
         combotipoUsu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Paciente", "Empleado" }));
 
