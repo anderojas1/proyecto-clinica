@@ -304,7 +304,7 @@ on update cascade on delete no action
 INSERT INTO Persona (identificacion, tipo, nombres, apellido_uno, apellido_dos, direccion, estado)
     VALUES ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
 
-INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador', true);
+INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador');
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 
