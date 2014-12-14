@@ -59,6 +59,8 @@ public class DaoArea {
     
     public Area consultarArea(String codigo) throws SQLException{
         
+        Area area = new Area();
+        
         sentenciaSql = "SELECT * FROM Area WHERE codigo = '"+codigo+"';";
         
         while (registros.next()) {
@@ -67,13 +69,13 @@ public class DaoArea {
             String descripcion = registros.getString(3);
             boolean estado = registros.getBoolean(4);
             
-            Area area = new Area(codigo, descripcion, nombre, estado);
+            area = new Area(codigo, descripcion, nombre, estado);
             
             return area;
 
         }
             
-        return null;
+        return area;
         
     }
     

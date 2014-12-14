@@ -6,7 +6,9 @@
 package dataAccesss;
 
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Paciente;
+import logica.Telefono;
 
 /**
  *
@@ -58,5 +60,29 @@ public class DaoPaciente {
         ejecutarUpdate();
         
     }
+    
+    /*public Paciente consultarPaciente(String identificacion) throws SQLException{
+        Paciente usuario = new Paciente();
+        
+        String doc_id, tipo, nombre, apellido1, apellido2, direccion_residencia, num_seguridad, actividad, fecha_nac; 
+        ArrayList<Telefono> num_telefonos; 
+        boolean estado, activo;
+        sentenciaSql = "SELECT * FROM Paciente WHERE identificacion = '"+identificacion+"'"; 
+        
+        while (registros.next()) {
+
+            String nombre = registros.getString(2);
+            String descripcion = registros.getString(3);
+            boolean estado = registros.getBoolean(4);
+            
+            area = new Area(codigo, descripcion, nombre, estado);
+            
+            return area;
+
+        }
+            
+        return area;
+        return usuario;
+    }*/
     
 }

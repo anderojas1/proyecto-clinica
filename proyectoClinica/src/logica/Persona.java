@@ -7,11 +7,15 @@ public class Persona {
     private String apellido_uno;
     private String apellido_dos;
     private String nombre;
-    private final String identificacion;
+    private String identificacion;
     private String tipoDocumento;
     private String direccion;
     private ArrayList<Telefono> telefonos;
     private boolean estadoSistema;
+    
+    public Persona(){
+        
+    }
 
     public Persona(String doc_identidad, String tipo, String nombres, String apellido1, String apellido2, 
             ArrayList<Telefono> num_telefonos, String direccion_residencia, boolean estado) {

@@ -8,6 +8,10 @@ public class Paciente extends Persona {
 	private String numeroSeguridadSocial;
 	private String actividadEconomica;
         private boolean activoClinica;
+        
+        public Paciente(){
+            
+        }
 	
 	
 	public Paciente (String doc_id, String tipo, String nombre, String apellido1, String apellido2, 
