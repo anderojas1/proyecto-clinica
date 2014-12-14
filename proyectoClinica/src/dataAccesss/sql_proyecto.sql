@@ -30,6 +30,7 @@ estado bool NOT NULL
 CREATE TABLE Persona (
 
 identificacion VARCHAR(30) NOT NULL PRIMARY KEY,
+tipo varchar(30) NOT NULL,
 nombres VARCHAR(40) NOT NULL,
 apellido_uno VARCHAR(20) NOT NULL,
 apellido_dos VARCHAR(20),
