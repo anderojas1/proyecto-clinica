@@ -8,6 +8,7 @@ package controlador;
 import logica.Area;
 import dataAccesss.DaoArea;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,19 +20,17 @@ public class DriverArea {
     DaoArea area = new DaoArea();
     
     
-    public void registrarArea (String codigo, String nombre, String descripcion, boolean estado){
+    public void registrarArea (String codigo, String nombre, String descripcion, boolean estado) throws SQLException {
         
         Area areaClinica = new Area(codigo, descripcion, nombre, estado);
-        try{
+        
         area.crearArea(areaClinica);
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al registrar area. Por favor intente nuevamente");
-        }
+       
         
     }
     
     public Area consultarArea(String codigo){
+        
         Area areaClinica = new Area();
         try{
             areaClinica = area.consultarArea(codigo);
@@ -41,6 +40,12 @@ public class DriverArea {
         }
         
         return areaClinica;
+        
+    }
+    
+    public ArrayList<String[]> consultarAreas () throws SQLException {
+        
+        return area.consultarAreas();
         
     }
     

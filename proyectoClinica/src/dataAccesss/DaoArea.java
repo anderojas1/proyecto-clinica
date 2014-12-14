@@ -11,6 +11,7 @@ package dataAccesss;
  * @author Santa Gutierrez
  */
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Area;
 public class DaoArea {
     
@@ -89,6 +90,29 @@ public class DaoArea {
         
         sentenciaSql = "UPDATE Area SET estado = " + estado + " WHERE codigo = '"+ codigo + "';";
         ejecutarUpdate();
+        
+    }
+    
+    
+    public ArrayList<String[]> consultarAreas () throws SQLException {
+        
+        sentenciaSql = "SELECT * FROM Area WHERE estado = TRUE";
+        ejecutarConsulta();
+        
+        ArrayList<String[]> areas = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String codigo = registros.getString(1);
+            String nombre = registros.getString(2);
+            
+            String [] datos = {codigo, nombre};
+            
+            areas.add(datos);
+            
+        }
+        
+        return areas;
         
     }
     
