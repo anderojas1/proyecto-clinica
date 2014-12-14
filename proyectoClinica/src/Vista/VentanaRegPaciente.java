@@ -11,6 +11,7 @@ package Vista;
 public class VentanaRegPaciente extends javax.swing.JFrame {
 
     private VentanaAdministrador ventAdmin;
+    private String [] datosPersonales;
     
     /**
      * Creates new form VentanaRegPaciente
@@ -22,6 +23,12 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
     public void acomodarVentana(VentanaAdministrador ventAdmin){
     
         this.ventAdmin = ventAdmin;        
+        
+    }
+        
+    public void setDatosPersonales (String [] datos) {
+        
+        datosPersonales = datos;
         
     }
 

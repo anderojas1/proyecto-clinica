@@ -47,4 +47,13 @@ public class Validador {
         }
     }
     
+    public void validarModulos (String [] campos) throws ExcepcionCamposVacios {
+        
+        for (String campo : campos) {
+            
+            validarCampo(campo);
+            
+        }
+    }
+    
 }

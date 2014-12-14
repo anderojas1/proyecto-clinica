@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.*;
 import logica.Telefono;
+import excepciones.*;
 
 /**
  *
@@ -19,7 +20,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
     private VentanaLogin ventLog;
     private Persona sesion;
-    
+    private Validador validar = new Validador();
     private DriverArea area;
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
@@ -727,6 +728,43 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarTelefonoActionPerformed
 
     private void btAgregarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarUsuActionPerformed
+        
+        String nombre = campoNomUsu.getText();
+        String apellido1 = campoPApellido.getText();
+        String apellido2 = campoSApellido.getText();
+        String tipoId = comboTipoIdent.getSelectedItem().toString();
+        String numeroId = campoNumIdenUsu.getText();
+        String direccion = campoDirUsu.getText();
+        String tipoUsuario = combotipoUsu.getSelectedItem().toString();
+        
+        try {
+        
+            String [] datosValidar = {nombre, apellido1, numeroId, direccion};
+            
+            validar.validarModulos(datosValidar);
+            
+            String [] datosPersonales = {nombre, apellido1, apellido2, tipoId, numeroId, direccion, tipoUsuario};
+            
+            switch (tipoUsuario) {
+                
+                case "Paciente": {
+                    
+                    VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
+                    registrarPaciente.acomodarVentana(this);
+                    registrarPaciente.setDatosPersonales(datosPersonales);
+                    registrarPaciente.setVisible(true);
+                    
+                    dispose();
+                    
+                }
+            }
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
         
         
     }//GEN-LAST:event_btAgregarUsuActionPerformed
