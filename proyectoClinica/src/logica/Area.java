@@ -16,6 +16,10 @@ public class Area {
     private String nombre;
     private boolean estado;
     
+    public Area(){
+        
+    }
+    
     
     public Area(String codigo, String descripcion, String nombre, boolean estado){
         this.codigo = codigo;

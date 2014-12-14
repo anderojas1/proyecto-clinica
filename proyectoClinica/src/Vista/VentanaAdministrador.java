@@ -47,18 +47,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         String nombre = campoNombreArea.getText();
         String descripcion = areaDescripArea.getText();
         boolean estado = true;
-        
-        try {
-            
-            area.registrarArea(codigo, nombre, descripcion, estado);
-            JOptionPane.showMessageDialog(this, "Se ha registrado el área correctamente", 
-                    "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            
-        } catch (SQLException ex) {
-            
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
-            
-        }
+        area.registrarArea(codigo, nombre, descripcion, estado);
+        JOptionPane.showMessageDialog(this, "Se ha registrado el área correctamente",
+                "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
         
     }
 

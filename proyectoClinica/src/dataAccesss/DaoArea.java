@@ -77,13 +77,15 @@ public class DaoArea {
         
     }
     
-    public void actualizarArea(){
+    public void editarArea(Area area)throws SQLException{
         
+        sentenciaSql = "UPDATE Area SET nombre = '"+area.getNombre()+"', descripción = '"+area.getDescripcion()+"' WHERE codigo = '"+area.getCodigo()+"';";
+        ejecutarUpdate();
     }
     
-    public void habilitarArea(Area area, boolean estado)throws SQLException{
+    public void habilitarArea(String codigo, boolean estado)throws SQLException{
         
-        sentenciaSql = "UPDATE Area SET estado = " + estado + " WHERE codigo = '"+ area.getCodigo() + "';";
+        sentenciaSql = "UPDATE Area SET estado = " + estado + " WHERE codigo = '"+ codigo + "';";
         ejecutarUpdate();
         
     }
