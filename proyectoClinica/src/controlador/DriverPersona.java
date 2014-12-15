@@ -37,4 +37,10 @@ public class DriverPersona {
         
     }
     
+    
+    public void actualizarContraseña (String id, String pass) throws SQLException {
+        
+        daoPersona.configurarCuentaAcceso(id, pass);
+        
+    }
 }

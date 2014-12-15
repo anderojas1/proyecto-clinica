@@ -50,6 +50,14 @@ public class DaoPersona {
         
     }
     
+    
+    public void configurarCuentaAcceso (String identificacionPersona, String password) throws SQLException {
+        
+        sentenciaSql = "UPDATE AccesoSistema SET pass = '" + password + "' WHERE identificacion = '" + identificacionPersona + "';";
+        ejecutarUpdate();
+        
+    }
+    
     public void crearPersona (Persona persona, String tipoUsuario) throws SQLException {
         
         sentenciaSql = "INSERT INTO Persona VALUES ('" + persona.getIdentificacion() + "', '" + persona.getTipoDocumento() + "','"

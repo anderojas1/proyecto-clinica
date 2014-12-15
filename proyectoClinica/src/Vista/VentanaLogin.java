@@ -54,6 +54,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jlDerechos = new javax.swing.JLabel();
         jlAño = new javax.swing.JLabel();
         jlDesarrolladores = new javax.swing.JLabel();
+        setPassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -129,6 +130,18 @@ public class VentanaLogin extends javax.swing.JFrame {
         jlDesarrolladores.setFont(new java.awt.Font("Ubuntu", 3, 10)); // NOI18N
         jlDesarrolladores.setText("Desarrollado por ");
 
+        setPassword.setBackground(new java.awt.Color(254, 254, 254));
+        setPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/help.jpg"))); // NOI18N
+        setPassword.setToolTipText("Establecer contraseña");
+        setPassword.setBorder(null);
+        setPassword.setBorderPainted(false);
+        setPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,9 +152,12 @@ public class VentanaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-                            .addComponent(jpfcontraseña)))
+                            .addComponent(jpfcontraseña)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(setPassword))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(295, 295, 295)
                         .addComponent(jlAño))
@@ -151,7 +167,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jlDesarrolladores)))
-                .addContainerGap())
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,9 +177,11 @@ public class VentanaLogin extends javax.swing.JFrame {
                 .addComponent(jtfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpfcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(setPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jbIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(106, 106, 106)
                 .addComponent(jlDerechos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlAño)
@@ -204,7 +222,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                
                dispose();
             
-            } else if("enfermera".equals(perfil)){
+            } else if("Enfermera".equals(perfil)){
                 
                 VentanaAdminEnfermera ventEnfer =  new VentanaAdminEnfermera();
                 
@@ -215,7 +233,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                                 
                 dispose();           
             
-            } else if("medico".equals(perfil)){
+            } else if("Medico".equals(perfil)){
                 
                 VentanaAdminMedico ventDoc = new VentanaAdminMedico();
                 
@@ -291,6 +309,16 @@ public class VentanaLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) iniciarSesion();
     }//GEN-LAST:event_jtfUsuarioKeyPressed
 
+    private void setPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setPasswordActionPerformed
+        
+        EstablecerPassword interfazPass = new EstablecerPassword();
+        interfazPass.setLocationRelativeTo(null);
+        interfazPass.setVisible(true);
+        
+        dispose ();
+        
+    }//GEN-LAST:event_setPasswordActionPerformed
+
     public JPasswordField getJpfcontraseña() {
         return jpfcontraseña;
     }
@@ -319,5 +347,6 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jlLogo;
     private javax.swing.JPasswordField jpfcontraseña;
     private javax.swing.JTextField jtfUsuario;
+    private javax.swing.JButton setPassword;
     // End of variables declaration//GEN-END:variables
 }
