@@ -168,8 +168,10 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarMouseClicked
 
     private void btAgregarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCampanaActionPerformed
+
         
         registrarCampana();
+        
     }//GEN-LAST:event_btAgregarCampanaActionPerformed
 
     /**
@@ -208,26 +210,31 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
     }
     
     public void registrarCampana () {
-        campoNombreCamp = new javax.swing.JTextField();
-        campobjetivoCamp = new javax.swing.JTextField();
-        campoCodigoCamp = new javax.swing.JTextField();
-        campoFecha = new com.toedter.calendar.JDateChooser();
-        String codigo = campoCodigoCamp.getText();
-        String nombre = campoNombreCamp.getText();
-        String objetivo = campobjetivoCamp.getText();
-        Date date = campoFecha.getDate();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha = formatter.format(date);
-        String id_m = sesionActiva.getIdentificacion();
+        
         try {
+        
+            String codigo = campoCodigoCamp.getText();
+            String nombre = campoNombreCamp.getText();
+            String objetivo = campobjetivoCamp.getText();
+            Date date = campoFecha.getDate();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha = formatter.format(date);
+            String id_m = sesionActiva.getIdentificacion();
+        
             
             campana.registrarCampana(codigo, objetivo, nombre, fecha, id_m);
             JOptionPane.showMessageDialog(this, "Se ha registrado la campaña correctamente",
                 "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (ParseException ex) {
+            
             Logger.getLogger(ventanaRegistroCamp.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (NullPointerException ex) {
+            
+            JOptionPane.showMessageDialog(this, "Campos requeridos sin llenar", "Falta información", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
