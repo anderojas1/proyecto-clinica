@@ -313,7 +313,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                 VentanaRegEnfermera ventRegEnfermera = new VentanaRegEnfermera();
                 ventRegEnfermera.setVisible(true);
                 ventRegEnfermera.setLocationRelativeTo(null);
-                ventRegEnfermera.acomodarVentana(this);
+                ventRegEnfermera.acomodarVentana(this, ventAdmin);
 
                 dispose();
 
