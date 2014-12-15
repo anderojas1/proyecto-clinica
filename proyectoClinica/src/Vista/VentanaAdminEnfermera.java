@@ -67,6 +67,8 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
 
+        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoClinica.jpg"))); // NOI18N
+
         lbBienvenida.setText("Bienvenida");
 
         btCerrarSesion.setText("Cerrar Sesion");
@@ -81,6 +83,11 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
         btAsignarCama.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btAsignarCamaMouseClicked(evt);
+            }
+        });
+        btAsignarCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarCamaActionPerformed(evt);
             }
         });
 
@@ -232,6 +239,10 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
        dispose();
                 
     }//GEN-LAST:event_btModificarCitaMouseClicked
+
+    private void btAsignarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarCamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAsignarCamaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,7 @@
 package dataAccesss;
 
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Cama;
 
 /**
@@ -64,6 +65,35 @@ public class DaoCama {
         
         ejecutarUpdate();
         
+    }
+    
+     public ArrayList <Cama> listarCamasLibres() throws SQLException{
+    
+        ArrayList <Cama> camas  = new ArrayList();
+        
+        sentenciaSql = "SELECT * FROM Cama WHERE estado = true AND dardebaja = true;";
+        
+        ejecutarConsulta();
+        
+        
+        
+        while(registros.next()){
+        
+            String numero = registros.getString(1);
+            String descripcion = registros.getString(2);
+            boolean estado = registros.getBoolean(3);
+            String codigoArea = registros.getString(4);
+            boolean activo = registros.getBoolean(5);
+            
+            
+            Cama miCama = new Cama(descripcion, estado, numero, codigoArea, activo);
+            
+            camas.add(miCama);      
+        
+        }
+        
+        return camas;
+    
     }
     
 }
