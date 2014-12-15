@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import com.toedter.calendar.JCalendar;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import logica.Telefono;
 import controlador.DriverPaciente;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -180,9 +183,12 @@ public class VentanaRegPaciente extends javax.swing.JFrame {
             validar.validarModulos(campos);
             
             DriverPaciente controlador = new DriverPaciente();
+            System.err.printf(new Date().toString());
+            String fechaRegistro = formato.format(new Date());
             
             controlador.registrarPaciente(datosPersonales[4], datosPersonales[3], datosPersonales[0], datosPersonales[1], 
-                    datosPersonales[2], telefonos, datosPersonales[5], true, seguridadSocial, actividad, fecha, datosPersonales[6]);
+                    datosPersonales[2], telefonos, datosPersonales[5], true, seguridadSocial, actividad, fecha, datosPersonales[6],
+                    fechaRegistro);
             
             JOptionPane.showMessageDialog(this, "Paciente registrado exitosamente", "Registro exitoso", 
                     JOptionPane.INFORMATION_MESSAGE);
