@@ -43,7 +43,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         
     }
     
-    public void setDatosPersonales (String [] datos, ArrayList<Telefono>num_tel) {
+    public void setDatosPersonales (String [] datos, ArrayList<Telefono> num_tel) {
         
         datosPersonales = datos;
         telefonos = num_tel;
@@ -271,11 +271,21 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             String salario = campoSalarioEmpleado.getText();
             String email = campoEmailEmpleado.getText();
             String tipoUsuario = comboCargoEmpleado.getSelectedItem().toString();
-            String jefe = null;
+            String jefe = datosPersonales[4];
             
-            if (comboJefes.getSelectedItem() != null) jefe = comboJefes.getSelectedItem().toString();
+            System.err.println(datosPersonales[4]);
             
-            String [] validarDatos = {salario, email};
+            try {
+                
+                jefe = comboJefes.getSelectedItem().toString();
+                
+            } catch (NullPointerException ex) {
+                
+                JOptionPane.showMessageDialog(this, "No hay empleados registrados. Jefe por defecto", "Sobre información de jefe", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            String [] validarDatos = {salario, email};            
             
             Validador validar = new Validador();
             validar.validarModulos(validarDatos);
@@ -287,9 +297,10 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             if(comboCargoEmpleado.getSelectedItem() == "Medico"){
         
                 VentanaRegistroMedico ventRegMedico = new VentanaRegistroMedico();
+                ventRegMedico.establecerDatosEmpleado(telefonos, datosPersonales, datosEmpleado);
                 ventRegMedico.setVisible(true);
                 ventRegMedico.setLocationRelativeTo(null);
-                ventRegMedico.acomodarVentana(this);
+                ventRegMedico.acomodarVentana(this, ventAdmin);
 
                 dispose();
 

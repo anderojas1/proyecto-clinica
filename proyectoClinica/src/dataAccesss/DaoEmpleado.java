@@ -51,8 +51,8 @@ public class DaoEmpleado {
     }
     
     public void registrarEmpleado (Empleado empleado) throws SQLException {
-        
-        sentenciaSql = "INSERT INTO Paciente VALUES ('" + empleado.getIdentificacion() + "','" + empleado.getCod_area()+ "'"
+               
+        sentenciaSql = "INSERT INTO Empleado VALUES ('" + empleado.getIdentificacion() + "','" + empleado.getCod_area()+ "'"
                 + "," + empleado.getSalario() + ",'" + empleado.getEmail()+ "','" + empleado.getCargo() + "',"
                 + "'" + empleado.getJefe() + "');";
         

@@ -4,13 +4,25 @@
  */
 package Vista;
 
+import controlador.DriverMedico;
+import excepciones.ExcepcionCamposVacios;
+import excepciones.Validador;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import logica.Telefono;
+
 /**
  *
  * @author juliancv
  */
 public class VentanaRegistroMedico extends javax.swing.JFrame {
 
+    private VentanaAdministrador ventAdmin;
     private VentanaRegistroEmpleado ventRegEmple;
+    private ArrayList<Telefono> telefonos;
+    private String [] datosPersonales;
+    private Object[] datosEmpleado;
     
     /**
      * Creates new form VentanaRegistroMedico
@@ -19,9 +31,18 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void acomodarVentana(VentanaRegistroEmpleado ventRegEmple){
+    public void acomodarVentana(VentanaRegistroEmpleado ventRegEmple, VentanaAdministrador admin){
     
         this.ventRegEmple = ventRegEmple;
+        ventAdmin = admin;
+        
+    }
+    
+    public void establecerDatosEmpleado (ArrayList<Telefono> numeros, String [] datosPersonales, Object[] datosEmpleado) {
+        
+        telefonos = numeros;
+        this.datosEmpleado = datosEmpleado;
+        this.datosPersonales = datosPersonales;
         
     }
 
@@ -39,11 +60,11 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        guardarInformacion = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        campoEspecialidad = new javax.swing.JTextField();
+        campoUniversidad = new javax.swing.JTextField();
+        campoNumeroLicencia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,12 +78,17 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
 
         jLabel4.setText("Numero de Licencia");
 
-        jButton1.setText("Guardar");
+        guardarInformacion.setText("Guardar");
+        guardarInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarInformacionActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelar.setText("Cancelar");
+        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                cancelarMouseClicked(evt);
             }
         });
 
@@ -84,14 +110,14 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(90, 90, 90)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                            .addComponent(campoEspecialidad)
+                            .addComponent(campoUniversidad)
+                            .addComponent(campoNumeroLicencia, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(guardarInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(131, 131, 131))
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,15 +134,15 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoUniversidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoNumeroLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(guardarInformacion)
+                    .addComponent(cancelar))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
@@ -134,11 +160,53 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
         
         ventRegEmple.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_cancelarMouseClicked
+
+    private void guardarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarInformacionActionPerformed
+        
+        String numeroLicencia = campoNumeroLicencia.getText();
+        String especialidad = campoEspecialidad.getText();
+        String universidad = campoUniversidad.getText();
+        
+        String [] datosMedico = {numeroLicencia, especialidad, universidad};
+        
+        try {
+            
+            Validador validar = new Validador();
+            validar.validarModulos(datosMedico);
+            
+            datosPersonales[6] = "Medico";
+            
+            DriverMedico medicos = new DriverMedico();
+            
+            medicos.registrarMedico(datosPersonales[4], datosPersonales[3], datosPersonales[0], datosPersonales[1], 
+                    datosPersonales[2], telefonos, datosPersonales[5], true, datosPersonales[6],datosEmpleado[0].toString(),
+                    Double.parseDouble(datosEmpleado[1].toString()), datosEmpleado[2].toString(), datosEmpleado[3].toString(),
+                    datosEmpleado[4].toString(), especialidad, universidad, numeroLicencia);
+            
+            JOptionPane.showMessageDialog(this, "Médico registrado exitosamente", "Registro exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            ventRegEmple.dispose();
+            
+            ventAdmin.limpiarCampos();
+            ventAdmin.setVisible(true);
+            
+            dispose();
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+        } 
+    }//GEN-LAST:event_guardarInformacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,15 +250,15 @@ public class VentanaRegistroMedico extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField campoEspecialidad;
+    private javax.swing.JTextField campoNumeroLicencia;
+    private javax.swing.JTextField campoUniversidad;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton guardarInformacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

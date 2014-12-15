@@ -460,11 +460,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         combotipoUsu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Paciente", "Empleado" }));
 
         btAgregarUsu.setText("Siguiente");
-        btAgregarUsu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btAgregarUsuMouseClicked(evt);
-            }
-        });
         btAgregarUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAgregarUsuActionPerformed(evt);
@@ -656,31 +651,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btCerrarSesionMouseClicked
 
-    private void btAgregarUsuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarUsuMouseClicked
-        
-        if(combotipoUsu.getSelectedItem() == "Paciente"){
-        
-            VentanaRegPaciente ventRegPaciente = new VentanaRegPaciente();
-            ventRegPaciente.setVisible(true);
-            ventRegPaciente.setLocationRelativeTo(null);
-            ventRegPaciente.acomodarVentana(this);
-            
-            dispose();
-            
-            
-        }else if(combotipoUsu.getSelectedItem() == "Empleado"){
-        
-            VentanaRegistroEmpleado ventRegEmp = new VentanaRegistroEmpleado();
-            ventRegEmp.setVisible(true);
-            ventRegEmp.setLocationRelativeTo(null);
-            ventRegEmp.acomodarVentana(this);
-            
-            dispose();
-        
-        }
-        
-    }//GEN-LAST:event_btAgregarUsuMouseClicked
-
 
     private void btCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSesionActionPerformed
         // TODO add your handling code here:
@@ -751,6 +721,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
                     registrarPaciente.acomodarVentana(this);
                     registrarPaciente.setDatosPersonales(datosPersonales, telefonos);
+                    registrarPaciente.setVisible(true);
                     
                     setVisible(false);
                     
@@ -761,6 +732,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     VentanaRegistroEmpleado registrarEmpleado = new VentanaRegistroEmpleado();
                     registrarEmpleado.acomodarVentana(this);
                     registrarEmpleado.setDatosPersonales(datosPersonales, telefonos);
+                    registrarEmpleado.setVisible(true);
                                         
                     setVisible(false);
                     
