@@ -77,6 +77,11 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
         jLabel5.setText("Fecha Realizacion");
 
         btAgregarCampana.setText("Agregar");
+        btAgregarCampana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarCampanaActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,6 +167,10 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btCancelarMouseClicked
 
+    private void btAgregarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCampanaActionPerformed
+        registrarCampana ();
+    }//GEN-LAST:event_btAgregarCampanaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,10 +207,6 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
     }
     
     public void registrarCampana () {
-        campoNombreCamp = new javax.swing.JTextField();
-        campobjetivoCamp = new javax.swing.JTextField();
-        campoCodigoCamp = new javax.swing.JTextField();
-        campoFecha = new com.toedter.calendar.JDateChooser();
         String codigo = campoCodigoCamp.getText();
         String nombre = campoNombreCamp.getText();
         String objetivo = campobjetivoCamp.getText();
