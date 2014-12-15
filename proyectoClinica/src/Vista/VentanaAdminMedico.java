@@ -7,7 +7,7 @@ package Vista;
 import logica.Persona;
 
 /**
- *
+ * 
  * @author juliancv
  */
 public class VentanaAdminMedico extends javax.swing.JFrame {
@@ -242,7 +242,7 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
 
     private void btCrearCampMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCrearCampMouseClicked
       
-        ventanaRegistroCamp ventRegCamp = new ventanaRegistroCamp();
+        ventanaRegistroCamp ventRegCamp = new ventanaRegistroCamp(sesion);
         
         ventRegCamp.setVisible(true);
         ventRegCamp.setLocationRelativeTo(null);
