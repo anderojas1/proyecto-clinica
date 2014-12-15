@@ -77,10 +77,13 @@ public class DaoEnfermera {
             
         }
         
-        if (!conjuntoHabilidades.isEmpty()) 
+        if (!conjuntoHabilidades.isEmpty()) {
+            
             sentenciaSql = "INSERT INTO Enfermera_Habilidad VALUES " + conjuntoHabilidades + ";";
         
-        ejecutarUpdate();
+            ejecutarUpdate();
+            
+        }
         
     }
     

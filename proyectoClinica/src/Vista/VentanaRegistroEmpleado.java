@@ -336,8 +336,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         
         
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            
-            System.err.println("ejecuta");
+           
             consultarEmpleadosClinica();
             
         }
