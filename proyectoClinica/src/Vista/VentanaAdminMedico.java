@@ -7,7 +7,7 @@ package Vista;
 import logica.Persona;
 
 /**
- *
+ * 
  * @author juliancv
  */
 public class VentanaAdminMedico extends javax.swing.JFrame {

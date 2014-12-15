@@ -9,7 +9,6 @@ import controlador.DriverCampana;
 import java.text.SimpleDateFormat;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.util.*;
 import excepciones.*;
 import java.text.ParseException;
 import java.util.logging.Level;
