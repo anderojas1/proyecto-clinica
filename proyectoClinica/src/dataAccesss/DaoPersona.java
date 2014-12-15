@@ -58,7 +58,7 @@ public class DaoPersona {
         
         ejecutarUpdate();
         
-        sentenciaSql = "INSERT INTO AccesoSistema (username, identificacion, perfil, estado_cuenta) VALUES ("
+        sentenciaSql = "INSERT INTO AccesoSistema (username, identificacion, perfil) VALUES ("
                 + "'" + persona.getIdentificacion() + "', '" + persona.getIdentificacion() + "', '" + tipoUsuario + "');";
         
         ejecutarUpdate();
