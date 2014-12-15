@@ -22,6 +22,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private Persona sesion;
     private Validador validar = new Validador();
     private DriverArea area;
+    private DriverCama driverCama = new DriverCama();
+    private ArrayList<String[]> infoAreas;
+    
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
     
@@ -31,6 +34,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     public VentanaAdministrador() {
         initComponents();
         area = new DriverArea();
+        cargarAreas();
     }
     
     
@@ -73,14 +77,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        lbEstadoCama = new javax.swing.JLabel();
         lbCodAreaCama = new javax.swing.JLabel();
         lbNumCama = new javax.swing.JLabel();
         lbDescripCama = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         AreaDescripCama = new javax.swing.JTextArea();
         comboAreasCama = new javax.swing.JComboBox();
-        comboEstadocama = new javax.swing.JComboBox();
         btAgregarCama = new javax.swing.JButton();
         campoNumeroCama = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -142,8 +144,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(254, 254, 254));
 
-        lbEstadoCama.setText("Estado");
-
         lbCodAreaCama.setText("Codigo de Area");
 
         lbNumCama.setText("Numero ");
@@ -151,14 +151,17 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         lbDescripCama.setText("Descripcion");
 
         AreaDescripCama.setColumns(20);
+        AreaDescripCama.setLineWrap(true);
         AreaDescripCama.setRows(5);
+        AreaDescripCama.setWrapStyleWord(true);
         jScrollPane1.setViewportView(AreaDescripCama);
 
-        comboAreasCama.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Area1" }));
-
-        comboEstadocama.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Libre", "Ocupada" }));
-
         btAgregarCama.setText("Agregar");
+        btAgregarCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarCamaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nueva Cama");
 
@@ -175,20 +178,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbNumCama)
-                            .addComponent(lbEstadoCama)
                             .addComponent(lbCodAreaCama)
                             .addComponent(lbDescripCama))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1)
-                            .addComponent(comboEstadocama, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoNumeroCama, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboAreasCama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(184, 184, 184))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(317, 317, 317)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,23 +200,17 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbNumCama))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lbEstadoCama)
-                        .addGap(30, 30, 30)
-                        .addComponent(lbCodAreaCama))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(comboEstadocama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbCodAreaCama))
+                .addGap(51, 51, 51)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbDescripCama))
                 .addGap(65, 65, 65)
                 .addComponent(btAgregarCama)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administracion de camas", jPanel3);
@@ -263,7 +258,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(357, 357, 357)
                         .addComponent(jLabel3)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,12 +346,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                                 .addComponent(campoCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(btAgregarArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addComponent(lbSubTituloArea)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -413,7 +408,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +421,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbListaEmpleados)
                     .addComponent(lbCuentasEmpleados))
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
@@ -507,7 +502,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(campoNumIdenUsu)
                             .addComponent(campoDirUsu)
                             .addComponent(registrarTelefono))))
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,7 +525,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbPApellidoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -587,21 +582,23 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(lbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(lbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -749,6 +746,62 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarUsuActionPerformed
 
+    private void cargarAreas () {
+        
+        comboAreasCama.removeAllItems();
+        
+        try {
+            
+            infoAreas = area.consultarAreas();
+            
+            for (String[] nombreArea : infoAreas) {
+                
+                comboAreasCama.addItem(nombreArea[1]);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de módulo", JOptionPane.ERROR_MESSAGE);
+                        
+            dispose();
+            
+        }
+    }
+    
+    
+    private void btAgregarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCamaActionPerformed
+       
+        String numeroCama = campoNumeroCama.getText();
+        String cod_area = infoAreas.get(comboAreasCama.getSelectedIndex())[0];
+        String descripcion = AreaDescripCama.getText();
+        
+        String datosCama[] = {numeroCama, cod_area, descripcion};
+        
+        try {
+            
+            validar.validarModulos(datosCama);
+            
+            driverCama.guardarCama(numeroCama, descripcion, cod_area);
+            
+            JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            comboAreasCama.setSelectedIndex(0);
+            campoNumeroCama.setText("");
+            AreaDescripCama.setText("");
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+            
+        }
+    }//GEN-LAST:event_btAgregarCamaActionPerformed
+
     
     public void limpiarCampos () {
         
@@ -794,7 +847,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField campoPApellido;
     private javax.swing.JTextField campoSApellido;
     private javax.swing.JComboBox comboAreasCama;
-    private javax.swing.JComboBox comboEstadocama;
     private javax.swing.JComboBox comboTipoIdent;
     private javax.swing.JComboBox combotipoUsu;
     private javax.swing.JLabel jLabel1;
@@ -821,7 +873,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel lbDescripCama;
     private javax.swing.JLabel lbDescripMedicamento;
     private javax.swing.JLabel lbDirUsu;
-    private javax.swing.JLabel lbEstadoCama;
     private javax.swing.JLabel lbListaEmpleados;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbNombreArea;
