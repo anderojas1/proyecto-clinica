@@ -4,8 +4,10 @@
  */
 package Vista;
 
+import controlador.DriverEnfermera;
 import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -244,9 +246,40 @@ public class VentanaRegEnfermera extends javax.swing.JFrame {
 
     private void guardarEnfermeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEnfermeraActionPerformed
     
-        administrador.setVisible(true);
         
-        dispose();
+        ArrayList<String>datos = new ArrayList<>();
+        
+        for (int i = 0; i < informacionHabilidad.getRowCount(); i++) {
+            
+            datos.add(informacionHabilidad.getValueAt(i, 0).toString());
+            
+        }
+        
+        try {
+            
+            int años = Integer.parseInt(campoAñosExp.getText());            
+            datosPersonales[6] = "Enfermera";
+            
+            DriverEnfermera guardarDatos = new DriverEnfermera();
+            
+            guardarDatos.registrarEnfermera(datosPersonales[4], datosPersonales[3], datosPersonales[0], datosPersonales[1], 
+                    datosPersonales[2], telefonos, datosPersonales[5], true, datosPersonales[6],datosEmpleado[0].toString(),
+                    Double.parseDouble(datosEmpleado[1].toString()), datosEmpleado[2].toString(), datosEmpleado[3].toString(),
+                    datosEmpleado[4].toString(), años, datos);
+        
+            administrador.setVisible(true);
+
+            dispose();
+            
+        } catch (NumberFormatException ex) {
+            
+            JOptionPane.showMessageDialog(this, "El campo de experiencia debe ser número en años", "Campos requeridos", 
+                    JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_guardarEnfermeraActionPerformed
 
     private void agregarHabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarHabilidadActionPerformed

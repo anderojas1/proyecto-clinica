@@ -34,7 +34,7 @@ tipo varchar(30) NOT NULL,
 nombres VARCHAR(40) NOT NULL,
 apellido_uno VARCHAR(20) NOT NULL,
 apellido_dos VARCHAR(20),
-direccion VARCHAR(25) NOT NULL, 
+direccion VARCHAR(70) NOT NULL, 
 estado bool NOT NULL 
 
 );
@@ -54,9 +54,8 @@ REFERENCES Persona (identificacion)
 
 CREATE TABLE AccesoSistema (
 
-username varchar(20) NOT NULL PRIMARY KEY,
+identificacion varchar(20) NOT NULL PRIMARY KEY,
 pass varchar(30),
-identificacion varchar(30) NOT NULL,
 perfil varchar(20) NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
@@ -83,7 +82,7 @@ CREATE TABLE Empleado (
 identificacion VARCHAR(30) NOT NULL,
 cod_area VARCHAR(20) NOT NULL,
 salario	FLOAT NOT NULL,
-email VARCHAR(25) NOT NULL,
+email VARCHAR(100) NOT NULL,
 cargo VARCHAR(30) NOT NULL,
 jefe VARCHAR(60),
 
@@ -107,9 +106,9 @@ on update cascade on delete no action
 CREATE TABLE Medico (
 
 identificacion VARCHAR(30) NOT NULL,
-especialidad VARCHAR(30) NOT NULL,
-universidad VARCHAR(20) NOT NULL, 
-num_licencia VARCHAR(15) NOT NULL,
+especialidad VARCHAR(50) NOT NULL,
+universidad VARCHAR(100) NOT NULL, 
+num_licencia VARCHAR(25) NOT NULL,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES Persona (identificacion)
@@ -121,6 +120,8 @@ CREATE TABLE Enfermera (
 
 identificacion VARCHAR(30) NOT NULL,
 anos_exp INTEGER NOT NULL,
+
+CONSTRAINT enfermera_pk PRIMARY KEY (identificacion),
 
 CONSTRAINT indentificacion_fk  FOREIGN KEY (identificacion)
 REFERENCES Persona (identificacion)
@@ -301,10 +302,18 @@ on update cascade on delete no action
 );
 
 
-INSERT INTO Persona (identificacion, tipo, nombres, apellido_uno, apellido_dos, direccion, estado)
-    VALUES ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true);
+INSERT INTO Persona VALUES 
+('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true),
+('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'La Huaca', true),
+('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'Callejón', true);
 
-INSERT INTO AccesoSistema VALUES ('admin', '12345', 'admin', 'administrador');
+
+INSERT INTO AccesoSistema VALUES ('admin', '12345', 'administrador');
+INSERT INTO AccesoSistema (identificacion, perfil) VALUES 
+('1325228', 'Medico'),
+('1224775', 'Medico'),
+('1224612', 'Medico');
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 
@@ -320,3 +329,13 @@ familia, para mejorar la calidad de vida de nuestra comunidad.', true),
 ('004', 'Neurocirugia', 'Brindar al paciente Neuroquirúrgico y su familia, una atención oportuna y de calidad; 
 Consolidar el vínculo docente asistencial con las entidades en que tienen convenio la Institución y que sus estudiantes 
 realizan prácticas en la UES de Neurocirugía. Mantener ambiente de cordialidad y respeto', true);
+
+INSERT INTO Empleado VALUES
+('1325228', '004', 4500000, 'kellys.santa@correounivalle.edu.co', 'Medico', '1325228'),
+('1224775', '001', 4500000, 'julian.canacuan.valenzuela@correounivalle.edu.co', 'Medico', '1325228'),
+('1224612', '003', 4500000, 'mario.payan@correounivalle.edu.co', 'Medico', '1325228');
+
+INSERT INTO Medico VALUES
+('1325228', 'Cirujía neuronal', 'Universidad del Valle', '1121212'),
+('1224775', 'Huaquear', 'Universidad del Valle', '1000110'),
+('1224612', 'Atención al adulto mayor', 'Universidad del Valle', '1010100');

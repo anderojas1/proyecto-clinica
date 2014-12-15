@@ -760,6 +760,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         comboTipoIdent.setSelectedIndex(0);
         combotipoUsu.setSelectedIndex(0);
         
+        telefonos = new ArrayList<>();
+        
     }
     
 

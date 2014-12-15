@@ -66,8 +66,8 @@ public class DaoPersona {
         
         ejecutarUpdate();
         
-        sentenciaSql = "INSERT INTO AccesoSistema (username, identificacion, perfil) VALUES ("
-                + "'" + persona.getIdentificacion() + "', '" + persona.getIdentificacion() + "', '" + tipoUsuario + "');";
+        sentenciaSql = "INSERT INTO AccesoSistema (identificacion, perfil) VALUES ("
+                + "'" + persona.getIdentificacion() + "', '" + tipoUsuario + "');";
         
         ejecutarUpdate();
         
@@ -104,7 +104,7 @@ public class DaoPersona {
         
         String perfil = "ninguno";
         
-        sentenciaSql = "SELECT perfil FROM AccesoSistema WHERE username = '" + username + "' and pass = '" + pass + "';";
+        sentenciaSql = "SELECT perfil FROM AccesoSistema WHERE identificacion = '" + username + "' and pass = '" + pass + "';";
         ejecutarConsulta();
         
         if (registros.next() == true) perfil = registros.getString(1);

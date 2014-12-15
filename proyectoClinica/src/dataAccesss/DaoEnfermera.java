@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import logica.Enfermera;
 
 /**
  *
@@ -52,6 +53,35 @@ public class DaoEnfermera {
         
     }
     
+    public void registrarEnfermera (Enfermera enfermera) throws SQLException {
+        
+        sentenciaSql = "INSERT INTO Enfermera VALUES ('" + enfermera.getIdentificacion() + "'," + enfermera.getAnios_exp() + ");";      
+        ejecutarUpdate();
+        
+    }
     
+    
+    public void registrarHabilidadesEnfermera (Enfermera enfermera, ArrayList<String> habilidades) throws SQLException {
+        
+        String conjuntoHabilidades = "";
+        
+        if (!habilidades.isEmpty()) {
+            
+            for (String habilidad : habilidades) {
+            
+                conjuntoHabilidades += "('" + enfermera.getIdentificacion() + "','"+ habilidad + "'),";
+                
+            }
+        
+            conjuntoHabilidades = conjuntoHabilidades.substring(0, conjuntoHabilidades.length() - 1);
+            
+        }
+        
+        if (!conjuntoHabilidades.isEmpty()) 
+            sentenciaSql = "INSERT INTO Enfermera_Habilidad VALUES " + conjuntoHabilidades + ";";
+        
+        ejecutarUpdate();
+        
+    }
     
 }
