@@ -4,6 +4,17 @@
  * and open the template in the editor.
  */
 package Vista;
+import java.util.Date;
+import controlador.DriverCampana;
+import java.text.SimpleDateFormat;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.*;
+import excepciones.*;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import logica.Persona;
 
 /**
  *
@@ -12,12 +23,15 @@ package Vista;
 public class ventanaRegistroCamp extends javax.swing.JFrame {
 
     private VentanaAdminMedico ventAdminMed;
-    
+    private DriverCampana campana;
+    private static Persona sesionActiva;
     /**
      * Creates new form ventanaRegistroCamp
      */
-    public ventanaRegistroCamp() {
+    public ventanaRegistroCamp(Persona sesion) {
         initComponents();
+        campana = new DriverCampana();
+        sesionActiva = sesion;
     }
 
     /**
@@ -179,9 +193,32 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaRegistroCamp().setVisible(true);
+                new ventanaRegistroCamp(sesionActiva).setVisible(true);
             }
         });
+    }
+    
+    public void registrarCampana () {
+        campoNombreCamp = new javax.swing.JTextField();
+        campobjetivoCamp = new javax.swing.JTextField();
+        campoCodigoCamp = new javax.swing.JTextField();
+        campoFecha = new com.toedter.calendar.JDateChooser();
+        String codigo = campoCodigoCamp.getText();
+        String nombre = campoNombreCamp.getText();
+        String objetivo = campobjetivoCamp.getText();
+        Date date = campoFecha.getDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = formatter.format(date);
+        String id_m = sesionActiva.getIdentificacion();
+        try {
+            
+            campana.registrarCampana(codigo, objetivo, nombre, fecha, id_m);
+            JOptionPane.showMessageDialog(this, "Se ha registrado la campaña correctamente",
+                "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(ventanaRegistroCamp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
