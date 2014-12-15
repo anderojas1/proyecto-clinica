@@ -77,6 +77,11 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
         jLabel5.setText("Fecha Realizacion");
 
         btAgregarCampana.setText("Agregar");
+        btAgregarCampana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarCampanaActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,6 +166,11 @@ public class ventanaRegistroCamp extends javax.swing.JFrame {
         ventAdminMed.setVisible(true);
         dispose();
     }//GEN-LAST:event_btCancelarMouseClicked
+
+    private void btAgregarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCampanaActionPerformed
+        
+        registrarCampana();
+    }//GEN-LAST:event_btAgregarCampanaActionPerformed
 
     /**
      * @param args the command line arguments
