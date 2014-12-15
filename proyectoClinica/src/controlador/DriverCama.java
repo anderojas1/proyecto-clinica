@@ -3,6 +3,7 @@ package controlador;
 import logica.Cama;
 import dataAccesss.DaoCama;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,16 @@ public class DriverCama {
         
         daoCama.registrarCama(camilla);
         
+    }
+    
+    public ArrayList <Cama> listarCamasLibres() throws SQLException{
+    
+        ArrayList <Cama> camas  = new ArrayList();
+        
+        daoCama.listarCamasLibres();
+        
+        return camas;
+    
     }
     
     

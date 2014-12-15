@@ -5,6 +5,15 @@
  */
 package Vista;
 
+import controlador.DriverCama;
+import controlador.DriverCamaPaciente;
+import controlador.DriverPaciente;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import logica.Cama;
+import logica.Paciente;
+
 /**
  *
  * @author julian
@@ -13,11 +22,43 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
 
     
     private VentanaAdminEnfermera ventAdminEnfer;
+    private DriverCama driverCama;
+    private DriverPaciente driverPaciente;
+    private DefaultTableModel modeloTabla;
+    
     /**
      * Creates new form VentanaRegCamaPaciente
      */
     public VentanaRegCamaPaciente() {
+        
         initComponents();
+        driverCama = new DriverCama();
+        driverPaciente = new DriverPaciente();
+        
+        tablaPacientes.setModel(modeloTabla = new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Numero de Documento", "Nombre Completo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        
     }
 
     /**
@@ -40,10 +81,10 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboCamas = new javax.swing.JComboBox();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPacientes = new javax.swing.JTable();
         btAsignar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btVerCamasDisponibles = new javax.swing.JButton();
@@ -60,14 +101,9 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha Asignacion");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "cama1" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Numero de Documento", "Nombre Completo"
@@ -88,7 +124,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaPacientes);
 
         btAsignar.setText("Asignar");
 
@@ -125,7 +161,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                                 .addComponent(jLabel4))
                             .addGap(61, 61, 61)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboCamas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -145,7 +181,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCamas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -188,6 +224,44 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         ventListCamas.acomodarVentana(this);
     }//GEN-LAST:event_btVerCamasDisponiblesMouseClicked
 
+    public void cargarCamas() throws SQLException{
+    
+        ArrayList <Cama> camas = new ArrayList();
+        
+        camas = driverCama.listarCamasLibres();
+        
+        for(int i = 0; i < camas.size(); i++){
+            
+            comboCamas.addItem(camas.get(i).getNumeroInventario());        
+        
+        }    
+    
+    
+    }
+    
+    
+    public void cargarPacientes() throws SQLException{
+    
+        ArrayList <String[]> pacientes = new ArrayList();
+        
+        pacientes = driverPaciente.listarPacientes();
+        
+        for(int i = 0; i < pacientes.size(); i++){
+        
+            String documento = pacientes.get(i)[i];
+            String nombre = pacientes.get(i)[i+1];
+            
+            
+            modeloTabla.addRow(new Object[]{documento,nombre});
+           
+        
+        }     
+        
+        
+        
+    }
+    
+    
     private void btCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCancelarMouseClicked
        
         ventAdminEnfer.setVisible(true);
@@ -233,7 +307,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btAsignar;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btVerCamasDisponibles;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox comboCamas;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -241,6 +315,6 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaPacientes;
     // End of variables declaration//GEN-END:variables
 }

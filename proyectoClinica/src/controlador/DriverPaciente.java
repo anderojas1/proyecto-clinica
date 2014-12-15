@@ -35,4 +35,14 @@ public class DriverPaciente {
         
     }
     
+    public ArrayList <String []> listarPacientes() throws SQLException{
+    
+        ArrayList <String[]> pacientes = new ArrayList();
+        
+        pacientes = paciente.listarPacientes();
+        
+        return pacientes;
+    
+    }
+    
 }
