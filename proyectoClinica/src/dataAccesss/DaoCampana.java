@@ -5,7 +5,10 @@
  */
 package dataAccesss;
 import java.sql.*;
+import java.text.ParseException;
 import logica.Campana;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -47,9 +50,9 @@ public class DaoCampana {
         
     }
     
-    public void registrarCampana (Campana campana) throws SQLException {
-        
-        sentenciaSql = "INSERT INTO Medicamento VALUES ('"
+    public void registrarCampana (Campana campana) throws SQLException, ParseException {
+       
+        sentenciaSql = "INSERT INTO Campana VALUES ('"
                 + campana.getCodigo()
                 + "','"
                 + campana.getObjetivo()
@@ -62,14 +65,14 @@ public class DaoCampana {
                 + "',"
                 + "true"
                 + ");";
-        
+        System.out.println(sentenciaSql);
         ejecutarUpdate();
         
     }
         
-    public void eliminarCampana (String codigo) throws SQLException {
+    public void estadoCampana (String codigo, boolean estado) throws SQLException {
         
-        sentenciaSql = "UPDATE Campana SET estado = " + false + " WHERE codigo = '" + codigo + "';";
+        sentenciaSql = "UPDATE Campana SET estado = " + estado + " WHERE codigo = '" + codigo + "';";
         
         ejecutarUpdate();
         
@@ -80,6 +83,8 @@ public class DaoCampana {
         Campana campana = new Campana("","","","","");
         
         sentenciaSql = "SELECT * FROM Campana WHERE codigo = '" + codigo + "';";
+        
+        ejecutarConsulta();
         
         while (registros.next()) {
             
@@ -92,6 +97,16 @@ public class DaoCampana {
         
         return campana;
                 
+    }
+    
+     public void editarCampana(Campana campana)throws SQLException{
+        
+        sentenciaSql = "UPDATE Campana SET nombre = '"+campana.getNombre()+
+                "', objetivo = '"+ campana.getObjetivo() +
+                "', f_realizacion = '"+campana.getF_realizacion()+
+                "', id_medico = '"+campana.getId_medico()+
+                "' WHERE codigo = '"+campana.getCodigo()+"';";
+        ejecutarUpdate();
     }
     
 }

@@ -54,9 +54,9 @@ public class DaoMedicamento {
         
     }
         
-    public void eliminarMedicamento (String codigo) throws SQLException {
+    public void estadoMedicamento (String codigo, boolean estado) throws SQLException {
         
-        sentenciaSql = "UPDATE Medicamento SET estado = " + false + " WHERE codigo = '" + codigo + "';";
+        sentenciaSql = "UPDATE Medicamento SET estado = " + estado + " WHERE codigo = '" + codigo + "';";
         
         ejecutarUpdate();
         
@@ -68,16 +68,24 @@ public class DaoMedicamento {
         
         sentenciaSql = "SELECT * FROM Medicamento WHERE codigo = '" + codigo + "';";
         
-        while (registros.next()) {
-            
-            medicamento.setCodigo(registros.getString(1));
-            medicamento.setNombre(registros.getString(2));
-            medicamento.setCosto(registros.getDouble(3));
-            medicamento.setDescripcion(registros.getString(4));
-        }
+        ejecutarConsulta();
         
+        while (registros.next()) {
+
+            String nombre = registros.getString(2);
+            Double costo = registros.getDouble(3);
+            String descripcion = registros.getString(4);
+            
+            medicamento = new Medicamento(codigo,nombre,costo,descripcion);
+        }
         return medicamento;
                 
+    }
+    
+        public void editarMedicamento(Medicamento medicamento)throws SQLException{
+        
+        sentenciaSql = "UPDATE Medicamento SET nombre = '"+medicamento.getNombre()+"', costo = "+ medicamento.getCosto() +", descripcion = '"+medicamento.getDescripcion()+"' WHERE codigo = '"+medicamento.getCodigo()+"';";
+        ejecutarUpdate();
     }
     
     
