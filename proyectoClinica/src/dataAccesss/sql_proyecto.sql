@@ -339,3 +339,7 @@ INSERT INTO Medico VALUES
 ('1325228', 'Cirujía neuronal', 'Universidad del Valle', '1121212'),
 ('1224775', 'Huaquear', 'Universidad del Valle', '1000110'),
 ('1224612', 'Atención al adulto mayor', 'Universidad del Valle', '1010100');
+
+UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
+UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
+UPDATE AccesoSistema SET pass = '1224612' WHERE identificacion = '1224612';
