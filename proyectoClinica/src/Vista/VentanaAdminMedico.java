@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import logica.Persona;
+
 /**
  *
  * @author juliancv
@@ -11,6 +13,7 @@ package Vista;
 public class VentanaAdminMedico extends javax.swing.JFrame {
 
     private VentanaLogin ventLog;
+    private Persona sesion;
     
     /**
      * Creates new form VentanaAdminMedico
@@ -24,6 +27,14 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
     this.ventLog = ventLog;
         
     }
+    
+    public void datosUsuario (Persona usuario) {
+        
+        sesion = usuario;
+        lbUser.setText("@" + sesion.getNombre());
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

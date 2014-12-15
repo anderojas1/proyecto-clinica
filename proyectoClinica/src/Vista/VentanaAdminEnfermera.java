@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import logica.Persona;
+
 /**
  *
  * @author julian
@@ -13,6 +15,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
     
     private VentanaLogin ventLog;
+    private Persona sesion;
     
     /**
      * Creates new form VentanaAdminEnfermera
@@ -21,6 +24,13 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
         
         initComponents();
         this.ventLog = ventLog;
+        
+    }
+    
+    public void datosUsuario (Persona usuario) {
+        
+        sesion = usuario;
+        //lbUser.setText("@" + sesion.getNombre());
         
     }
     

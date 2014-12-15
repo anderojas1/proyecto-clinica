@@ -195,12 +195,12 @@ public class VentanaLogin extends javax.swing.JFrame {
         
             if ("administrador".equals(perfil)) {
             
-               VentanaAdministrador ventAdmin = new VentanaAdministrador();
+                VentanaAdministrador ventAdmin = new VentanaAdministrador();
                              
-               ventAdmin.setVisible(true);
-               ventAdmin.setLocationRelativeTo(null);
-               ventAdmin.acomodarVentana(this);
-               ventAdmin.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));               
+                ventAdmin.setVisible(true);
+                ventAdmin.setLocationRelativeTo(null);
+                ventAdmin.acomodarVentana(this);
+                ventAdmin.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));               
                
                dispose();
             
@@ -211,6 +211,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 ventEnfer.setVisible(true);
                 ventEnfer.setLocationRelativeTo(null);
                 ventEnfer.acomodarVentana(this);
+                ventEnfer.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));
                                 
                 dispose();           
             
@@ -221,6 +222,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 ventDoc.setVisible(true);
                 ventDoc.setLocationRelativeTo(null);
                 ventDoc.acomodarVentana(this);
+                ventDoc.datosUsuario(controladorPersona.consultarPersona(jtfUsuario.getText()));
                 
                 dispose();
             
