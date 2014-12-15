@@ -225,9 +225,8 @@ estado bool NOT NULL
 
 CREATE TABLE Historia_c(
 
-numero VARCHAR(25) NOT NULL PRIMARY KEY,
 f_apertura DATE NOT NULL,
-identificacion VARCHAR(30) NOT NULL,
+identificacion VARCHAR(30) NOT NULL PRIMARY KEY,
 
 CONSTRAINT identificacion_fk FOREIGN KEY (identificacion)
 REFERENCES Persona (identificacion)

@@ -390,7 +390,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         lbListaEmpleados.setText("Lista Empleados");
 
-        lbCuentasEmpleados.setText("Cuentas");
+        lbCuentasEmpleados.setText("Costos");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -408,7 +408,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -546,7 +546,7 @@
                                   <Component id="lbCuentasEmpleados" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="216" max="32767" attributes="0"/>
+                          <EmptySpace pref="226" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -592,7 +592,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbCuentasEmpleados">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cuentas"/>
+                    <Property name="text" type="java.lang.String" value="Costos"/>
                   </Properties>
                 </Component>
               </SubComponents>
