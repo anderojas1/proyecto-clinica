@@ -30,7 +30,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
     public void datosUsuario (Persona usuario) {
         
         sesion = usuario;
-        //lbUser.setText("@" + sesion.getNombre());
+        lbNombreUser.setText("@" + sesion.getNombre());
         
     }
     
@@ -67,9 +67,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
 
-        lbLogo.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/logoClinica.jpg")); // NOI18N
-
-        lbBienvenida.setText("Bienvenida @ ");
+        lbBienvenida.setText("Bienvenida");
 
         lbNombreUser.setText("Enfermera");
 
@@ -80,7 +78,6 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
             }
         });
 
-        btAsignarCama.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/camaPaciente.jpg")); // NOI18N
         btAsignarCama.setBorderPainted(false);
         btAsignarCama.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -90,7 +87,6 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
         lbAsigCama.setText("Asignar Cama Paciente");
 
-        btAsignarCita.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/Agenda2.jpg")); // NOI18N
         btAsignarCita.setBorderPainted(false);
         btAsignarCita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,7 +97,6 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
         lbAsignarCita.setText("Asignar cita");
 
         btModificarCita.setBackground(new java.awt.Color(254, 254, 254));
-        btModificarCita.setIcon(new javax.swing.ImageIcon("/home/julian/Escritorio/BD/proyecto-clinica/proyectoClinica/src/Iconos/cambiarCita.png")); // NOI18N
         btModificarCita.setBorderPainted(false);
         btModificarCita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,7 +126,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
                             .addComponent(btAsignarCita))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lbBienvenida)
@@ -144,7 +139,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(btModificarCita))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
