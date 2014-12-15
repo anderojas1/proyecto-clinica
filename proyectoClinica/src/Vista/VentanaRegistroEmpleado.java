@@ -11,7 +11,7 @@ import excepciones.ExcepcionCamposVacios;
 import excepciones.Validador;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 /**
  *
@@ -85,7 +85,13 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         
         try {
                         
-            ArrayList<String[]> datos = controladorEmpleado.consultarEmpleados(buscarTodos);            
+            ArrayList<String[]> datos = controladorEmpleado.consultarEmpleados(buscarTodos);
+            
+            for (String [] empleados : datos) {
+                
+                comboJefes.addItem(empleados[0].toString());
+                
+            }
             
         } catch (SQLException ex) {
             
@@ -273,8 +279,6 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             String tipoUsuario = comboCargoEmpleado.getSelectedItem().toString();
             String jefe = datosPersonales[4];
             
-            System.err.println(datosPersonales[4]);
-            
             try {
                 
                 jefe = comboJefes.getSelectedItem().toString();
@@ -330,8 +334,9 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private void comboCargoEmpleadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCargoEmpleadoItemStateChanged
         
         
-        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             
+            System.err.println("ejecuta");
             consultarEmpleadosClinica();
             
         }

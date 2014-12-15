@@ -67,7 +67,7 @@ public class DaoEmpleado {
                 + "WHERE p.estado = TRUE;";
         
         else sentenciaSql = "SELECT e.identificacion, e.cod_area, e.cargo FROM Empleado as e NATURAL JOIN Persona WHERE estado = TRUE AND"
-                + " identificacion IN (SELECT identificacion FROM Enfermera);";
+                + " identificacion IN (SELECT identificacion FROM Medico);";
         
         ejecutarConsulta();
         
