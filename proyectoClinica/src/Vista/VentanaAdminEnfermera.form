@@ -54,10 +54,15 @@
                               <Component id="btAsignarCama" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                               <Component id="lbAsigCama" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbAsignarCita" min="-2" max="-2" attributes="0"/>
-                              <Component id="btAsignarCita" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                  <Component id="lbAsignarCita" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="btAsignarCita" min="-2" pref="105" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -105,10 +110,10 @@
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btAsignarCama" min="-2" max="-2" attributes="0"/>
-                      <Component id="btAsignarCita" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btAsignarCama" max="32767" attributes="0"/>
                       <Component id="btModificarCita" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btAsignarCita" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -116,7 +121,7 @@
                       <Component id="lbAsignarCita" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="151" max="32767" attributes="0"/>
+                  <EmptySpace pref="57" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -144,6 +149,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btAsignarCama">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos/camaPaciente.jpg"/>
+            </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -157,6 +165,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btAsignarCita">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos/Agenda2.jpg"/>
+            </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
