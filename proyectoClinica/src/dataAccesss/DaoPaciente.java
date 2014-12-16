@@ -135,7 +135,7 @@ public class DaoPaciente {
         
         ArrayList<String> fechas = new ArrayList();
         
-        sentenciaSql ="SELECT fecha_hora FROM Agenda_cita WHERE id_medico = '"+id_medico+"'";
+        sentenciaSql ="SELECT fecha_hora FROM Agenda_cita WHERE id_medico = '"+id_medico+"' AND cast(fecha_hora as date) ='"+fecha+"';";
  
         ejecutarConsulta();
                
@@ -152,7 +152,8 @@ public class DaoPaciente {
     public ArrayList<String[]> ConsultarMedicoCita()throws SQLException{
         ArrayList<String[]> medicos = new ArrayList();
         
-         sentenciaSql ="SELECT DISTINCT M.identificacion, P.nombres, P.apellido_uno, P.apellido_dos   FROM Medico M JOIN Persona P ON M.identificacion = P.identificacion;";
+        sentenciaSql ="SELECT DISTINCT M.identificacion, P.nombres, P.apellido_uno, P.apellido_dos   FROM Medico M JOIN Persona P ON M.identificacion = P.identificacion;";
+        
         
         ejecutarConsulta();
                
@@ -168,6 +169,30 @@ public class DaoPaciente {
         }
         
         return medicos;
+    }
+    
+    public ArrayList <String[]> listarPacientesIn(String id_campana) throws SQLException{
+        
+        ArrayList <String[]> pacientes = new ArrayList();
+        
+        sentenciaSql = "SELECT DISTINCT identificacion, nombres, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT id_paciente FROM Campana_paciente WHERE cod_campana = '" + id_campana + "');";
+              
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+            String identificacion = registros.getString(1);
+            String nombre = registros.getString(2);
+            String apellidoUno = registros.getString(3);
+            String apellidoDos = registros.getString(4);
+            
+            String [] datos = {identificacion,nombre,apellidoUno,apellidoDos};
+            
+            pacientes.add(datos);
+        
+        }
+        
+       return pacientes;
     }
     
      /*public static void main(String args[]) {

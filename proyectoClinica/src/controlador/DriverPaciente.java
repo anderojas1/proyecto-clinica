@@ -42,8 +42,12 @@ public class DriverPaciente {
     
         ArrayList <String[]> pacientes = new ArrayList();
         
+        try{
         pacientes = paciente.listarPacientes();
-        
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al asignar Paciente. Por favor intente nuevamente");
+        }
         return pacientes;
     
     }
@@ -85,8 +89,16 @@ public class DriverPaciente {
         return horasF;
     }
     
+    public ArrayList <String[]> listarPacientesIn(String id_campana) throws SQLException{
+        
+        ArrayList <String[]> pacientes = new ArrayList();
+        
+        pacientes = paciente.listarPacientesIn(id_campana);
+        
+        return pacientes;
+    }
     
-    public void consultarCitas(String fecha){
+    public ArrayList<String []> consultarCitas(String fecha){
         
         ArrayList<String[]> medicos = new ArrayList();
         ArrayList<String> fechasM = new ArrayList();
@@ -111,10 +123,12 @@ public class DriverPaciente {
                  fechasM = paciente.mostrarCitasFechas(datos[0], fecha);
                  
                  for(int j = 0; j < 16; j ++){
-                     if(fechasM.contains(horasDia.get(i))){
+                     if(fechasM.contains(horasDia.get(j))){
                          
                      }else{
-                         String [] datosLista = {datos[0], datos[1], horasDia.get(i)};
+                         String [] datosLista = {datos[0], datos[1], horasDia.get(j)};
+                         System.out.println(datos[0]+" "+ datos[1]+" "+horasDia.get(j));
+                         lista.add(datosLista);
                      }
                  }
                  
@@ -124,6 +138,8 @@ public class DriverPaciente {
                  
              }
          }
+         
+         return lista;
         
     }
     
