@@ -133,7 +133,7 @@ public class DaoPaciente {
         
         ArrayList<String> fechas = new ArrayList();
         
-        sentenciaSql ="SELECT fecha_hora FROM Agenda_cita WHERE id_medico = '"+id_medico+"'";
+        sentenciaSql ="SELECT fecha_hora FROM Agenda_cita WHERE id_medico = '"+id_medico+"' AND cast(fecha_hora as date) ='"+fecha+"';";
  
         ejecutarConsulta();
                
@@ -150,7 +150,8 @@ public class DaoPaciente {
     public ArrayList<String[]> ConsultarMedicoCita()throws SQLException{
         ArrayList<String[]> medicos = new ArrayList();
         
-         sentenciaSql ="SELECT DISTINCT M.identificacion, P.nombres, P.apellido_uno, P.apellido_dos   FROM Medico M JOIN Persona P ON M.identificacion = P.identificacion;";
+        sentenciaSql ="SELECT DISTINCT M.identificacion, P.nombres, P.apellido_uno, P.apellido_dos   FROM Medico M JOIN Persona P ON M.identificacion = P.identificacion;";
+        
         
         ejecutarConsulta();
                
