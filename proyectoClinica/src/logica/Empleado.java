@@ -9,6 +9,10 @@ public class Empleado extends Persona {
     private String email;
     private double salario;
     private String jefe;
+    
+    public Empleado(){
+        
+    }
 
     public Empleado(String doc_id, String tipo, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos,
             String direccion_residencia, boolean estado, String cod_area, String cargo_emp, String correo_e,

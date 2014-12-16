@@ -7,6 +7,7 @@ package dataAccesss;
 
 import java.sql.*;
 import java.util.ArrayList;
+import logica.Medico;
 import logica.Paciente;
 import logica.Telefono;
 
@@ -119,5 +120,61 @@ public class DaoPaciente {
         
         return false;
     }
+    
+    public void AsignarCita(String id_medico, String id_paciente, String fecha)throws SQLException{
+        
+        sentenciaSql = "INSERT INTO Agenda_cita VALUES ('"+id_medico+"', '"+id_paciente+"', '"+fecha+"', 'asignada')";
+        
+        ejecutarUpdate();
+        
+    }
+    
+    public ArrayList<String> mostrarCitasFechas(String id_medico,String fecha)throws SQLException{
+        
+        ArrayList<String> fechas = new ArrayList();
+        
+        sentenciaSql ="SELECT fecha_hora FROM Agenda_cita WHERE id_medico = '"+id_medico+"'";
+ 
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+            String fechaCita = registros.getString(1).substring(11);
+            System.out.println(fechaCita);
+            fechas.add(fechaCita);
+        
+        }
+        return fechas;
+    }
+    
+    public ArrayList<String[]> ConsultarMedicoCita()throws SQLException{
+        ArrayList<String[]> medicos = new ArrayList();
+        
+         sentenciaSql ="SELECT DISTINCT M.identificacion, P.nombres, P.apellido_uno, P.apellido_dos   FROM Medico M JOIN Persona P ON M.identificacion = P.identificacion;";
+        
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+            String identificacion = registros.getString(1);
+            String nombre = registros.getString(2)+" "+registros.getString(3)+" "+registros.getString(4);
+       
+            String [] datos = {identificacion,nombre};
+            
+            medicos.add(datos);
+        
+        }
+        
+        return medicos;
+    }
+    
+     /*public static void main(String args[]) {
+         DaoPaciente paciente = new DaoPaciente();
+         try{
+         paciente.mostrarCitasFechas("123", "13");
+         }catch(SQLException e){
+             
+         }
+     }*/
     
 }
