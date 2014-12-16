@@ -115,7 +115,6 @@ public class DriverPaciente {
                          
                      }else{
                          String [] datosLista = {datos[0], datos[1], horasDia.get(j)};
-                         System.out.println(datos[0]+" "+ datos[1]+" "+horasDia.get(j));
                          lista.add(datosLista);
                      }
                  }
@@ -130,5 +129,16 @@ public class DriverPaciente {
          return lista;
         
     }
+    
+     public String consultarPaciente(String identificacion){
+         String id="";
+         try{
+            id = paciente.consultarPaciente(identificacion);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al asignar cita. Por favor intente nuevamente");
+        }
+         return id;
+     }
     
 }

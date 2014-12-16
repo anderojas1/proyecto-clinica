@@ -171,6 +171,19 @@ public class DaoPaciente {
         return medicos;
     }
     
+    public String consultarPaciente(String identificacion)throws SQLException{
+        String paciente = "";
+        sentenciaSql = "SELECT identificacion FROM Paciente WHERE identificacion = '"+identificacion+"';";
+        
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+            paciente = registros.getString(1);
+        }
+        return paciente;
+    }
+    
      /*public static void main(String args[]) {
          DaoPaciente paciente = new DaoPaciente();
          try{

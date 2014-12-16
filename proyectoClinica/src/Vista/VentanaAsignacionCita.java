@@ -13,6 +13,7 @@ package Vista;
 import controlador.DriverPaciente;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 public class VentanaAsignacionCita extends javax.swing.JFrame {
@@ -80,6 +81,11 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
         });
 
         btAsignar.setText("Asignar");
+        btAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarActionPerformed(evt);
+            }
+        });
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -210,9 +216,11 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
     private void btConsultarDispActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarDispActionPerformed
         
         
-        String identificacion = campoIdenPaciente.getText();
+        
        // String fecha = SelecFechaCita.
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(SelecFechaCita.getDate());
+        //System.out.print("Fecha" + fecha);
+  
         ArrayList<String[]> lista = new ArrayList();
         lista = contPaciente.consultarCitas(fecha);
         
@@ -250,10 +258,45 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
             modeloTabla.addRow(new Object[]{documento,nombre, fecha_hora});
            
         
+        
         }
     }//GEN-LAST:event_btConsultarDispActionPerformed
 
+    private void btAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarActionPerformed
+        // TODO add your handling code here:
+        guardarCita();
+    }//GEN-LAST:event_btAsignarActionPerformed
 
+public void guardarCita(){
+    String identificacion = campoIdenPaciente.getText();
+    
+    boolean existe = false;
+    
+    
+    if(!identificacion.equals("")){ //y fecha no null
+        try{
+        String identificacion2 = contPaciente.consultarPaciente(identificacion);
+        if(identificacion.equals(identificacion2)){
+            existe = true;
+            System.out.print("identificacion: "+identificacion2);
+        }
+        
+        if(existe){
+        String id_medico = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+        String fecha= new SimpleDateFormat("yyyy-MM-dd").format(SelecFechaCita.getDate())+" "+(String)jTable1.getValueAt(jTable1.getSelectedRow(), 2);
+        System.out.print("fecha: "+fecha);
+        contPaciente.AsignarCita(id_medico, identificacion, fecha);
+        }else{
+            JOptionPane.showMessageDialog(null, "Verifique la identificación del paciente y vuelva a intentar");
+        }
+        }catch(ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla de citas");
+        }
+        }else{
+        JOptionPane.showMessageDialog(null, "Verifique la identificación del paciente o la fecha ingresada");
+    }
+    
+}
     
  
     
