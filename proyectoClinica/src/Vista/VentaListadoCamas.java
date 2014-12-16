@@ -5,6 +5,13 @@
  */
 package Vista;
 
+import controlador.DriverCama;
+import controlador.DriverCamaPaciente;
+import dataAccesss.DaoCama;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,12 +23,14 @@ public class VentaListadoCamas extends javax.swing.JFrame {
     
     private VentanaRegCamaPaciente ventRegCamaPaciente;
     private DefaultTableModel modeloTabla;
+    private DaoCama daoCama;
     
     /**
      * Creates new form VentaListadoCamas
      */
-    public VentaListadoCamas() {
+    public VentaListadoCamas() throws SQLException {
         initComponents();
+        daoCama = new DaoCama();
         
         tablaCamas.setModel(modeloTabla = new DefaultTableModel(
             new Object [][] {
@@ -39,8 +48,29 @@ public class VentaListadoCamas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        
+        cargarCamas();
     }
 
+       public void cargarCamas() throws SQLException{
+    
+        ArrayList <String[]> camas = new ArrayList();
+        
+        camas = daoCama.listarCamasOcupadas();
+        
+        for(int i = 0; i < camas.size(); i++){
+        
+            String numCama = camas.get(i)[0];
+            String idPacienter = camas.get(i)[1];
+            String fecha = camas.get(i)[2];
+            
+            
+            modeloTabla.addRow(new Object[]{numCama,idPacienter,fecha, "ocupada"});
+           
+        
+        }     
+       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,11 +106,11 @@ public class VentaListadoCamas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Num Cama", "ID Paciente", "Fecha Asignacion", "Estado"
+                "Num Cama", "ID Paciente", "Fecha Asignacion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -182,7 +212,11 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaListadoCamas().setVisible(true);
+                try {
+                    new VentaListadoCamas().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentaListadoCamas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

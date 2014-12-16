@@ -68,15 +68,39 @@ public class DaoCama {
         
     }
     
+    public Cama buscarCama(String idCama) throws SQLException{
+    
+        sentenciaSql =  "SELECT * FROM Cama WHERE numero = '"+ idCama+"';";
+        
+        Cama micama ;
+                
+        ejecutarConsulta();
+        
+        while (registros.next()) {
+         
+            String numero = registros.getString(1);
+            String descripcion = registros.getString(2);
+            boolean estado = registros.getBoolean(3);
+            String codigo_Are = registros.getString(4);
+            boolean dar_debaja = registros.getBoolean(5);
+            
+            micama = new Cama(descripcion,estado,numero,codigo_Are,dar_debaja);
+            
+            return micama;
+            
+            }
+        
+        return null;
+    
+    }
+    
      public ArrayList <Cama> listarCamasLibres() throws SQLException{
     
         ArrayList <Cama> camas  = new ArrayList();
         
-        sentenciaSql = "SELECT * FROM Cama WHERE estado = true AND dardebaja = true;";
+        sentenciaSql = "SELECT * FROM Cama WHERE estado = true;";
         
         ejecutarConsulta();
-        
-        
         
         while(registros.next()){
         
@@ -98,5 +122,34 @@ public class DaoCama {
         
        
     }
+     
+    public ArrayList <String []> listarCamasOcupadas() throws SQLException{
     
+        ArrayList <String []> camas  = new ArrayList();
+        
+        sentenciaSql = "select distinct * from cama_paciente;";
+        
+        ejecutarConsulta();
+        
+        while(registros.next()){
+        
+            String numero_cama = registros.getString(1);
+            String id_paciente = registros.getString(2);
+            String f_asignacion = registros.getString(3);
+            
+            
+            
+            String [] camaPaciente = {numero_cama,id_paciente,f_asignacion};
+            
+            camas.add(camaPaciente);      
+        
+        }
+        
+        
+       return camas;
+        
+       
+    }
+    
+     
 }
