@@ -142,6 +142,11 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                 btAsignarMouseClicked(evt);
             }
         });
+        btAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -339,6 +344,18 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
        
        
     }//GEN-LAST:event_btAsignarMouseClicked
+
+    private void btAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarActionPerformed
+        
+        try {
+        
+            registrarCamaPaciente();
+        
+        } catch (SQLException ex) {
+            
+           JOptionPane.showMessageDialog(null, "Error al conectar la Base de datos");
+        }
+    }//GEN-LAST:event_btAsignarActionPerformed
 
     /**
      * @param args the command line arguments
