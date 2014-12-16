@@ -42,4 +42,9 @@ public class DriverEmpleado {
         
     }
     
+     public ArrayList<String[]> consultarEmpleadosArea (String codArea)throws SQLException {
+        
+        return datosEmpleado.consultarEmpleadosArea(codArea);
+        
+    }
 }

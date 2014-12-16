@@ -60,6 +60,29 @@ public class DaoEmpleado {
         
     }
     
+    public ArrayList<String[]> consultarEmpleadosArea(String codArea) throws SQLException{
+    
+        ArrayList<String[]> empleadosArea = new ArrayList<>();
+        
+        sentenciaSql = "SELECT identificacion, nombres, salario, apellido_uno, apellido_dos FROM empleado NATURAL JOIN persona WHERE cod_area = '"+codArea +"'; ";
+    
+        ejecutarConsulta();
+        
+        while(registros.next()){
+        
+            String ident = registros.getString(1);
+            String nombre = registros.getString(2);
+            String salario = registros.getString(3);
+            String apellidos = registros.getString(4)+" "+ registros.getString(5);
+            
+            String [] empleado = {ident,nombre,apellidos,salario};
+            
+            empleadosArea.add(empleado);
+        }
+        
+        return empleadosArea;
+    }
+    
     
     public ArrayList<String[]> consultarEmpleadosActivos (boolean buscar) throws SQLException {
         
