@@ -142,6 +142,22 @@ public class DriverPaciente {
         
     }
     
+
+    public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<Object[]>cod_medicamento, 
+            String fecha_hora) throws SQLException {
+        
+        paciente.registrarFormulaMedicaPaciente(id_medico, id_paciente, cod_medicamento, fecha_hora);
+        
+    }
+    
+    
+    
+    public void guardarRegistro (String id_medico, String num_historia, ArrayList<String>causas, String fecha_hora,
+            double valor) throws SQLException {
+        
+        historia.crearRegistroHistoriaClinica(id_medico, num_historia, causas, fecha_hora, valor);
+    }
+
      public String consultarPaciente(String identificacion){
          String id="";
          try{
@@ -152,5 +168,10 @@ public class DriverPaciente {
         }
          return id;
      }
-    
+
+    public void asistirCita (String id_paciente, String id_medico, String fecha_hora) throws SQLException {
+        
+        paciente.asistirCita(id_paciente, id_medico, fecha_hora);
+        
+    }
 }
