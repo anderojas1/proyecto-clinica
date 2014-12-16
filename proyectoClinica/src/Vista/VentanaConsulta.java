@@ -454,7 +454,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 paciente.guardarRegistro(sesionActiva.getIdentificacion(), numHistoria, codigosCausa, fecha_hora, 
                         valorTotal + valorCita);
                 
-                paciente.asistirCita(numHistoria, sesionActiva.getIdentificacion(), fecha_hora);
+                paciente.asistirCita(numHistoria, sesionActiva.getIdentificacion(), fecha_hora, "asistida");
                 
                 JOptionPane.showMessageDialog(this, "El paciente ha sido atendido\n"
                         + "Valor de la consulta: 20000\n"

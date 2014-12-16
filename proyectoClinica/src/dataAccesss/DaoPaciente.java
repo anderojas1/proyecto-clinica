@@ -245,9 +245,9 @@ public class DaoPaciente {
     }
     
     
-    public void asistirCita (String id_paciente, String id_medico, String fecha_hora) throws SQLException {
+    public void asistirCita (String id_paciente, String id_medico, String fecha_hora, String estado) throws SQLException {
         
-        sentenciaSql = "UPDATE Agenda_cita SET estado = 'asistida' WHERE id_medico = '" + id_medico + "' AND id_paciente = '" 
+        sentenciaSql = "UPDATE Agenda_cita SET estado = '" + estado + "' WHERE id_medico = '" + id_medico + "' AND id_paciente = '" 
                 + id_paciente + "' AND fecha_hora = '" + fecha_hora + "';";
         
         ejecutarUpdate();
