@@ -358,6 +358,12 @@ INSERT INTO Cama VALUES
 ('0010001', 'Cama para tomología', true, '004', true),
 ('0010011', 'Cama para atención general', true, '002', true);
 
+INSERT INTO Medicamento VALUES
+('0001', 'BETAMETASONA', 12450, 'Medicamento 1', true),
+('0002', 'CANESTEN', 10541.30, 'Medicamento 2', true),
+('0003', 'CLOBEXAN', 18940, 'Medicamento 3', true),
+('0004', 'CLOTRIMAZOL', 4535.15, 'Medicamento 4', false);
+
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
 UPDATE AccesoSistema SET pass = '1224612' WHERE identificacion = '1224612';

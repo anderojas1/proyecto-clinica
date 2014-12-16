@@ -8,6 +8,7 @@ package controlador;
 import logica.Medicamento;
 import dataAccesss.DaoMedicamento;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -67,5 +68,11 @@ public class DriverMedicamento {
         catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error al eliminar medicamento. Por favor intente nuevamente");
         }
+    }
+    
+    
+    public ArrayList<Object[]> consultarMedicamentos () throws SQLException {
+        
+        return daoMedicamento.consultarMedicamentosDisponibles();
     }
 }
