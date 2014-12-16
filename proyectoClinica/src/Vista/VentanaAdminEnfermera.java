@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logica.Persona;
 
 /**
@@ -207,12 +210,22 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
     private void btAsignarCamaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarCamaMouseClicked
        
-        VentanaRegCamaPaciente ventAsigCama = new VentanaRegCamaPaciente();
+        VentanaRegCamaPaciente ventAsigCama;
+       
+        try {
         
-        ventAsigCama.setVisible(true);
-        ventAsigCama.setLocationRelativeTo(null);
-        ventAsigCama.acomodarVentana(this);
+            ventAsigCama = new VentanaRegCamaPaciente();
+                    
+            ventAsigCama.setVisible(true);
+            ventAsigCama.setLocationRelativeTo(null);
+            ventAsigCama.acomodarVentana(this);
         
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdminEnfermera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
         dispose();
         
     }//GEN-LAST:event_btAsignarCamaMouseClicked

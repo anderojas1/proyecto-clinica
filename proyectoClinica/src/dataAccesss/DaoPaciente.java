@@ -64,7 +64,7 @@ public class DaoPaciente {
         
         ArrayList <String[]> pacientes = new ArrayList();
         
-        sentenciaSql = "SELECT DISTINCT identificacion, nombre, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT identificacion FROM Paciente);";
+        sentenciaSql = "SELECT DISTINCT identificacion, nombres, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT identificacion FROM Paciente);";
               
         ejecutarConsulta();
                

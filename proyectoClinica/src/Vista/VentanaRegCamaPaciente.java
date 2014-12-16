@@ -9,7 +9,12 @@ import controlador.DriverCama;
 import controlador.DriverCamaPaciente;
 import controlador.DriverPaciente;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Cama;
 import logica.Paciente;
@@ -25,11 +30,12 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private DriverCama driverCama;
     private DriverPaciente driverPaciente;
     private DefaultTableModel modeloTabla;
+    private DriverCamaPaciente driveCamaPaciente;
     
     /**
      * Creates new form VentanaRegCamaPaciente
      */
-    public VentanaRegCamaPaciente() {
+    public VentanaRegCamaPaciente() throws SQLException {
         
         initComponents();
         driverCama = new DriverCama();
@@ -59,6 +65,9 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
             }
         });
         
+        
+        cargarCamas();
+        cargarPacientes();
     }
 
     /**
@@ -82,7 +91,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         comboCamas = new javax.swing.JComboBox();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        campoFecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPacientes = new javax.swing.JTable();
         btAsignar = new javax.swing.JButton();
@@ -127,6 +136,11 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaPacientes);
 
         btAsignar.setText("Asignar");
+        btAsignar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAsignarMouseClicked(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,7 +176,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                             .addGap(61, 61, 61)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(comboCamas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(campoFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -185,7 +199,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,7 +243,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         ArrayList <Cama> camas = new ArrayList();
         
         camas = driverCama.listarCamasLibres();
-        
+       
         for(int i = 0; i < camas.size(); i++){
             
             comboCamas.addItem(camas.get(i).getNumeroInventario());        
@@ -256,9 +270,31 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
            
         
         }     
+       
+    }
+    
+    
+    public void registrarCamaPaciente(){
+    
+     try{
+
+             String formato = campoFecha.getDateFormatString();
+             Date date = campoFecha.getDate();
+             SimpleDateFormat sdf = new SimpleDateFormat(formato);
+           //fnacim = String.valueOf(sdf.format(date));
+           // JOptionPane.showMessageDialog(null, String.valueOf(sdf.format(date)));
+             
+             
+             JOptionPane.showMessageDialog(null,(String)tablaPacientes.getValueAt(0, 0));
+             
+           driveCamaPaciente.registrarCamaPaciente((String)comboCamas.getSelectedItem(),
+                                                   (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0),
+                                                   String.valueOf(sdf.format(date)));
         
-        
-        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Debe escoger una fecha");
+        }
+    
     }
     
     
@@ -267,6 +303,13 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         ventAdminEnfer.setVisible(true);
         dispose();
     }//GEN-LAST:event_btCancelarMouseClicked
+
+    private void btAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarMouseClicked
+        
+       
+       registrarCamaPaciente();
+       
+    }//GEN-LAST:event_btAsignarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -298,7 +341,12 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegCamaPaciente().setVisible(true);
+                try {
+                    new VentanaRegCamaPaciente().setVisible(true);
+                } catch (SQLException ex) {
+                  
+                    JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos");
+                }
             }
         });
     }
@@ -307,8 +355,8 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btAsignar;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btVerCamasDisponibles;
+    private com.toedter.calendar.JDateChooser campoFecha;
     private javax.swing.JComboBox comboCamas;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

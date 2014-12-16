@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author julian
@@ -13,11 +15,30 @@ public class VentaListadoCamas extends javax.swing.JFrame {
 
     
     private VentanaRegCamaPaciente ventRegCamaPaciente;
+    private DefaultTableModel modeloTabla;
+    
     /**
      * Creates new form VentaListadoCamas
      */
     public VentaListadoCamas() {
         initComponents();
+        
+        tablaCamas.setModel(modeloTabla = new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Num Cama", "ID Paciente", "Fecha Asignacion", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
     }
 
     /**
@@ -40,7 +61,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaCamas = new javax.swing.JTable();
+        tablaCamas = new javax.swing.JTable();
         btGuardarModificaciones = new javax.swing.JButton();
         btAtras = new javax.swing.JButton();
 
@@ -50,20 +71,9 @@ public class VentaListadoCamas extends javax.swing.JFrame {
 
         jLabel1.setText("Listado Camas");
 
-        TablaCamas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCamas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Num Cama", "ID Paciente", "Fecha Asignacion", "Estado"
@@ -77,7 +87,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(TablaCamas);
+        jScrollPane1.setViewportView(tablaCamas);
 
         btGuardarModificaciones.setText("Guardar Modificaciones");
 
@@ -178,11 +188,11 @@ public class VentaListadoCamas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaCamas;
     private javax.swing.JButton btAtras;
     private javax.swing.JButton btGuardarModificaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaCamas;
     // End of variables declaration//GEN-END:variables
 }

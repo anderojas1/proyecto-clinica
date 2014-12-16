@@ -7,6 +7,7 @@ package dataAccesss;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Cama;
 
 /**
@@ -92,8 +93,10 @@ public class DaoCama {
         
         }
         
-        return camas;
-    
+        
+       return camas;
+        
+       
     }
     
 }

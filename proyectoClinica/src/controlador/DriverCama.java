@@ -4,6 +4,7 @@ import logica.Cama;
 import dataAccesss.DaoCama;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,12 +31,10 @@ public class DriverCama {
     
     public ArrayList <Cama> listarCamasLibres() throws SQLException{
     
-        ArrayList <Cama> camas  = new ArrayList();
-        
-        daoCama.listarCamasLibres();
-        
-        return camas;
-    
+            
+        return daoCama.listarCamasLibres();
+       
+            
     }
     
     
