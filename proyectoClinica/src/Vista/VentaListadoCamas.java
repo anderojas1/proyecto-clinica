@@ -8,10 +8,12 @@ package Vista;
 import controlador.DriverCama;
 import controlador.DriverCamaPaciente;
 import dataAccesss.DaoCama;
+import dataAccesss.DaoCamaPaciente;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +26,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
     private VentanaRegCamaPaciente ventRegCamaPaciente;
     private DefaultTableModel modeloTabla;
     private DaoCama daoCama;
+    private DaoCamaPaciente daoCamaPaciente;
     
     /**
      * Creates new form VentaListadoCamas
@@ -31,6 +34,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
     public VentaListadoCamas() throws SQLException {
         initComponents();
         daoCama = new DaoCama();
+        daoCamaPaciente =  new DaoCamaPaciente();
         
         tablaCamas.setModel(modeloTabla = new DefaultTableModel(
             new Object [][] {
@@ -52,7 +56,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         cargarCamas();
     }
 
-       public void cargarCamas() throws SQLException{
+  public void cargarCamas() throws SQLException{
     
         ArrayList <String[]> camas = new ArrayList();
         
@@ -92,7 +96,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCamas = new javax.swing.JTable();
-        btGuardarModificaciones = new javax.swing.JButton();
+        btDesocupar = new javax.swing.JButton();
         btAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +123,12 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaCamas);
 
-        btGuardarModificaciones.setText("Guardar Modificaciones");
+        btDesocupar.setText("Desocupar");
+        btDesocupar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btDesocuparMouseClicked(evt);
+            }
+        });
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,10 +142,10 @@ public class VentaListadoCamas extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btDesocupar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +166,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDesocupar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -178,9 +187,56 @@ public class VentaListadoCamas extends javax.swing.JFrame {
 
     private void btAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAtrasMouseClicked
      
+        
         ventRegCamaPaciente.setVisible(true);
+        
+        try {
+            
+            ventRegCamaPaciente.limpiarTabla();
+                        
+            ventRegCamaPaciente.cargarCamas();
+            ventRegCamaPaciente.cargarPacientes();
+        
+        } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error en la consulta SQL");
+        }
+       
         dispose();
     }//GEN-LAST:event_btAtrasMouseClicked
+
+    public void limpiarTabla(){
+    
+        int numFilas = tablaCamas.getRowCount();
+        
+        for(int i = 0; i< numFilas; i++){
+        
+            modeloTabla.removeRow(0);
+            //modeloTabla.removeRow(1);
+       }
+            
+    }
+    
+    private void btDesocuparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDesocuparMouseClicked
+       
+        try {
+       
+            daoCamaPaciente.liberarCama((String)tablaCamas.getValueAt(tablaCamas.getSelectedRow(), 0));
+            daoCama.cambiarEstadoCama(daoCama.buscarCama((String)tablaCamas.getValueAt(tablaCamas.getSelectedRow(), 0)), true);
+            
+               
+            JOptionPane.showMessageDialog(null, "Se Desocupa la cama con ID :" + (String)tablaCamas.getValueAt(tablaCamas.getSelectedRow(), 0));
+       
+            limpiarTabla();
+            cargarCamas();
+            
+        } catch (SQLException ex) {
+           
+            JOptionPane.showMessageDialog(null, "No se pudo liberar la cama");
+            
+        }
+        
+    }//GEN-LAST:event_btDesocuparMouseClicked
 
     /**
      * @param args the command line arguments
@@ -223,7 +279,7 @@ public class VentaListadoCamas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtras;
-    private javax.swing.JButton btGuardarModificaciones;
+    private javax.swing.JButton btDesocupar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
