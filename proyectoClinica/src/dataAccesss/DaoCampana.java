@@ -9,6 +9,7 @@ import java.text.ParseException;
 import logica.Campana;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -108,5 +109,21 @@ public class DaoCampana {
                 "' WHERE codigo = '"+campana.getCodigo()+"';";
         ejecutarUpdate();
     }
+     
+     public ArrayList<ArrayList<String>> listarCampanas()throws SQLException{
+             ArrayList<ArrayList<String>>campanas = new ArrayList<>();
+             
+             sentenciaSql = "SELECT codigo,nombre FROM Campana;";
+        
+        ejecutarConsulta();
+        while (registros.next()) {
+            ArrayList<String>tmp = new ArrayList<>(); 
+            tmp.add(registros.getString(1));
+            tmp.add(registros.getString(2));
+            campanas.add(tmp);
+        }
+             
+             return campanas;
+     }
     
 }

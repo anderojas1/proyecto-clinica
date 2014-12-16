@@ -4,6 +4,13 @@
  * and open the template in the editor.
  */
 package Vista;
+import controlador.DriverCampana;
+import controlador.DriverPaciente;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,12 +19,30 @@ package Vista;
 public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
 
     private VentanaAdminMedico ventAdminMed;
+    private DriverCampana driverCampana = new DriverCampana();
+    private ArrayList<ArrayList<String>>campanas = driverCampana.listaCampanas();
+    private DriverPaciente driverPaciente;
+    private ArrayList <String[]> pacientes = new ArrayList();
     
     /**
      * Creates new form VentanaRegistroCampPaciente
      */
-    public VentanaRegistroCampPaciente() {
+    public VentanaRegistroCampPaciente() throws SQLException {
         initComponents();
+        
+        pacientes = driverPaciente.listarPacientes();
+        
+        int size1=campanas.size();
+        for(int i=0;i<size1;i++){
+            comboCampanas.addItem(campanas.get(i).get(1));
+        }
+        DefaultTableModel model = (DefaultTableModel) tablaPacienteDisp.getModel();
+        int size2=pacientes.size();
+        for(int j=0;j<size2;j++){
+            model.addRow(new Object[]{pacientes.get(j)[0], pacientes.get(j)[1] + " " + pacientes.get(j)[2] + " " + pacientes.get(j)[3]});
+        }
+        
+        
     }
 
     /**
@@ -60,7 +85,11 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
 
         jLabel3.setText("Pacientes Disponibles");
 
-        comboCampanas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Campaña 1" }));
+        comboCampanas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCampanasActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Pacientes Agregados");
 
@@ -222,6 +251,10 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btAtrasMouseClicked
 
+    private void comboCampanasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCampanasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCampanasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,7 +285,11 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroCampPaciente().setVisible(true);
+                try {
+                    new VentanaRegistroCampPaciente().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
