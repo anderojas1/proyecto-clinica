@@ -148,6 +148,11 @@ public class VentanaRegistrarTelefono extends javax.swing.JFrame {
         tablaInformacionNumeros.setColumnSelectionAllowed(true);
         tablaInformacionNumeros.setName(""); // NOI18N
         jScrollPane1.setViewportView(tablaInformacionNumeros);
+        tablaInformacionNumeros.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tablaInformacionNumeros.getColumnModel().getColumnCount() > 0) {
+            tablaInformacionNumeros.getColumnModel().getColumn(0).setHeaderValue("Número");
+            tablaInformacionNumeros.getColumnModel().getColumn(1).setHeaderValue("Tipo");
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

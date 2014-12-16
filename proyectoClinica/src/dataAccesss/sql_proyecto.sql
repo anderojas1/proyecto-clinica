@@ -1,4 +1,4 @@
-drop table PERSONA cascade;
+﻿drop table PERSONA cascade;
 DROP table AccesoSistema cascade;
 DROP table AREA cascade;
 DROP table PACIENTE cascade;
@@ -238,7 +238,7 @@ CREATE TABLE Agenda_cita (
 
 id_medico VARCHAR(30) NOT NULL,
 id_paciente VARCHAR(30) NOT NULL,
-fecha_hora DATE NOT NULL,
+fecha_hora TIMESTAMP NOT NULL,
 estado VARCHAR(10) NOT NULL,
 
 CONSTRAINT agenda_cita_pk PRIMARY KEY (id_medico, id_paciente, fecha_hora),
@@ -304,11 +304,11 @@ on update cascade on delete no action
 INSERT INTO Persona VALUES 
 ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true),
 ('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('12345', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 ('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'La Huaca', true),
 ('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'Callejón', true),
-('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'Callejón 666', true),
-('12345', 'Paciente', 'Camilo Andrés', 'Rojas', 'Rojas', 'la loma', true),
-('123', 'Paciente', 'Fabio', 'Torres', 'Álvarez', 'la loma', true);
+('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'Callejón 666', true);
 
 
 INSERT INTO AccesoSistema VALUES ('admin', '12345', 'administrador');
@@ -316,9 +316,7 @@ INSERT INTO AccesoSistema (identificacion, perfil) VALUES
 ('1325228', 'Medico'),
 ('1224775', 'Medico'),
 ('1224612', 'Medico'),
-('1234567', 'Enfermera'),
-('12345', 'Paciente'),
-('123', 'Paciente');
+('1234567', 'Enfermera');
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 
@@ -342,8 +340,7 @@ INSERT INTO Paciente VALUES
 INSERT INTO Empleado VALUES
 ('1325228', '004', 4500000, 'kellys.santa@correounivalle.edu.co', 'Medico', '1325228'),
 ('1224775', '001', 4500000, 'julian.canacuan.valenzuela@correounivalle.edu.co', 'Medico', '1325228'),
-('1224612', '003', 4500000, 'mario.payan@correounivalle.edu.co', 'Medico', '1325228'),
-('1234567', '001', 4500000, 'maria@hotmail.com', 'Enfermera', '1224775');
+('1224612', '003', 4500000, 'mario.payan@correounivalle.edu.co', 'Medico', '1325228');
 
 INSERT INTO Medico VALUES
 ('1325228', 'Cirujía neuronal', 'Universidad del Valle', '1121212'),
@@ -357,6 +354,12 @@ INSERT INTO Cama VALUES
 ('0000001', 'Cama de uso general', true, '001', true),
 ('0010001', 'Cama para tomología', true, '004', true),
 ('0010011', 'Cama para atención general', true, '002', true);
+
+INSERT INTO Medicamento VALUES
+('0001', 'BETAMETASONA', 12450, 'Medicamento 1', true),
+('0002', 'CANESTEN', 10541.30, 'Medicamento 2', true),
+('0003', 'CLOBEXAN', 18940, 'Medicamento 3', true),
+('0004', 'CLOTRIMAZOL', 4535.15, 'Medicamento 4', false);
 
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';

@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import controlador.DriverCausa;
+import controlador.DriverMedicamento;
 import controlador.DriverPaciente;
 import dataAccesss.DaoPaciente;
 import excepciones.ExcepcionCamposVacios;
@@ -12,6 +14,7 @@ import excepciones.Validador;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,60 +31,32 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private DefaultTableModel modeloCausa;
     private Persona sesionActiva;
     private DriverPaciente paciente = new DriverPaciente();
-    Validador validar = new Validador();
+    private Validador validar = new Validador();
+    private DriverMedicamento medicamentos = new DriverMedicamento();
+    private ArrayList<Object[]> datosMedicina;
+    private ArrayList<String[]> datosCausas;
+    private DriverCausa causa = new DriverCausa();
     
     /**
      * Creates new form VentanaConsulta
      */
     public VentanaConsulta() {
         
-        initComponents();
-        
-        tablaMedicamentos.setModel(modeloMedicamento = new DefaultTableModel (new Object [][] {
+        modeloMedicamento = new DefaultTableModel (new Object [][] {
 
             },
             new String [] {
-                "ID medicamento", "Nombre", "Costo", "Cantidad"
-            })
-         {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                "ID medicamento", "Nombre", "Cantidad", "Costo"
+            });
         
-        tablaCausas.setModel(modeloCausa = new DefaultTableModel (new Object [][] {
+        modeloCausa = new DefaultTableModel (new Object [][] {
 
             },
             new String [] {
                 "ID causa", "Nombre"
-            })
-         {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+            });
+        
+        initComponents();
     
     }
     
@@ -89,6 +64,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
     public void setSesion (Persona sesion) {
         
         sesionActiva = sesion;
+        lbMedico.setText(sesionActiva.getNombre());
         
     }
 
@@ -114,20 +90,18 @@ public class VentanaConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lbMedico = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         campoIDHClinica = new javax.swing.JTextField();
-        campoValorConsulta = new javax.swing.JTextField();
         comboMedicamentos = new javax.swing.JComboBox();
         btAgregarMedicamento = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMedicamentos = new javax.swing.JTable();
+        tablaMedicamentos = new javax.swing.JTable(modeloMedicamento);
         campoCantidadMedica = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btEliminarMedica = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaCausas = new javax.swing.JTable();
+        tablaCausas = new javax.swing.JTable(modeloCausa);
         comboCausas = new javax.swing.JComboBox();
         btAgregarCausa = new javax.swing.JButton();
         btEliminarCausa = new javax.swing.JButton();
@@ -142,46 +116,24 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
         jLabel1.setText("Consulta Medica");
 
-        jLabel2.setText("Medico @");
-
-        lbMedico.setText("Medico");
+        jLabel2.setText("Medico");
 
         jLabel3.setText("Numero H.Clinica");
-
-        jLabel5.setText("Valor Consulta");
 
         jLabel6.setText("Medicamentos");
 
         jLabel7.setText("Causa");
 
-        campoValorConsulta.setEnabled(false);
-        campoValorConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoValorConsultaActionPerformed(evt);
-            }
-        });
-
         comboMedicamentos.setEnabled(false);
 
         btAgregarMedicamento.setText("Agregar");
         btAgregarMedicamento.setEnabled(false);
-
-        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Medicamento", "Nombre", "Costo", "Cantidad"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btAgregarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarMedicamentoActionPerformed(evt);
             }
         });
+
         jScrollPane1.setViewportView(tablaMedicamentos);
 
         campoCantidadMedica.setEnabled(false);
@@ -191,34 +143,28 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btEliminarMedica.setText("Eliminar");
         btEliminarMedica.setEnabled(false);
 
-        tablaCausas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Causa", "Nombre"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane2.setViewportView(tablaCausas);
 
         comboCausas.setEnabled(false);
 
         btAgregarCausa.setText("Agregar");
         btAgregarCausa.setEnabled(false);
+        btAgregarCausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarCausaActionPerformed(evt);
+            }
+        });
 
         btEliminarCausa.setText("Eliminar");
         btEliminarCausa.setEnabled(false);
 
         btGuardarConsulta.setText("Guardar");
         btGuardarConsulta.setEnabled(false);
+        btGuardarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarConsultaActionPerformed(evt);
+            }
+        });
 
         btSalir.setText("Salir");
         btSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,7 +198,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(lbMedico))
+                        .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel1)))
@@ -273,7 +219,6 @@ public class VentanaConsulta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel7))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,9 +235,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                                 .addGap(96, 96, 96)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(consultarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(campoValorConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -317,18 +260,14 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lbMedico))
+                    .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(consultarCita)
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoValorConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAgregarMedicamento)
@@ -372,10 +311,6 @@ public class VentanaConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoValorConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValorConsultaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoValorConsultaActionPerformed
-
     private void btNuevaCausaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNuevaCausaMouseClicked
        
         VentanaRegistroCausaMedica ventRegCausa =  new VentanaRegistroCausaMedica();
@@ -408,12 +343,11 @@ public class VentanaConsulta extends javax.swing.JFrame {
             
             activarCampos ();
             
-            consultarCita.setEnabled(false);
-            campoIDHClinica.setEditable(false);
-            
             if (asignado) {
                 
                 JOptionPane.showMessageDialog(this, "Cita encontrada", "Consulta exitosa", JOptionPane.INFORMATION_MESSAGE);
+                consultarCita.setEnabled(false);
+                campoIDHClinica.setEditable(false);
                 
             } else JOptionPane.showMessageDialog(this, "No hay citas para el día " + fecha + " para el paciente " +
                     numHistoria, "No hay citas", JOptionPane.INFORMATION_MESSAGE);
@@ -428,10 +362,52 @@ public class VentanaConsulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultarCitaActionPerformed
 
+    private void btAgregarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarMedicamentoActionPerformed
+        
+        try {
+            
+            int cantidad = Integer.parseInt(campoCantidadMedica.getText());
+            
+            Object[] medicamento_seleccionado = datosMedicina.get(comboMedicamentos.getSelectedIndex());
+            String id = medicamento_seleccionado[0].toString();
+            String nombre = medicamento_seleccionado[1].toString();
+            double precio = cantidad * Double.parseDouble(medicamento_seleccionado[2].toString());
+            
+            Object[] registrar = {id, nombre, cantidad, precio};
+            
+            modeloMedicamento.addRow(registrar);
+            
+            campoCantidadMedica.setText("");
+            
+        } catch (NumberFormatException ex) {
+            
+            JOptionPane.showMessageDialog(this, "Se requiere un dato numérico en cantidad", "Información requerida", 
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+    }//GEN-LAST:event_btAgregarMedicamentoActionPerformed
+
+    private void btAgregarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCausaActionPerformed
+        
+        modeloCausa.addRow(datosCausas.get(comboCausas.getSelectedIndex()));
+        
+    }//GEN-LAST:event_btAgregarCausaActionPerformed
+
+    private void btGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarConsultaActionPerformed
+        
+        if (tablaCausas.getRowCount() > 0) {
+            
+            
+        }
+        
+        else JOptionPane.showMessageDialog(this, "Se requiere al menos una causa motivo de la consulta", "Información requerida", 
+                    JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_btGuardarConsultaActionPerformed
+
     
     private void activarCampos () {
         
-        campoValorConsulta.setEnabled(true);
         campoCantidadMedica.setEnabled(true);
         comboMedicamentos.setEnabled(true);
         btAgregarMedicamento.setEnabled(true);
@@ -440,8 +416,52 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btAgregarCausa.setEnabled(true);
         btNuevaCausa.setEnabled(true);
         btGuardarConsulta.setEnabled(true);
+        comboCausas.setEnabled(true);
+        
+        cargarMedicamentos ();
+        cargarCausas();
     }
     
+    
+    public void cargarMedicamentos () {
+        
+        comboMedicamentos.removeAllItems();
+        
+        try {
+            
+            datosMedicina = medicamentos.consultarMedicamentos();
+            
+            for (Object[] dato : datosMedicina) {
+                
+                comboMedicamentos.addItem(dato[1]);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            
+        }
+    }
+    
+    public void cargarCausas () {
+        
+        comboCausas.removeAllItems();
+        
+        try {
+            
+            datosCausas = causa.consultarCausas();
+            
+            for (String [] dato : datosCausas) {
+                
+                comboCausas.addItem(dato[1]);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregarCausa;
@@ -453,14 +473,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private javax.swing.JButton btSalir;
     private javax.swing.JTextField campoCantidadMedica;
     private javax.swing.JTextField campoIDHClinica;
-    private javax.swing.JTextField campoValorConsulta;
     private javax.swing.JComboBox comboCausas;
     private javax.swing.JComboBox comboMedicamentos;
     private javax.swing.JButton consultarCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

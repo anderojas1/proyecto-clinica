@@ -6,6 +6,7 @@
 package dataAccesss;
 
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Medicamento;
 /**
  *
@@ -89,4 +90,25 @@ public class DaoMedicamento {
     }
     
     
+    public ArrayList<Object[]> consultarMedicamentosDisponibles () throws SQLException {
+        
+        sentenciaSql = "SELECT codigo, nombre, costo FROM Medicamento WHERE estado = true;";
+        ejecutarConsulta();
+        
+        ArrayList<Object[]> medicamentos = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String codigo = registros.getString(1);
+            String nombre = registros.getString(2);
+            double costo = registros.getDouble(3);
+            
+            Object[] datos = {codigo, nombre, costo};
+            
+            medicamentos.add(datos);
+            
+        }
+        
+        return medicamentos;
+    }
 }

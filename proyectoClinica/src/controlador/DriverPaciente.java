@@ -8,6 +8,7 @@ package controlador;
 import dataAccesss.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Paciente;
 import logica.Telefono;
 
@@ -50,6 +51,79 @@ public class DriverPaciente {
     public boolean consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
         
         return paciente.consultarCitasPaciente(id_paciente, id_medico, fecha);
+        
+    }
+    
+    public void AsignarCita(String id_medico, String id_paciente, String fecha){
+        
+        try{
+            paciente.AsignarCita(id_medico, id_paciente, fecha);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al asignar cita. Por favor intente nuevamente");
+        }
+    }
+    
+    public ArrayList<String> horas(){
+        ArrayList<String> horasF = new ArrayList();
+        horasF.add("08:00:00");
+        horasF.add("08:30:00");
+        horasF.add("09:00:00");
+        horasF.add("09:30:00");
+        horasF.add("10:00:00");
+        horasF.add("10:30:00");
+        horasF.add("11:00:00");
+        horasF.add("11:30:00");
+        horasF.add("12:00:00");
+        horasF.add("12:30:00");
+        horasF.add("01:00:00");
+        horasF.add("01:30:00");
+        horasF.add("02:00:00");
+        horasF.add("02:30:00");
+        horasF.add("03:00:00");
+        horasF.add("03:30:00");
+        return horasF;
+    }
+    
+    
+    public void consultarCitas(String fecha){
+        
+        ArrayList<String[]> medicos = new ArrayList();
+        ArrayList<String> fechasM = new ArrayList();
+        ArrayList<String[]> lista = new ArrayList();
+        ArrayList<String> horasDia = horas();
+        
+        
+         try{
+            medicos = paciente.ConsultarMedicoCita();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar medicos para la cita. Por favor intente nuevamente");
+        }
+         
+         if (medicos != null){
+             int tam = medicos.size();
+             
+             for(int i =0 ; i < tam; i++){
+                 
+                 String [] datos = medicos.get(i);
+                  try{
+                 fechasM = paciente.mostrarCitasFechas(datos[0], fecha);
+                 
+                 for(int j = 0; j < 16; j ++){
+                     if(fechasM.contains(horasDia.get(i))){
+                         
+                     }else{
+                         String [] datosLista = {datos[0], datos[1], horasDia.get(i)};
+                     }
+                 }
+                 
+                  }catch(SQLException e){
+                    JOptionPane.showMessageDialog(null, "Error al consultar fechas disponibles para los medicos. Por favor intente nuevamente");
+        }
+                 
+             }
+         }
         
     }
     

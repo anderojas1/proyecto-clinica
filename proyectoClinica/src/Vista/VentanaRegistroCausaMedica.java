@@ -5,6 +5,12 @@
  */
 package Vista;
 
+import controlador.DriverCausa;
+import excepciones.ExcepcionCamposVacios;
+import excepciones.Validador;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author julian
@@ -12,6 +18,7 @@ package Vista;
 public class VentanaRegistroCausaMedica extends javax.swing.JFrame {
 
     private VentanaConsulta ventConsul;
+    private DriverCausa causa = new DriverCausa();
     
     /**
      * Creates new form VentanaRegistroCausaMedica
@@ -65,6 +72,11 @@ public class VentanaRegistroCausaMedica extends javax.swing.JFrame {
         jScrollPane1.setViewportView(areaDescripCausa);
 
         btAgregar.setText("Agregar");
+        btAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("cancelar");
         btCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,6 +159,38 @@ public class VentanaRegistroCausaMedica extends javax.swing.JFrame {
         ventConsul.setVisible(true);
         dispose();
     }//GEN-LAST:event_btCancelarMouseClicked
+
+    private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
+        
+        String code = campoCodCausa.getText();
+        String nombre = campoNombreCausa.getText();
+        String descripcion = areaDescripCausa.getText();
+        
+        String [] datos = {code, nombre, descripcion};
+        
+        Validador validar = new Validador();
+        
+        try {
+            
+            validar.validarModulos(datos);
+            
+            causa.registrarCausa(code, nombre, descripcion);
+            
+            JOptionPane.showMessageDialog(this, "Se ha registrado la causa exitosamente", "Registro exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            ventConsul.cargarCausas();
+            ventConsul.setVisible(true);
+            
+            dispose();
+            
+        } catch (ExcepcionCamposVacios ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos", JOptionPane.ERROR_MESSAGE);
+            
+        } 
+        
+    }//GEN-LAST:event_btAgregarActionPerformed
 
     /**
      * @param args the command line arguments

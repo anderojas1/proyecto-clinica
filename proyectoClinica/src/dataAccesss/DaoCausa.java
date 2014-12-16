@@ -5,6 +5,7 @@
  */
 package dataAccesss;
 import java.sql.*;
+import java.util.ArrayList;
 import logica.Causa;
 
     
@@ -50,7 +51,7 @@ public class DaoCausa {
     public void registrarCausa (Causa causa) throws SQLException {
         
         sentenciaSql = "INSERT INTO Causa VALUES ('" + causa.getCodigo() + "','" + causa.getNombre() + "','"
-                + causa.getDescripcion()+ "'," + "true" + ");";
+                + causa.getDescripcion()+ "', true);";
         
         ejecutarUpdate();
         
@@ -87,5 +88,26 @@ public class DaoCausa {
         
         sentenciaSql = "UPDATE Causa SET nombre = '"+causa.getNombre()+"', descripcion = '"+causa.getDescripcion()+"' WHERE codigo = '"+causa.getCodigo()+"';";
         ejecutarUpdate();
+    }
+            
+    public ArrayList<String[]> consultarCausasRegistradas () throws SQLException {
+        
+        sentenciaSql = "SELECT codigo, nombre FROM Causa;";
+        ejecutarConsulta();
+        
+        ArrayList<String[]> causas = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String codigo = registros.getString(1);
+            String nombre = registros.getString(2);
+            
+            String[] datos = {codigo, nombre};
+            
+            causas.add(datos);
+            
+        }
+        
+        return causas;
     }
 }
