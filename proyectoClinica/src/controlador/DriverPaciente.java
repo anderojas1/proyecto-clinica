@@ -127,7 +127,6 @@ public class DriverPaciente {
                          
                      }else{
                          String [] datosLista = {datos[0], datos[1], horasDia.get(j)};
-                         System.out.println(datos[0]+" "+ datos[1]+" "+horasDia.get(j));
                          lista.add(datosLista);
                      }
                  }
@@ -143,6 +142,7 @@ public class DriverPaciente {
         
     }
     
+
     public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<Object[]>cod_medicamento, 
             String fecha_hora) throws SQLException {
         
@@ -157,5 +157,17 @@ public class DriverPaciente {
         
         historia.crearRegistroHistoriaClinica(id_medico, num_historia, causas, fecha_hora, valor);
     }
+
+     public String consultarPaciente(String identificacion){
+         String id="";
+         try{
+            id = paciente.consultarPaciente(identificacion);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al asignar cita. Por favor intente nuevamente");
+        }
+         return id;
+     }
+
     
 }

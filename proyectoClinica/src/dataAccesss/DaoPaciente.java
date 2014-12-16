@@ -171,16 +171,34 @@ public class DaoPaciente {
         return medicos;
     }
     
+
+    public String consultarPaciente(String identificacion)throws SQLException{
+        String paciente = "";
+        sentenciaSql = "SELECT identificacion FROM Paciente WHERE identificacion = '"+identificacion+"';";
+        
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+
+            paciente = registros.getString(1);
+        }
+        return paciente;
+    }
+        
+
     public ArrayList <String[]> listarPacientesIn(String id_campana) throws SQLException{
         
         ArrayList <String[]> pacientes = new ArrayList();
         
         sentenciaSql = "SELECT DISTINCT identificacion, nombres, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT id_paciente FROM Campana_paciente WHERE cod_campana = '" + id_campana + "');";
               
+
         ejecutarConsulta();
                
         while(registros.next()){
         
+
             String identificacion = registros.getString(1);
             String nombre = registros.getString(2);
             String apellidoUno = registros.getString(3);
