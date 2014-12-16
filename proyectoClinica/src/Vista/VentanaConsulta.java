@@ -433,6 +433,13 @@ public class VentanaConsulta extends javax.swing.JFrame {
         
         campoValorConsulta.setEnabled(true);
         campoCantidadMedica.setEnabled(true);
+        comboMedicamentos.setEnabled(true);
+        btAgregarMedicamento.setEnabled(true);
+        btEliminarCausa.setEnabled(true);
+        btEliminarMedica.setEnabled(true);
+        btAgregarCausa.setEnabled(true);
+        btNuevaCausa.setEnabled(true);
+        btGuardarConsulta.setEnabled(true);
     }
     
 
