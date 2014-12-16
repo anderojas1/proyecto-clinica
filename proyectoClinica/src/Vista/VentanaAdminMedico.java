@@ -183,11 +183,12 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                     .addComponent(btAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAdminCamp, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbAgenda)
-                    .addComponent(lbCrearCamp)
-                    .addComponent(lbAdminCamp)
-                    .addComponent(lbHistoriaClin))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbCrearCamp)
+                        .addComponent(lbAdminCamp)
+                        .addComponent(lbHistoriaClin)))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
 
@@ -227,10 +228,11 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
     private void btHistoriaClinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btHistoriaClinMouseClicked
       
         VentanaConsulta ventConsulta = new VentanaConsulta();
-        
-        ventConsulta.setVisible(true);
+                
         ventConsulta.setLocationRelativeTo(null);
+        ventConsulta.setSesion(sesion);
         ventConsulta.acomodarVentana(this);
+        ventConsulta.setVisible(true);
         
         dispose();
     }//GEN-LAST:event_btHistoriaClinMouseClicked

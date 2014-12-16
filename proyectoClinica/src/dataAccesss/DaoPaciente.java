@@ -108,4 +108,16 @@ public class DaoPaciente {
         return usuario;
     }*/
     
+    
+    public boolean consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
+        
+        sentenciaSql = "SELECT * FROM Agenda_cita WHERE id_medico = '" + id_medico + "' AND id_paciente = '" + id_paciente + "' "
+                + "AND estado = 'asignada' AND fecha_hora = '" + fecha + "';";
+        ejecutarConsulta();
+        
+        if (registros.next()) return true;
+        
+        return false;
+    }
+    
 }

@@ -6,6 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -125,11 +126,13 @@
                       <Component id="btAdminCamp" min="-2" pref="74" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbAgenda" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbCrearCamp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbAdminCamp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbHistoriaClin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbCrearCamp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbAdminCamp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbHistoriaClin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="102" max="32767" attributes="0"/>
               </Group>

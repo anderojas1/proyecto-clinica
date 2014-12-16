@@ -47,4 +47,10 @@ public class DriverPaciente {
     
     }
     
+    public boolean consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
+        
+        return paciente.consultarCitasPaciente(id_paciente, id_medico, fecha);
+        
+    }
+    
 }
