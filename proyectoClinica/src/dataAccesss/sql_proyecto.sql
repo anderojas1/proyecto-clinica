@@ -280,7 +280,7 @@ CREATE TABLE Registro(
 id_medico VARCHAR(30) NOT NULL,
 num_historia VARCHAR(25) NOT NULL,
 codigo_causa VARCHAR(30) NOT NULL,
-fecha_hora DATE NOT NULL,
+fecha_hora timestamp NOT NULL,
 valor  DOUBLE PRECISION NOT NULL,
 estado bool NOT NULL, 
 
@@ -316,7 +316,9 @@ INSERT INTO AccesoSistema (identificacion, perfil) VALUES
 ('1325228', 'Medico'),
 ('1224775', 'Medico'),
 ('1224612', 'Medico'),
-('1234567', 'Enfermera');
+('1234567', 'Enfermera'),
+('12345', 'Paciente'),
+('123', 'Paciente');
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 

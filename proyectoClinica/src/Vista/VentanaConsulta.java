@@ -36,6 +36,8 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private ArrayList<Object[]> datosMedicina;
     private ArrayList<String[]> datosCausas;
     private DriverCausa causa = new DriverCausa();
+    private String numHistoria;
+    private String fecha_hora;
     
     /**
      * Creates new form VentanaConsulta
@@ -109,6 +111,8 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btSalir = new javax.swing.JButton();
         btNuevaCausa = new javax.swing.JButton();
         consultarCita = new javax.swing.JButton();
+        comboHoras = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,21 +192,25 @@ public class VentanaConsulta extends javax.swing.JFrame {
             }
         });
 
+        comboHoras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30" }));
+
+        jLabel4.setText("Hora consulta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(415, 415, 415))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel1)))
-                .addGap(415, 415, 415))
+                        .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(396, 396, 396))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,11 +226,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                                 .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
@@ -232,10 +241,13 @@ public class VentanaConsulta extends javax.swing.JFrame {
                                 .addComponent(btAgregarMedicamento)
                                 .addGap(160, 160, 160))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(consultarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(67, 67, 67)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(comboHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(consultarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,9 +277,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(consultarCita)
-                .addGap(67, 67, 67)
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(consultarCita))
+                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAgregarMedicamento)
@@ -331,15 +346,18 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
     private void consultarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarCitaActionPerformed
         
-        String numHistoria = campoIDHClinica.getText();
+        numHistoria = campoIDHClinica.getText();
         
         try {
             
             validar.validarCampo(numHistoria);
             
             String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String horaConsulta = comboHoras.getSelectedItem().toString();
             
-            boolean asignado = paciente.consultarCitasPaciente(numHistoria, sesionActiva.getIdentificacion(), fecha);
+            fecha_hora = fecha + " " + horaConsulta;
+            
+            boolean asignado = paciente.consultarCitasPaciente(numHistoria, sesionActiva.getIdentificacion(), fecha_hora);
             
             activarCampos ();
             
@@ -388,15 +406,25 @@ public class VentanaConsulta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btAgregarMedicamentoActionPerformed
 
-    private void btAgregarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCausaActionPerformed
-        
-        modeloCausa.addRow(datosCausas.get(comboCausas.getSelectedIndex()));
-        
-    }//GEN-LAST:event_btAgregarCausaActionPerformed
-
     private void btGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarConsultaActionPerformed
         
         if (tablaCausas.getRowCount() > 0) {
+            
+            ArrayList<String> codigosMedicamento = new ArrayList<>();
+            
+            for (int i = 0; i < tablaMedicamentos.getRowCount(); i++) {
+                
+                codigosMedicamento.add(tablaMedicamentos.getValueAt(i, 0).toString());
+                
+            }
+            
+            ArrayList<String> codigosCausa = new ArrayList<>();
+            
+            for (int i = 0; i < tablaCausas.getRowCount(); i++) {
+                
+                codigosCausa.add(tablaCausas.getValueAt(i, 0).toString());
+                
+            }
             
             
         }
@@ -404,6 +432,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(this, "Se requiere al menos una causa motivo de la consulta", "Información requerida", 
                     JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btGuardarConsultaActionPerformed
+
+    private void btAgregarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCausaActionPerformed
+
+        modeloCausa.addRow(datosCausas.get(comboCausas.getSelectedIndex()));
+
+    }//GEN-LAST:event_btAgregarCausaActionPerformed
 
     
     private void activarCampos () {
@@ -474,11 +508,13 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField campoCantidadMedica;
     private javax.swing.JTextField campoIDHClinica;
     private javax.swing.JComboBox comboCausas;
+    private javax.swing.JComboBox comboHoras;
     private javax.swing.JComboBox comboMedicamentos;
     private javax.swing.JButton consultarCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
