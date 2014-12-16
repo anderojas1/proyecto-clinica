@@ -18,6 +18,10 @@ public class Medico extends Empleado{
     private String especialidad;
     private String universidad; 
     private String num_licencia;
+    
+    public Medico(){
+        
+    }
 
     public Medico(String doc_id, String tipo_id, String nombre, String apellido1, String apellido2, ArrayList<Telefono> num_telefonos, 
                 String direccion_residencia, boolean estado, String cod_area, String cargo_emp, String correo_e, double salario, 
