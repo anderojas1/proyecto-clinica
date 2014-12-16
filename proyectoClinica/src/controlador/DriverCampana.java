@@ -9,6 +9,7 @@ import dataAccesss.DaoCampana;
 import java.sql.SQLException;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
+import java.util.*;
 /**
  *
  * @author Mariano
@@ -67,5 +68,18 @@ public class DriverCampana {
         catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error al eliminar campaña. Por favor intente nuevamente");
         }
+    }
+    
+    public ArrayList<ArrayList<String>> listaCampanas(){
+        ArrayList<ArrayList<String>>campanas = new ArrayList<>();
+        
+        try{
+            campanas = daoCampana.listarCampanas();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar campañas. Por favor intente nuevamente");
+        }
+        
+        return campanas;
     }
 }
