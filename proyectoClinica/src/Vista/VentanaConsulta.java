@@ -367,8 +367,8 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 consultarCita.setEnabled(false);
                 campoIDHClinica.setEditable(false);
                 
-            } else JOptionPane.showMessageDialog(this, "No hay citas para el día " + fecha + " para el paciente " +
-                    numHistoria, "No hay citas", JOptionPane.INFORMATION_MESSAGE);
+            } else JOptionPane.showMessageDialog(this, "No hay citas para el " + fecha + " a las "+ horaConsulta + " para el paciente " 
+                    +  numHistoria, "No hay citas registradas", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (ExcepcionCamposVacios ex) {
             
@@ -411,6 +411,9 @@ public class VentanaConsulta extends javax.swing.JFrame {
         try {
             
             if (tablaCausas.getRowCount() > 0) {
+                
+                double valorCita = 20000;
+                double valorTotal = 0;
 
                 ArrayList<Object[]> codigosMedicamento = new ArrayList<>();
 
@@ -425,6 +428,8 @@ public class VentanaConsulta extends javax.swing.JFrame {
                     };
 
                     codigosMedicamento.add(infoMedicamento);
+                    
+                    valorTotal += Double.parseDouble(tablaMedicamentos.getValueAt(i, 3).toString());
 
                 }
 
@@ -438,6 +443,18 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
                 paciente.registrarFormulaMedicaPaciente(sesionActiva.getIdentificacion(), numHistoria, codigosMedicamento, 
                         fecha_hora);
+                
+                paciente.guardarRegistro(sesionActiva.getIdentificacion(), numHistoria, codigosCausa, fecha_hora, 
+                        valorTotal + valorCita);
+                
+                
+                
+                JOptionPane.showMessageDialog(this, "El paciente ha sido atendido\n"
+                        + "Valor de la consulta: 20000\n"
+                        + "Valor de los medicamentos: " + valorTotal +"\n"
+                        + "Valor total: " + (valorCita + valorTotal), "Consulta asistida", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                
 
             } else {
                 JOptionPane.showMessageDialog(this, "Se requiere al menos una causa motivo de la consulta", "Información requerida",
@@ -445,6 +462,9 @@ public class VentanaConsulta extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
+            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error al procesar la información",
+                        JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btGuardarConsultaActionPerformed

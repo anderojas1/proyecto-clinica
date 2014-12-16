@@ -150,4 +150,12 @@ public class DriverPaciente {
         
     }
     
+    
+    
+    public void guardarRegistro (String id_medico, String num_historia, ArrayList<String>causas, String fecha_hora,
+            double valor) throws SQLException {
+        
+        historia.crearRegistroHistoriaClinica(id_medico, num_historia, causas, fecha_hora, valor);
+    }
+    
 }

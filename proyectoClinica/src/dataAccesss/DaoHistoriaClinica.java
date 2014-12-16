@@ -60,4 +60,27 @@ public class DaoHistoriaClinica {
         ejecutarUpdate();
         
     }
+    
+    public void crearRegistroHistoriaClinica (String id_medico, String num_historia, ArrayList<String>causas, String fecha_hora,
+            double valor) throws SQLException {
+        
+        String codigosCausa = "";
+        
+        for (String codigo : causas) {
+            
+            codigosCausa += "('" + id_medico + "', '" + num_historia + "', '" + codigo + "', '" + fecha_hora + "', " + valor + ", true),";
+            
+        }
+        
+        codigosCausa = codigosCausa.substring(0, codigosCausa.length() - 1);
+        
+        if (!codigosCausa.isEmpty()) {         
+            
+            sentenciaSql = "INSERT INTO Registro VALUES " + codigosCausa + ";";
+            
+            System.err.println(sentenciaSql);
+            ejecutarUpdate();
+            
+        }
+    }
 }

@@ -257,7 +257,7 @@ CREATE TABLE Formula_Medica(
 id_medico VARCHAR(30) NOT NULL,
 id_paciente VARCHAR(30) NOT NULL,
 codigo_medicamento  VARCHAR(15) NOT NULL,
-fecha_hora DATE NOT NULL,
+fecha_hora timestamp NOT NULL,
 cantidad_medicamento INTEGER NOT NULL,
 
 CONSTRAINT formula_medica_pk PRIMARY KEY (id_medico, id_paciente,codigo_medicamento, fecha_hora),
@@ -362,6 +362,13 @@ INSERT INTO Medicamento VALUES
 ('0002', 'CANESTEN', 10541.30, 'Medicamento 2', true),
 ('0003', 'CLOBEXAN', 18940, 'Medicamento 3', true),
 ('0004', 'CLOTRIMAZOL', 4535.15, 'Medicamento 4', false);
+
+INSERT INTO Historia_c VALUES
+('2010-05-22', '12345'),
+('2005-01-25', '123');
+
+INSERT INTO Agenda_cita VALUES
+('1224775', '123', '2014-12-16 14:00', 'asignada');
 
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
