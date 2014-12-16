@@ -408,29 +408,45 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
     private void btGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarConsultaActionPerformed
         
-        if (tablaCausas.getRowCount() > 0) {
+        try {
             
-            ArrayList<String> codigosMedicamento = new ArrayList<>();
-            
-            for (int i = 0; i < tablaMedicamentos.getRowCount(); i++) {
-                
-                codigosMedicamento.add(tablaMedicamentos.getValueAt(i, 0).toString());
-                
+            if (tablaCausas.getRowCount() > 0) {
+
+                ArrayList<Object[]> codigosMedicamento = new ArrayList<>();
+
+                for (int i = 0; i < tablaMedicamentos.getRowCount(); i++) {
+
+                    int cant = Integer.parseInt(tablaMedicamentos.getValueAt(i, 2).toString());
+
+                    Object[] infoMedicamento = {
+                        tablaMedicamentos.getValueAt(i, 0).toString(),
+                        cant
+
+                    };
+
+                    codigosMedicamento.add(infoMedicamento);
+
+                }
+
+                ArrayList<String> codigosCausa = new ArrayList<>();
+
+                for (int i = 0; i < tablaCausas.getRowCount(); i++) {
+
+                    codigosCausa.add(tablaCausas.getValueAt(i, 0).toString());
+
+                }
+
+                paciente.registrarFormulaMedicaPaciente(sesionActiva.getIdentificacion(), numHistoria, codigosMedicamento, 
+                        fecha_hora);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Se requiere al menos una causa motivo de la consulta", "Información requerida",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            
-            ArrayList<String> codigosCausa = new ArrayList<>();
-            
-            for (int i = 0; i < tablaCausas.getRowCount(); i++) {
-                
-                codigosCausa.add(tablaCausas.getValueAt(i, 0).toString());
-                
-            }
-            
-            
+
+        } catch (SQLException ex) {
+
         }
-        
-        else JOptionPane.showMessageDialog(this, "Se requiere al menos una causa motivo de la consulta", "Información requerida", 
-                    JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btGuardarConsultaActionPerformed
 
     private void btAgregarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCausaActionPerformed

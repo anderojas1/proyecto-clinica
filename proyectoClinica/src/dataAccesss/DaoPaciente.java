@@ -204,15 +204,15 @@ public class DaoPaciente {
          }
      }*/
     
-    public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<String>cod_medicamento, 
-            String fecha_hora, int cantidadMedicamento) throws SQLException {
+    public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<Object[]>cod_medicamento, 
+            String fecha_hora) throws SQLException {
         
         String codigosMedicamento = "";
         
-        for (String codigo : cod_medicamento) {
+        for (Object[] codigo : cod_medicamento) {
             
-            codigosMedicamento += "('" + id_medico + "', '" + id_paciente + "', '" + codigo + "', '" + 
-                    fecha_hora + "', " + cantidadMedicamento + "),";
+            codigosMedicamento += "('" + id_medico + "', '" + id_paciente + "', '" + codigo[0].toString() + "', '" + 
+                    fecha_hora + "', " + codigo[1] + "),";
             
         }
         
@@ -220,8 +220,7 @@ public class DaoPaciente {
         
         if (!codigosMedicamento.isEmpty()) {         
             
-            sentenciaSql = "INSERT INTO Formula_Medica VALUES ('" + id_medico + "', '" + id_paciente + "', '" + cod_medicamento
-                + "', '" + fecha_hora + "', " + cantidadMedicamento + ");";
+            sentenciaSql = "INSERT INTO Formula_Medica VALUES " + codigosMedicamento + ";";
             ejecutarUpdate();
         }
         

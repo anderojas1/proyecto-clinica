@@ -143,4 +143,11 @@ public class DriverPaciente {
         
     }
     
+    public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<Object[]>cod_medicamento, 
+            String fecha_hora) throws SQLException {
+        
+        paciente.registrarFormulaMedicaPaciente(id_medico, id_paciente, cod_medicamento, fecha_hora);
+        
+    }
+    
 }
