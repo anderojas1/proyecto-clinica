@@ -304,6 +304,8 @@ on update cascade on delete no action
 INSERT INTO Persona VALUES 
 ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true),
 ('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('12345', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 ('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'La Huaca', true),
 ('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'Callejón', true),
 ('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'Callejón 666', true);

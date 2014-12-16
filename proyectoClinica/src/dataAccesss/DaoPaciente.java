@@ -61,12 +61,14 @@ public class DaoPaciente {
         
     }
     
+        
     public ArrayList <String[]> listarPacientes() throws SQLException{
         
         ArrayList <String[]> pacientes = new ArrayList();
         
-        sentenciaSql = "SELECT DISTINCT identificacion, nombres, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT identificacion FROM Paciente);";
-              
+        sentenciaSql = "SELECT DISTINCT identificacion, nombres, apellido_uno, apellido_dos  FROM Persona WHERE identificacion IN (SELECT identificacion FROM Paciente) AND identificacion not in (select identificacion from paciente inner join cama_paciente on paciente.identificacion = cama_paciente.id_paciente);";
+        
+        //sentenciaSql = "select identificacion, nombres, apellido_uno, apellido_dos from paciente where identificacion not in (select identificacion from paciente inner join cama_paciente on paciente.identificacion = cama_paciente.id_paciente);";
         ejecutarConsulta();
                
         while(registros.next()){

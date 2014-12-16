@@ -288,6 +288,8 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     
     public void registrarCamaPaciente() throws SQLException{
     
+        
+        
         String fSelec = "";
         
      try{
@@ -315,6 +317,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
               
                daoCama.cambiarEstadoCama(camilla, false);
                
+               
                       
            }else{
            
@@ -331,6 +334,8 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
            
         }
     
+     
+     
     }
     
     
@@ -340,16 +345,31 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btCancelarMouseClicked
 
+    
+    public void limpiarTabla(){
+    
+       // int numFilas = tablaPacientes.getRowCount();
+        //for(int i = 0; i< numFilas-1; i++){
+        
+            modeloTabla.removeRow(0);
+            modeloTabla.removeRow(1);
+        //}
+    }
+  
+    
+    
     private void btAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarMouseClicked
         
        
         try {
         
-            registrarCamaPaciente();
-            
+                   
            comboCamas.removeAllItems();
-            
+           limpiarTabla();
+                             
+           
            cargarCamas();
+           cargarPacientes();
        
                 
             
