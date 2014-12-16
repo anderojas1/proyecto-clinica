@@ -60,5 +60,12 @@ public class DaoCamaPaciente {
         ejecutarUpdate();
     
     }
+    
+    public void liberarCama(String idCama) throws SQLException{
+        
+        sentenciaSql = "DELETE FROM cama_paciente WHERE numero_cama = '"+idCama+"';";
+        ejecutarUpdate();
+    
+    }
 }
 
