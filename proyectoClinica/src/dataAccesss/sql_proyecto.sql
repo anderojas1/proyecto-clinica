@@ -291,7 +291,7 @@ REFERENCES Persona (identificacion)
 on update cascade on delete no action,
 
 CONSTRAINT num_historia_fk FOREIGN KEY (num_historia)
-REFERENCES Historia_c (numero)
+REFERENCES Historia_c (identificacion)
 on update cascade on delete no action,
 
 CONSTRAINT codigo_causa_fk FOREIGN KEY (codigo_causa)
