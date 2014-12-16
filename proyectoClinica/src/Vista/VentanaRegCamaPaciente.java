@@ -40,6 +40,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         initComponents();
         driverCama = new DriverCama();
         driverPaciente = new DriverPaciente();
+        driveCamaPaciente =  new DriverCamaPaciente();
         
         tablaPacientes.setModel(modeloTabla = new DefaultTableModel(
             new Object [][] {
@@ -262,8 +263,8 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         
         for(int i = 0; i < pacientes.size(); i++){
         
-            String documento = pacientes.get(i)[i];
-            String nombre = pacientes.get(i)[i+1];
+            String documento = pacientes.get(i)[0];
+            String nombre = pacientes.get(i)[1];
             
             
             modeloTabla.addRow(new Object[]{documento,nombre});
@@ -274,25 +275,42 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     }
     
     
-    public void registrarCamaPaciente(){
+    public void registrarCamaPaciente() throws SQLException{
     
+        String fSelec = "";
+        
      try{
 
              String formato = campoFecha.getDateFormatString();
              Date date = campoFecha.getDate();
              SimpleDateFormat sdf = new SimpleDateFormat(formato);
-           //fnacim = String.valueOf(sdf.format(date));
-           // JOptionPane.showMessageDialog(null, String.valueOf(sdf.format(date)));
+             fSelec = String.valueOf(sdf.format(date));
+           //JOptionPane.showMessageDialog(null, fnacim);
              
              
-             JOptionPane.showMessageDialog(null,(String)tablaPacientes.getValueAt(0, 0));
+            // JOptionPane.showMessageDialog(null,(String)comboCamas.getSelectedItem()+
+              //                                     (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0)+
+                //                                   fSelec);
              
+            
+           if((String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0) != null){  
            driveCamaPaciente.registrarCamaPaciente((String)comboCamas.getSelectedItem(),
                                                    (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0),
-                                                   String.valueOf(sdf.format(date)));
+                                                                                     fSelec);
         
+           }else{
+           
+               JOptionPane.showMessageDialog(null, "Seleccione un paciente");
+           }
+           
+        }catch(SQLException esq){
+          
+            JOptionPane.showMessageDialog(null, "Error al guardar");
+            
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Debe escoger una fecha");
+        
+           // JOptionPane.showMessageDialog(null, "Debe escoger una fecha");
+           
         }
     
     }
@@ -307,7 +325,18 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private void btAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarMouseClicked
         
        
-       registrarCamaPaciente();
+        try {
+        
+            registrarCamaPaciente();
+       
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Se jodio la cosa en la ventana al agregar");
+        } catch(NullPointerException e){
+        
+            JOptionPane.showMessageDialog(null, "algo esTA nulo");
+        
+        }
+       
        
     }//GEN-LAST:event_btAsignarMouseClicked
 

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,8 +54,9 @@ public class DaoCamaPaciente {
 
     public void registrarCamaPaciente(String idCama, String fecha, String idPaciente) throws SQLException{
     
-        sentenciaSql = "INSERT INTO cama_paciente (numero_cama, id_paciente, f_asignacion) VALUES ('"+ idCama +"','"+idPaciente+"','"+fecha +"');";
-        
+        sentenciaSql = "INSERT INTO cama_paciente (numero_cama, f_asignacion, id_paciente ) VALUES ('"+ idCama +"','"+idPaciente+"','"+fecha +"');";
+       
+        JOptionPane.showMessageDialog(null, "Registro Exitoso");
         ejecutarUpdate();
     
     }
