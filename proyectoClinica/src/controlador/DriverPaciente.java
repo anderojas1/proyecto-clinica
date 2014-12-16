@@ -169,5 +169,9 @@ public class DriverPaciente {
          return id;
      }
 
-    
+    public void asistirCita (String id_paciente, String id_medico, String fecha_hora) throws SQLException {
+        
+        paciente.asistirCita(id_paciente, id_medico, fecha_hora);
+        
+    }
 }
