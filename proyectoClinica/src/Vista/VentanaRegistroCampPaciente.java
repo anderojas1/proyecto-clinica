@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import controlador.DriverCampanaPaciente;
+import java.text.ParseException;
+
 
 /**
  *
@@ -21,28 +24,71 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
     private VentanaAdminMedico ventAdminMed;
     private DriverCampana driverCampana = new DriverCampana();
     private ArrayList<ArrayList<String>>campanas = driverCampana.listaCampanas();
-    private DriverPaciente driverPaciente;
-    private ArrayList <String[]> pacientes = new ArrayList();
-    
+    private DriverPaciente driverPaciente = new DriverPaciente();
+    private ArrayList <String[]> pacientes = new ArrayList <>();
+    private ArrayList <String[]> pacientesIn = new ArrayList <>();
+    private DriverCampanaPaciente driverCampanaPaciente = new DriverCampanaPaciente();
     /**
      * Creates new form VentanaRegistroCampPaciente
      */
     public VentanaRegistroCampPaciente() throws SQLException {
         initComponents();
         
-        pacientes = driverPaciente.listarPacientes();
+        
         
         int size1=campanas.size();
         for(int i=0;i<size1;i++){
             comboCampanas.addItem(campanas.get(i).get(1));
         }
-        DefaultTableModel model = (DefaultTableModel) tablaPacienteDisp.getModel();
-        int size2=pacientes.size();
-        for(int j=0;j<size2;j++){
-            model.addRow(new Object[]{pacientes.get(j)[0], pacientes.get(j)[1] + " " + pacientes.get(j)[2] + " " + pacientes.get(j)[3]});
+        
+        cargarPacientes(campanas.get(0).get(0));
+    }
+    
+    public void cargarPacientes(String id_campana) throws SQLException{
+
+        pacientes = driverPaciente.listarPacientes();
+        pacientesIn = driverPaciente.listarPacientesIn(id_campana);
+        
+        int size = pacientes.size();
+        
+        for(int i=0;i<size;i++){
+            for(int j=0;j<pacientesIn.size();j++){
+                if(pacientesIn.get(j)[0].equals(pacientes.get(i)[0])){
+                    pacientes.remove(i);
+                    size--;
+                }
+            }
         }
         
+        DefaultTableModel model1 = (DefaultTableModel) tablaPacienteDisp.getModel();
+        int size1=pacientes.size();
+                        
+        while(model1.getRowCount()>0){model1.removeRow(0);}
+        for(int j=0;j<size1;j++){
+            model1.addRow(new Object[]{pacientes.get(j)[0], pacientes.get(j)[1] + " " + pacientes.get(j)[2] + " " + pacientes.get(j)[3]});
+        }
+        DefaultTableModel model2 = (DefaultTableModel) tablaPacienteAgregados.getModel();
+        int size2=pacientesIn.size();
+        while(model2.getRowCount()>0){model2.removeRow(0);}
+        for(int j=0;j<size2;j++){
+            model2.addRow(new Object[]{pacientesIn.get(j)[0], pacientesIn.get(j)[1] + " " + pacientesIn.get(j)[2] + " " + pacientesIn.get(j)[3]});
+        }
+    }
+    
+    public void accionAgregar () throws ParseException, SQLException{
+        String id_paciente = pacientes.get(tablaPacienteDisp.getSelectedRow())[0];
+        String id_campana = campanas.get(comboCampanas.getSelectedIndex()).get(0);
         
+        driverCampanaPaciente.registrarCampanaPaciente(id_campana, id_paciente);
+        cargarPacientes(campanas.get(comboCampanas.getSelectedIndex()).get(0));
+    }
+    
+    public void accionEliminar () throws ParseException, SQLException{
+        String id_paciente = pacientesIn.get(tablaPacienteAgregados.getSelectedRow())[0];
+        String id_campana = campanas.get(comboCampanas.getSelectedIndex()).get(0);
+        
+        driverCampanaPaciente.eliminarCampanaPaciente(id_campana, id_paciente);
+        cargarPacientes(campanas.get(comboCampanas.getSelectedIndex()).get(0));
     }
 
     /**
@@ -90,6 +136,11 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
                 comboCampanasActionPerformed(evt);
             }
         });
+        comboCampanas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                comboCampanasPropertyChange(evt);
+            }
+        });
 
         jLabel4.setText("Pacientes Agregados");
 
@@ -123,8 +174,18 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaPacienteDisp);
 
         btAgregarPaciente.setText("Agregar");
+        btAgregarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarPacienteActionPerformed(evt);
+            }
+        });
 
         btEliminarPaciente.setText("Eliminar");
+        btEliminarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarPacienteActionPerformed(evt);
+            }
+        });
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,8 +313,36 @@ public class VentanaRegistroCampPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtrasMouseClicked
 
     private void comboCampanasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCampanasActionPerformed
-        // TODO add your handling code here:
+        try {
+            cargarPacientes(campanas.get(comboCampanas.getSelectedIndex()).get(0));
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_comboCampanasActionPerformed
+
+    private void btAgregarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarPacienteActionPerformed
+        try {
+            accionAgregar();
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btAgregarPacienteActionPerformed
+
+    private void btEliminarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarPacienteActionPerformed
+        try {
+            accionEliminar();
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaRegistroCampPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btEliminarPacienteActionPerformed
+
+    private void comboCampanasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboCampanasPropertyChange
+
+    }//GEN-LAST:event_comboCampanasPropertyChange
 
     /**
      * @param args the command line arguments
