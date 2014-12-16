@@ -341,6 +341,23 @@ INSERT INTO Medico VALUES
 ('1224775', 'Huaquear', 'Universidad del Valle', '1000110'),
 ('1224612', 'Atención al adulto mayor', 'Universidad del Valle', '1010100');
 
+<<<<<<< HEAD
+=======
+INSERT INTO Enfermera VALUES
+('1234567', 3);
+
+INSERT INTO Cama VALUES
+('0000001', 'Cama de uso general', true, '001', true),
+('0010001', 'Cama para tomología', true, '004', true),
+('0010011', 'Cama para atención general', true, '002', true);
+
+INSERT INTO Medicamento VALUES
+('0001', 'BETAMETASONA', 12450, 'Medicamento 1', true),
+('0002', 'CANESTEN', 10541.30, 'Medicamento 2', true),
+('0003', 'CLOBEXAN', 18940, 'Medicamento 3', true),
+('0004', 'CLOTRIMAZOL', 4535.15, 'Medicamento 4', false);
+
+>>>>>>> 5eeedb7910fb26621163a9b73521ce740e25f5ed
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
 UPDATE AccesoSistema SET pass = '1224612' WHERE identificacion = '1224612';

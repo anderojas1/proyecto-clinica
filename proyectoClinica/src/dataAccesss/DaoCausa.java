@@ -50,7 +50,7 @@ public class DaoCausa {
     public void registrarCausa (Causa causa) throws SQLException {
         
         sentenciaSql = "INSERT INTO Causa VALUES ('" + causa.getCodigo() + "','" + causa.getNombre() + "','"
-                + causa.getDescripcion()+ "'," + "true" + ");";
+                + causa.getDescripcion()+ "', true);";
         
         ejecutarUpdate();
         

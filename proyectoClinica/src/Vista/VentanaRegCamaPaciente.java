@@ -8,6 +8,7 @@ package Vista;
 import controlador.DriverCama;
 import controlador.DriverCamaPaciente;
 import controlador.DriverPaciente;
+import dataAccesss.DaoCama;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -232,19 +233,28 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
 
     private void btVerCamasDisponiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVerCamasDisponiblesMouseClicked
        
-        VentaListadoCamas ventListCamas = new VentaListadoCamas();
-        
-        ventListCamas.setVisible(true);
+        VentaListadoCamas ventListCamas;
+        try {
+            ventListCamas = new VentaListadoCamas();
+            ventListCamas.setVisible(true);
         ventListCamas.setLocationRelativeTo(null);
         ventListCamas.acomodarVentana(this);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaRegCamaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_btVerCamasDisponiblesMouseClicked
 
     public void cargarCamas() throws SQLException{
     
         ArrayList <Cama> camas = new ArrayList();
         
+       
+        
         camas = driverCama.listarCamasLibres();
        
+         JOptionPane.showMessageDialog(null, camas.size());
         for(int i = 0; i < camas.size(); i++){
             
             comboCamas.addItem(camas.get(i).getNumeroInventario());        
@@ -261,6 +271,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         
         pacientes = driverPaciente.listarPacientes();
         
+                
         for(int i = 0; i < pacientes.size(); i++){
         
             String documento = pacientes.get(i)[0];
@@ -294,10 +305,17 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
              
             
            if((String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0) != null){  
-           driveCamaPaciente.registrarCamaPaciente((String)comboCamas.getSelectedItem(),
+          
+               driveCamaPaciente.registrarCamaPaciente((String)comboCamas.getSelectedItem(),
                                                    (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0),
                                                                                      fSelec);
-        
+               DaoCama daoCama = new DaoCama();
+               
+               Cama camilla = daoCama.buscarCama((String)comboCamas.getSelectedItem());
+              
+               daoCama.cambiarEstadoCama(camilla, false);
+               
+                      
            }else{
            
                JOptionPane.showMessageDialog(null, "Seleccione un paciente");
@@ -328,7 +346,13 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
         try {
         
             registrarCamaPaciente();
+            
+           comboCamas.removeAllItems();
+            
+           cargarCamas();
        
+                
+            
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Se jodio la cosa en la ventana al agregar");
         } catch(NullPointerException e){

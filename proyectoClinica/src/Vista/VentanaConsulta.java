@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import controlador.DriverMedicamento;
 import controlador.DriverPaciente;
 import dataAccesss.DaoPaciente;
 import excepciones.ExcepcionCamposVacios;
@@ -12,6 +13,7 @@ import excepciones.Validador;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,60 +30,30 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private DefaultTableModel modeloCausa;
     private Persona sesionActiva;
     private DriverPaciente paciente = new DriverPaciente();
-    Validador validar = new Validador();
+    private Validador validar = new Validador();
+    private DriverMedicamento medicamentos = new DriverMedicamento();
+    ArrayList<Object[]> datosMedicina;
     
     /**
      * Creates new form VentanaConsulta
      */
     public VentanaConsulta() {
         
-        initComponents();
-        
-        tablaMedicamentos.setModel(modeloMedicamento = new DefaultTableModel (new Object [][] {
+        modeloMedicamento = new DefaultTableModel (new Object [][] {
 
             },
             new String [] {
-                "ID medicamento", "Nombre", "Costo", "Cantidad"
-            })
-         {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                "ID medicamento", "Nombre", "Cantidad", "Costo"
+            });
         
-        tablaCausas.setModel(modeloCausa = new DefaultTableModel (new Object [][] {
+        modeloCausa = new DefaultTableModel (new Object [][] {
 
             },
             new String [] {
                 "ID causa", "Nombre"
-            })
-         {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+            });
+        
+        initComponents();
     
     }
     
@@ -89,6 +61,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
     public void setSesion (Persona sesion) {
         
         sesionActiva = sesion;
+        lbMedico.setText(sesionActiva.getNombre());
         
     }
 
@@ -122,12 +95,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
         comboMedicamentos = new javax.swing.JComboBox();
         btAgregarMedicamento = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMedicamentos = new javax.swing.JTable();
+        tablaMedicamentos = new javax.swing.JTable(modeloMedicamento);
         campoCantidadMedica = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btEliminarMedica = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaCausas = new javax.swing.JTable();
+        tablaCausas = new javax.swing.JTable(modeloCausa);
         comboCausas = new javax.swing.JComboBox();
         btAgregarCausa = new javax.swing.JButton();
         btEliminarCausa = new javax.swing.JButton();
@@ -142,9 +115,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
         jLabel1.setText("Consulta Medica");
 
-        jLabel2.setText("Medico @");
-
-        lbMedico.setText("Medico");
+        jLabel2.setText("Medico");
 
         jLabel3.setText("Numero H.Clinica");
 
@@ -165,23 +136,12 @@ public class VentanaConsulta extends javax.swing.JFrame {
 
         btAgregarMedicamento.setText("Agregar");
         btAgregarMedicamento.setEnabled(false);
-
-        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Medicamento", "Nombre", "Costo", "Cantidad"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btAgregarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarMedicamentoActionPerformed(evt);
             }
         });
+
         jScrollPane1.setViewportView(tablaMedicamentos);
 
         campoCantidadMedica.setEnabled(false);
@@ -191,22 +151,6 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btEliminarMedica.setText("Eliminar");
         btEliminarMedica.setEnabled(false);
 
-        tablaCausas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Causa", "Nombre"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane2.setViewportView(tablaCausas);
 
         comboCausas.setEnabled(false);
@@ -252,7 +196,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(lbMedico))
+                        .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel1)))
@@ -317,7 +261,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lbMedico))
+                    .addComponent(lbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,12 +352,11 @@ public class VentanaConsulta extends javax.swing.JFrame {
             
             activarCampos ();
             
-            consultarCita.setEnabled(false);
-            campoIDHClinica.setEditable(false);
-            
             if (asignado) {
                 
                 JOptionPane.showMessageDialog(this, "Cita encontrada", "Consulta exitosa", JOptionPane.INFORMATION_MESSAGE);
+                consultarCita.setEnabled(false);
+                campoIDHClinica.setEditable(false);
                 
             } else JOptionPane.showMessageDialog(this, "No hay citas para el día " + fecha + " para el paciente " +
                     numHistoria, "No hay citas", JOptionPane.INFORMATION_MESSAGE);
@@ -428,6 +371,32 @@ public class VentanaConsulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultarCitaActionPerformed
 
+    private void btAgregarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarMedicamentoActionPerformed
+        
+        try {
+            
+            int cantidad = Integer.parseInt(campoCantidadMedica.getText());
+            
+            Object[] medicamento_seleccionado = datosMedicina.get(comboMedicamentos.getSelectedIndex());
+            String id = medicamento_seleccionado[0].toString();
+            String nombre = medicamento_seleccionado[1].toString();
+            double precio = cantidad * Double.parseDouble(medicamento_seleccionado[2].toString());
+            
+            Object[] registrar = {id, nombre, cantidad, precio};
+            
+            modeloMedicamento.addRow(registrar);
+            
+            campoCantidadMedica.setText("");
+            
+        } catch (NumberFormatException ex) {
+            
+            JOptionPane.showMessageDialog(this, "Se requiere un dato numérico en cantidad", "Información requerida", 
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+    }//GEN-LAST:event_btAgregarMedicamentoActionPerformed
+
     
     private void activarCampos () {
         
@@ -440,8 +409,31 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btAgregarCausa.setEnabled(true);
         btNuevaCausa.setEnabled(true);
         btGuardarConsulta.setEnabled(true);
+        comboCausas.setEnabled(true);
+        
+        cargarMedicamentos ();
     }
     
+    
+    private void cargarMedicamentos () {
+        
+        comboMedicamentos.removeAllItems();
+        
+        try {
+            
+            datosMedicina = medicamentos.consultarMedicamentos();
+            
+            for (Object[] dato : datosMedicina) {
+                
+                comboMedicamentos.addItem(dato[1]);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregarCausa;
