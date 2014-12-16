@@ -5,6 +5,16 @@
  */
 package Vista;
 
+import dataAccesss.DaoAgendaMedico;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author julian
@@ -12,12 +22,43 @@ package Vista;
 public class VentanaAgendaMedico extends javax.swing.JFrame {
 
     
-    VentanaAdminMedico ventAdminMed;
+    private VentanaAdminMedico ventAdminMed;
+    private DefaultTableModel modelotabla;
+    private DaoAgendaMedico daoAgendaMedico;
+    
     /**
      * Creates new form VentanaAgendaMedico
      */
     public VentanaAgendaMedico() {
+       
         initComponents();
+        
+        daoAgendaMedico = new DaoAgendaMedico();
+        
+        tablaAgenda.setModel(modelotabla = new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Paciente", "Nombre Paciente", "Fecha - Hora", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaAgenda);
+
+        btAtras.setText("Atras");
+        btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAtrasMouseClicked(evt);
+            }
+        });
     }
 
     /**
@@ -43,7 +84,7 @@ public class VentanaAgendaMedico extends javax.swing.JFrame {
         campoFecha = new com.toedter.calendar.JDateChooser();
         btVerAgenda = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaAgenda = new javax.swing.JTable();
         btAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,32 +97,29 @@ public class VentanaAgendaMedico extends javax.swing.JFrame {
         jLabel2.setText("Fecha");
 
         btVerAgenda.setText("Ver");
+        btVerAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btVerAgendaMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID Paciente", "Nombre Paciente", "Hora", "Estado"
+                "ID Paciente", "Nombre Paciente", "Fecha - Hora", "Estado"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaAgenda);
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,6 +193,54 @@ public class VentanaAgendaMedico extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btAtrasMouseClicked
 
+    private void btVerAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVerAgendaMouseClicked
+      
+        limpiarTabla();
+        
+        ArrayList <String []> citas;
+        
+        String fSelec="";
+        
+        String formato = campoFecha.getDateFormatString();
+        Date date = campoFecha.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat(formato);
+        fSelec = String.valueOf(sdf.format(date));
+        
+        try {
+           
+            citas = daoAgendaMedico.consultarAgenda(fSelec);
+            
+            for(int i = 0; i < citas.size(); i++){
+                
+                String idPac = citas.get(i)[0];
+                String nombre = citas.get(i)[1];
+                String fecha = citas.get(i)[2];
+                String estado = citas.get(i)[3];
+        
+                modelotabla.addRow(new Object[]{idPac,nombre,fecha,estado});
+            }
+        
+        } catch (SQLException ex) {
+        
+            JOptionPane.showMessageDialog(null,"Error al consultar la cita");
+        }
+        
+        
+        
+    }//GEN-LAST:event_btVerAgendaMouseClicked
+
+   
+     public void limpiarTabla(){
+    
+        int numFilas = tablaAgenda.getRowCount();
+        for(int i = 0; i< numFilas; i++){
+        
+            modelotabla.removeRow(0);
+            //modeloTabla.removeRow(1);
+       }
+     }
+           
+    
     /**
      * @param args the command line arguments
      */
@@ -198,6 +284,6 @@ public class VentanaAgendaMedico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaAgenda;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import java.util.*;
 import logica.Telefono;
 import excepciones.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -657,10 +659,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
     private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
        
-        VentanaListadoEmpleados ventList = new VentanaListadoEmpleados();
-        ventList.setVisible(true);
-        ventList.setLocationRelativeTo(null);
-        ventList.acomodarVentana(this);
+        VentanaListadoEmpleados ventList;
+        try {
+        
+            ventList = new VentanaListadoEmpleados();
+            ventList.setVisible(true);
+            ventList.setLocationRelativeTo(null);
+            ventList.acomodarVentana(this);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         dispose();
     }//GEN-LAST:event_btListaEmpleadosMouseClicked
