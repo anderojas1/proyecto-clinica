@@ -13,6 +13,7 @@ import logica.Telefono;
 import excepciones.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private DriverArea area;
     private DriverCama driverCama = new DriverCama();
     private ArrayList<String[]> infoAreas;
+    private DefaultTableModel modeloTablaCamas;
     
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
@@ -34,6 +36,30 @@ public class VentanaAdministrador extends javax.swing.JFrame {
      * Creates new form VentanaAdministrador
      */
     public VentanaAdministrador() {
+        
+        modeloTablaCamas = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+            },
+            new String [] {
+                "# inventario", "Descripción", "Área", "Estado", "En uso"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+        
         initComponents();
         area = new DriverArea();
         cargarAreas();
@@ -87,7 +113,10 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         comboAreasCama = new javax.swing.JComboBox();
         btAgregarCama = new javax.swing.JButton();
         campoNumeroCama = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         lbNombreMedicamento = new javax.swing.JLabel();
@@ -135,6 +164,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         btAgregarUsu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         registrarTelefono = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         lbLogo = new javax.swing.JLabel();
         btCerrarSesion = new javax.swing.JButton();
         lbBienvenido = new javax.swing.JLabel();
@@ -165,57 +195,88 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nueva Cama");
+        jButton1.setText("Actualizar áreas");
+
+        jPanel9.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información y edición de camas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(1, 1, 1))); // NOI18N
+
+        jTable1.setModel(modeloTablaCamas);
+        jScrollPane4.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAgregarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNumCama)
-                            .addComponent(lbCodAreaCama)
-                            .addComponent(lbDescripCama))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(campoNumeroCama, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(184, 184, 184))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNumCama)
+                    .addComponent(lbCodAreaCama))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbDescripCama))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btAgregarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addGap(41, 41, 41)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbNumCama))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCodAreaCama))
-                .addGap(51, 51, 51)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDescripCama))
-                .addGap(65, 65, 65)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNumCama)
+                            .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDescripCama, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbCodAreaCama, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btAgregarCama)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Administracion de camas", jPanel3);
+        jTabbedPane1.addTab("Camas", jPanel3);
 
         jPanel5.setBackground(new java.awt.Color(254, 254, 254));
 
@@ -285,7 +346,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(btAgregarMedicamento)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -353,7 +414,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(96, Short.MAX_VALUE)
                 .addComponent(lbSubTituloArea)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -425,7 +486,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbListaEmpleados)
                     .addComponent(lbCuentasEmpleados))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
@@ -529,7 +590,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbPApellidoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
+                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -557,7 +618,22 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jTabbedPane1.addTab("Administracion de usuarios", jPanel2);
+        jTabbedPane1.addTab("Usuarios", jPanel2);
+
+        jPanel8.setBackground(new java.awt.Color(254, 254, 254));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 746, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 482, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Causas de consulta", jPanel8);
 
         btCerrarSesion.setBackground(new java.awt.Color(254, 254, 254));
         btCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/black-logout-256.png"))); // NOI18N
@@ -620,8 +696,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -640,10 +716,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoPApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPApellidoActionPerformed
-
     private void btCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCerrarSesionMouseClicked
        
         ventLog.setVisible(true);
@@ -657,56 +729,20 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btCerrarSesionActionPerformed
 
-    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
-       
-        VentanaListadoEmpleados ventList;
-        try {
-        
-            ventList = new VentanaListadoEmpleados();
-            ventList.setVisible(true);
-            ventList.setLocationRelativeTo(null);
-            ventList.acomodarVentana(this);
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        dispose();
-    }//GEN-LAST:event_btListaEmpleadosMouseClicked
-
-    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
-       
-        ventanaCuentas ventCuen = new ventanaCuentas();
-        ventCuen.setVisible(true);
-        ventCuen.setLocationRelativeTo(null);
-        ventCuen.acomodarVentana(this);
-        
-        dispose();
-        
-        
-    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
-
-    private void btAgregarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAreaActionPerformed
-        
-        registrarArea();
-        
-    }//GEN-LAST:event_btAgregarAreaActionPerformed
-
     private void registrarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarTelefonoActionPerformed
-        
+
         VentanaRegistrarTelefono registrarNumeros = new VentanaRegistrarTelefono(telefonos);
         registrarNumeros.setVisible(true);
         registrarNumeros.setVentanaAdministrador(this);
         registrarNumeros.setAlwaysOnTop(true);
         registrarNumeros.setLocationRelativeTo(null);
-        
+
         setEnabled(false);
-        
+
     }//GEN-LAST:event_registrarTelefonoActionPerformed
 
     private void btAgregarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarUsuActionPerformed
-        
+
         String nombre = campoNomUsu.getText();
         String apellido1 = campoPApellido.getText();
         String apellido2 = campoSApellido.getText();
@@ -714,49 +750,117 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         String numeroId = campoNumIdenUsu.getText();
         String direccion = campoDirUsu.getText();
         String tipoUsuario = combotipoUsu.getSelectedItem().toString();
-        
+
         try {
-        
+
             String [] datosValidar = {nombre, apellido1, numeroId, direccion};
-            
+
             validar.validarModulos(datosValidar);
-            
+
             String [] datosPersonales = {nombre, apellido1, apellido2, tipoId, numeroId, direccion, tipoUsuario};
-            
+
             switch (tipoUsuario) {
-                
+
                 case "Paciente": {
-                    
+
                     VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
                     registrarPaciente.acomodarVentana(this);
                     registrarPaciente.setDatosPersonales(datosPersonales, telefonos);
                     registrarPaciente.setVisible(true);
-                    
+
                     setVisible(false);
-                    
+
                 }; break;
-                    
+
                 case "Empleado": {
-                    
+
                     VentanaRegistroEmpleado registrarEmpleado = new VentanaRegistroEmpleado();
                     registrarEmpleado.acomodarVentana(this);
                     registrarEmpleado.setDatosPersonales(datosPersonales, telefonos);
                     registrarEmpleado.setVisible(true);
-                                        
+
                     setVisible(false);
-                    
+
                 }; break;
             }
-            
+
         } catch (ExcepcionCamposVacios ex) {
-            
+
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
-            
+
         }
-        
-        
-        
+
     }//GEN-LAST:event_btAgregarUsuActionPerformed
+
+    private void campoPApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPApellidoActionPerformed
+
+    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
+
+        ventanaCuentas ventCuen = new ventanaCuentas();
+        ventCuen.setVisible(true);
+        ventCuen.setLocationRelativeTo(null);
+        ventCuen.acomodarVentana(this);
+
+        dispose();
+
+    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
+
+    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
+
+        VentanaListadoEmpleados ventList;
+        try {
+
+            ventList = new VentanaListadoEmpleados();
+            ventList.setVisible(true);
+            ventList.setLocationRelativeTo(null);
+            ventList.acomodarVentana(this);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dispose();
+    }//GEN-LAST:event_btListaEmpleadosMouseClicked
+
+    private void btAgregarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAreaActionPerformed
+
+        registrarArea();
+
+    }//GEN-LAST:event_btAgregarAreaActionPerformed
+
+    private void btAgregarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCamaActionPerformed
+
+        String numeroCama = campoNumeroCama.getText();
+        String cod_area = infoAreas.get(comboAreasCama.getSelectedIndex())[0];
+        String descripcion = AreaDescripCama.getText();
+
+        String datosCama[] = {numeroCama, cod_area, descripcion};
+
+        try {
+
+            validar.validarModulos(datosCama);
+
+            driverCama.guardarCama(numeroCama, descripcion, cod_area);
+
+            JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso",
+                JOptionPane.INFORMATION_MESSAGE);
+
+            comboAreasCama.setSelectedIndex(0);
+            campoNumeroCama.setText("");
+            AreaDescripCama.setText("");
+
+        } catch (ExcepcionCamposVacios ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btAgregarCamaActionPerformed
 
     private void cargarAreas () {
         
@@ -782,38 +886,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }
     
     
-    private void btAgregarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCamaActionPerformed
-       
-        String numeroCama = campoNumeroCama.getText();
-        String cod_area = infoAreas.get(comboAreasCama.getSelectedIndex())[0];
-        String descripcion = AreaDescripCama.getText();
-        
-        String datosCama[] = {numeroCama, cod_area, descripcion};
-        
-        try {
-            
-            validar.validarModulos(datosCama);
-            
-            driverCama.guardarCama(numeroCama, descripcion, cod_area);
-            
-            JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            
-            comboAreasCama.setSelectedIndex(0);
-            campoNumeroCama.setText("");
-            AreaDescripCama.setText("");
-            
-        } catch (ExcepcionCamposVacios ex) {
-            
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", JOptionPane.ERROR_MESSAGE);
-            
-        } catch (SQLException ex) {
-            
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
-            
-        }
-    }//GEN-LAST:event_btAgregarCamaActionPerformed
-
     
     public void limpiarCampos () {
         
@@ -861,7 +933,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JComboBox comboAreasCama;
     private javax.swing.JComboBox comboTipoIdent;
     private javax.swing.JComboBox combotipoUsu;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -871,10 +943,14 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbCodAreaCama;
     private javax.swing.JLabel lbCodigoArea;
