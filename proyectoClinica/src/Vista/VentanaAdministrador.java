@@ -189,7 +189,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(317, 317, 317)
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,6 +374,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(254, 254, 254));
 
+        btListaEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/listado.jpg"))); // NOI18N
         btListaEmpleados.setBorderPainted(false);
         btListaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -381,6 +382,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        btCuentasEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cuentas.jpg"))); // NOI18N
         btCuentasEmpleados.setBorderPainted(false);
         btCuentasEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -408,7 +410,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,7 +423,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbListaEmpleados)
                     .addComponent(lbCuentasEmpleados))
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
