@@ -39,6 +39,8 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     public VentanaRegCamaPaciente() throws SQLException {
         
         initComponents();
+        
+        
         driverCama = new DriverCama();
         driverPaciente = new DriverPaciente();
         driveCamaPaciente =  new DriverCamaPaciente();
@@ -234,13 +236,18 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     private void btVerCamasDisponiblesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVerCamasDisponiblesMouseClicked
        
         VentaListadoCamas ventListCamas;
+        
         try {
+        
             ventListCamas = new VentaListadoCamas();
             ventListCamas.setVisible(true);
-        ventListCamas.setLocationRelativeTo(null);
-        ventListCamas.acomodarVentana(this);
+            ventListCamas.setLocationRelativeTo(null);
+            ventListCamas.acomodarVentana(this);
+        
         } catch (SQLException ex) {
+        
             Logger.getLogger(VentanaRegCamaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
         
         
@@ -253,8 +260,10 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
        
         
         camas = driverCama.listarCamasLibres();
-       
-         JOptionPane.showMessageDialog(null, camas.size());
+//Borrar
+        
+        JOptionPane.showMessageDialog(null, camas.size());
+        
         for(int i = 0; i < camas.size(); i++){
             
             comboCamas.addItem(camas.get(i).getNumeroInventario());        
@@ -305,12 +314,18 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
               //                                     (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0)+
                 //                                   fSelec);
              
+             String identificacionPaciente = null;
+            identificacionPaciente = (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0);
             
-           if((String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0) != null){  
+            
+            JOptionPane.showMessageDialog(null, (String)comboCamas.getSelectedItem()+
+                                                   identificacionPaciente + fSelec);
+         
+           if(identificacionPaciente != null && fSelec != null){  
           
                driveCamaPaciente.registrarCamaPaciente((String)comboCamas.getSelectedItem(),
-                                                   (String)tablaPacientes.getValueAt(tablaPacientes.getSelectedRow(), 0),
-                                                                                     fSelec);
+                                                   identificacionPaciente, fSelec);
+              
                DaoCama daoCama = new DaoCama();
                
                Cama camilla = daoCama.buscarCama((String)comboCamas.getSelectedItem());
@@ -330,7 +345,7 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
             
         }catch(Exception e){
         
-           // JOptionPane.showMessageDialog(null, "Debe escoger una fecha");
+            JOptionPane.showMessageDialog(null, "Debe escoger una fecha");
            
         }
     
@@ -348,14 +363,19 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
     
     public void limpiarTabla(){
     
-       // int numFilas = tablaPacientes.getRowCount();
-        //for(int i = 0; i< numFilas-1; i++){
+        int numFilas = tablaPacientes.getRowCount();
+        for(int i = 0; i< numFilas; i++){
         
             modeloTabla.removeRow(0);
-            modeloTabla.removeRow(1);
-        //}
+            //modeloTabla.removeRow(1);
+       }
+    
+    comboCamas.removeAllItems();
+    
     }
-  
+    
+    
+ 
     
     
     private void btAsignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAsignarMouseClicked
@@ -363,13 +383,14 @@ public class VentanaRegCamaPaciente extends javax.swing.JFrame {
        
         try {
         
-                   
-           comboCamas.removeAllItems();
-           limpiarTabla();
+            registrarCamaPaciente();
+            
+            
+            limpiarTabla();
                              
            
-           cargarCamas();
-           cargarPacientes();
+            cargarCamas();
+            cargarPacientes();
        
                 
             
