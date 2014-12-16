@@ -8,6 +8,7 @@ package controlador;
 import logica.Causa;
 import dataAccesss.DaoCausa;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,5 +69,11 @@ public class DriverCausa {
         catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error al eliminar causa. Por favor intente nuevamente");
         }
+    }
+    
+    
+    public ArrayList<String[]> consultarCausas () throws SQLException {
+        
+        return daoCausa.consultarCausasRegistradas();
     }
 }
