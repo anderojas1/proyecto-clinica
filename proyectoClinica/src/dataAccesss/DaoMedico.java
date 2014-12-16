@@ -61,6 +61,24 @@ public class DaoMedico {
         
     }
     
+    public int contarCosultas(String idMedico, String year, String mes, String canDias) throws SQLException{
     
+        int cantidad = 0;
+        
+        sentenciaSql = "select count(*) from registro where id_medico = '"+idMedico+"' AND fecha_hora BETWEEN '"+year+"-"+mes+"-01' AND '"+year+"-"+mes+"-"+canDias+"';";
+        
+        //System.err.println(sentenciaSql);
+        
+        ejecutarConsulta();
+        
+        while(registros.next()){
+        
+            cantidad = registros.getInt(1);
+        
+        }
+        
+        return cantidad;
     
+    }
+       
 }
