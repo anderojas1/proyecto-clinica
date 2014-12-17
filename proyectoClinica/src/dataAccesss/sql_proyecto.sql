@@ -406,6 +406,6 @@ INSERT INTO Agenda_cita VALUES
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
 UPDATE AccesoSistema SET pass = '1224612' WHERE identificacion = '1224612';
-UPDATE AccesoSistema SET pass = '1234' WHERE identificacion = '1234567';
+UPDATE AccesoSistema SET pass = '1234' WHERE identificacion = '1234517';
 UPDATE AccesoSistema SET pass = '12345' WHERE identificacion = '12345';
 UPDATE AccesoSistema SET pass = '123' WHERE identificacion = '123';
