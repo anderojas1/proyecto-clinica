@@ -280,4 +280,39 @@ public class DaoPaciente {
        return paciente;
     }
     
+     public ArrayList<String> consultarPaciente2(String identificacion) throws SQLException{
+        ArrayList<String> persona = new ArrayList();
+        
+        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN PACIENTE WHERE identificacion = '"+identificacion+"' AND estado = 'true';";
+        
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            
+            persona.add(registros.getString(3));
+            persona.add(registros.getString(4));
+            persona.add(registros.getString(5));
+            persona.add(registros.getString(6));
+            persona.add(registros.getString(8));
+            persona.add(registros.getString(9));
+            persona.add(registros.getString(10));
+        
+        }
+        
+        return persona;
+    }
+     
+     public boolean estaPaciente2(String identificacion) throws SQLException{
+        boolean respuesta = false;
+        
+        sentenciaSql="SELECT identificacion FROM Paciente WHERE identificacion='"+identificacion+"';";
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            respuesta = true;
+        }
+        
+        return respuesta;
+    }
+    
 }

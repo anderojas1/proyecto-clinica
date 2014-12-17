@@ -7,6 +7,7 @@
 package Vista;
 
 import controlador.DriverMedico;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -23,7 +24,7 @@ public class VentanaConsultaMedico extends javax.swing.JFrame {
      */
     public VentanaConsultaMedico() {
     initComponents();
-    
+    getContentPane().setBackground(Color.WHITE);
     contMedico = new DriverMedico();
         
     jEmail.setVisible(false);

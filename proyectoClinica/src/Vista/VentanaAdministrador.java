@@ -310,6 +310,10 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         btAgregarUsu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         registrarTelefono = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jBEditarP = new javax.swing.JButton();
+        jBConsultarM = new javax.swing.JButton();
+        jBConsultarE = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         lbSubTituloCausa = new javax.swing.JLabel();
         lbNombreCausa = new javax.swing.JLabel();
@@ -366,7 +370,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         });
 
         jPanel9.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información y edición de camas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(1, 1, 1))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información y edición de camas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(1, 1, 1)));
 
         tablaInformacionCamas.setModel(modeloTablaCamas);
         jScrollPane4.setViewportView(tablaInformacionCamas);
@@ -488,7 +492,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jLabel3.setText("Nuevo Medicamento");
 
         jPanel11.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información sobre medicamentos registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(2, 125, 168))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información sobre medicamentos registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(2, 125, 168)));
 
         tablaInformacionMedicamentos.setModel(modeloTablaMedicamento);
         jScrollPane6.setViewportView(tablaInformacionMedicamentos);
@@ -820,14 +824,33 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Opciones");
+
+        jBEditarP.setText("Editar Persona");
+        jBEditarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarPActionPerformed(evt);
+            }
+        });
+
+        jBConsultarM.setText("Consultar Medico");
+        jBConsultarM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarMActionPerformed(evt);
+            }
+        });
+
+        jBConsultarE.setText("Concultar Enfermera");
+        jBConsultarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarEActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(298, 298, 298))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -852,30 +875,48 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(campoNumIdenUsu)
                             .addComponent(campoDirUsu)
                             .addComponent(registrarTelefono))))
-                .addGap(0, 601, Short.MAX_VALUE))
+                .addGap(179, 179, 179)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jBEditarP)
+                        .addGap(42, 42, 42)
+                        .addComponent(jBConsultarM))
+                    .addComponent(jBConsultarE))
+                .addGap(0, 194, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(310, 310, 310)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(305, 305, 305))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNombreUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoNomUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)))
+                    .addComponent(jBEditarP, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbNombreUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoNomUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBConsultarM)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(campoPApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(campoPApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBConsultarE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoSApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoSApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbPApellidoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1457,6 +1498,40 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         actualizarCausa(false);
     }//GEN-LAST:event_btEliminarCausaActionPerformed
 
+    private void jBEditarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarPActionPerformed
+
+        // TODO add your handling code here:
+        VentanaEditarInfoPersona ventEditarInfo = new VentanaEditarInfoPersona();
+        
+        ventEditarInfo.setVisible(true);
+        ventEditarInfo.setLocationRelativeTo(null);
+        ventEditarInfo.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_jBEditarPActionPerformed
+
+    private void jBConsultarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarMActionPerformed
+        // TODO add your handling code here:
+        VentanaConsultaMedico ventConMed = new VentanaConsultaMedico();
+        
+        ventConMed.setVisible(true);
+        ventConMed.setLocationRelativeTo(null);
+        ventConMed.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_jBConsultarMActionPerformed
+
+    private void jBConsultarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarEActionPerformed
+        // TODO add your handling code here:
+        VentanaConsultaEnfermera ventConEnf = new VentanaConsultaEnfermera();
+        
+        ventConEnf.setVisible(true);
+        ventConEnf.setLocationRelativeTo(null);
+        ventConEnf.acomodarVentana(this);
+        
+        dispose();
+    }//GEN-LAST:event_jBConsultarEActionPerformed
+
     private void cargarAreas () {
         
         comboAreasCama.removeAllItems();
@@ -1538,10 +1613,14 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JComboBox comboAreasCama;
     private javax.swing.JComboBox comboTipoIdent;
     private javax.swing.JComboBox combotipoUsu;
+    private javax.swing.JButton jBConsultarE;
+    private javax.swing.JButton jBConsultarM;
+    private javax.swing.JButton jBEditarP;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

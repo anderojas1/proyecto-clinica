@@ -103,7 +103,7 @@ public class DaoEnfermera {
      public ArrayList<String> consultarEnfermera(String identificacion) throws SQLException{
         ArrayList<String> enfermera = new ArrayList();
         
-        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN ENFERMERA WHERE identificacion = '"+identificacion+"';";
+        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN ENFERMERA WHERE identificacion = '"+identificacion+"' AND estado = 'true';";
         
         ejecutarConsulta();
         

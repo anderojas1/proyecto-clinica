@@ -103,6 +103,11 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
                 btAsignarCitaMouseClicked(evt);
             }
         });
+        btAsignarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarCitaActionPerformed(evt);
+            }
+        });
 
         lbAsignarCita.setText("Asignar cita");
 
@@ -155,7 +160,7 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addComponent(btModificarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,6 +269,10 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
     private void btAsignarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarCamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btAsignarCamaActionPerformed
+
+    private void btAsignarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarCitaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAsignarCitaActionPerformed
 
     /**
      * @param args the command line arguments
