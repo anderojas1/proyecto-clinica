@@ -70,4 +70,17 @@ public class DriverArea {
         }
     }
     
+    public ArrayList<ArrayList<String>> listarAreas(){
+        ArrayList<ArrayList<String>>areas = new ArrayList<>();
+        
+        try{
+            areas = area.listarAreas();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al listar areas. Por favor intente nuevamente");
+        }
+        
+        return areas;
+    }
+    
 }

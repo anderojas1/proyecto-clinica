@@ -82,9 +82,9 @@ public class DaoArea {
     }
     
     public void editarArea(Area area)throws SQLException{
-        
-        sentenciaSql = "UPDATE Area SET nombre = '"+area.getNombre()+"', descripción = '"+area.getDescripcion()+"' WHERE codigo = '"+area.getCodigo()+"';";
+        sentenciaSql = "UPDATE Area SET nombre = '"+area.getNombre()+"', descripcion = '"+area.getDescripcion()+"' WHERE codigo = '"+area.getCodigo()+"';";
         ejecutarUpdate();
+        
     }
     
     public void habilitarArea(String codigo, boolean estado)throws SQLException{
@@ -116,5 +116,22 @@ public class DaoArea {
         return areas;
         
     }
+    
+    public ArrayList<ArrayList<String>> listarAreas()throws SQLException{
+             ArrayList<ArrayList<String>>areas = new ArrayList<>();
+             
+             sentenciaSql = "SELECT codigo,nombre,descripcion FROM Area WHERE estado = true;";
+        
+        ejecutarConsulta();
+        while (registros.next()) {
+            ArrayList<String>tmp = new ArrayList<>(); 
+            tmp.add(registros.getString(1));
+            tmp.add(registros.getString(2));
+            tmp.add(registros.getString(3));
+            areas.add(tmp);
+        }
+             
+             return areas;
+     }
     
 }
