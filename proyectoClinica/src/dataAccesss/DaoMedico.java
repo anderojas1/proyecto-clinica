@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import logica.Medico;
 
 /**
@@ -79,6 +80,46 @@ public class DaoMedico {
         
         return cantidad;
     
+    }
+    
+    public ArrayList<String> consultarMedico(String identificacion) throws SQLException{
+        ArrayList<String> medico = new ArrayList();
+        
+        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN MEDICO WHERE identificacion = '"+identificacion+"';";
+        
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            
+            medico.add(registros.getString(3));
+            medico.add(registros.getString(4));
+            medico.add(registros.getString(5));
+            medico.add(registros.getString(6));
+            medico.add(registros.getString(8));
+            medico.add(registros.getString(9));
+            medico.add(registros.getString(10));
+            medico.add(registros.getString(11));
+            medico.add(registros.getString(12));
+            medico.add(registros.getString(13));
+            medico.add(registros.getString(14));
+            medico.add(registros.getString(15));
+        
+        }
+        
+        return medico;
+    }
+    
+    public boolean estaMedico(String identificacion) throws SQLException{
+        boolean respuesta = false;
+        
+        sentenciaSql="SELECT identificacion FROM Medico WHERE identificacion='"+identificacion+"';";
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            respuesta = true;
+        }
+        
+        return respuesta;
     }
        
 }
