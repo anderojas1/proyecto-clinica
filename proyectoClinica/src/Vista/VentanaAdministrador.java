@@ -13,7 +13,9 @@ import logica.Telefono;
 import excepciones.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
+import logica.Cama;
 
 /**
  *
@@ -28,6 +30,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private DriverCama driverCama = new DriverCama();
     private ArrayList<String[]> infoAreas;
     private DefaultTableModel modeloTablaCamas;
+    private ArrayList<Cama> camilla = new ArrayList<>();
     
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
@@ -41,14 +44,14 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "# inventario", "Descripción", "Área", "Estado", "En uso"
+                "# inventario", "Descripción", "Área", "Estado", "En servicio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, Boolean.class, Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, true
+                false, true, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -63,6 +66,42 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         initComponents();
         area = new DriverArea();
         cargarAreas();
+        agregarCamillasInformacion();
+        
+    }
+    
+    
+    public void agregarCamillasInformacion () {
+        
+        for (int i = tablaInformacionCamas.getRowCount(); i > 0; i--) {
+            
+            modeloTablaCamas.removeRow(i-1);
+            
+        }
+        
+        try {
+            
+            ArrayList<Cama> camas = driverCama.listarCamasActivas();
+            
+            for (int i = 0; i < camas.size(); i++) {
+                
+                Cama nuevaCama = camas.get(i);
+                
+                Object [] datosCamas = {
+                    
+                    nuevaCama.getNumeroInventario(), nuevaCama.getDescripcion(), nuevaCama.getCod_area(),
+                    nuevaCama.getEstado(), nuevaCama.getActivoInventario()
+                };
+                
+                modeloTablaCamas.addRow(datosCamas);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            System.err.println(ex.getMessage());
+        }
+        
     }
     
     
@@ -84,6 +123,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             area.registrarArea(codigo, nombre, descripcion, estado);
             JOptionPane.showMessageDialog(this, "Se ha registrado el área correctamente",
                 "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+            cargarAreas();
             
         } catch (SQLException ex) {
             
@@ -113,10 +154,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         comboAreasCama = new javax.swing.JComboBox();
         btAgregarCama = new javax.swing.JButton();
         campoNumeroCama = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaInformacionCamas = new javax.swing.JTable();
+        actualizarInformacionCamas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         lbNombreMedicamento = new javax.swing.JLabel();
@@ -195,35 +237,52 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Actualizar áreas");
-
         jPanel9.setBackground(new java.awt.Color(254, 254, 254));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información y edición de camas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(1, 1, 1))); // NOI18N
 
-        jTable1.setModel(modeloTablaCamas);
-        jScrollPane4.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        tablaInformacionCamas.setModel(modeloTablaCamas);
+        jScrollPane4.setViewportView(tablaInformacionCamas);
+        if (tablaInformacionCamas.getColumnModel().getColumnCount() > 0) {
+            tablaInformacionCamas.getColumnModel().getColumn(0).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(1).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(3).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        actualizarInformacionCamas.setText("Actualizar datos");
+        actualizarInformacionCamas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarInformacionCamasActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 0, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("Las camas cuyo estado sea ocupado, no podrán ser dadas de baja ni cambiadas a otra área");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(actualizarInformacionCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(actualizarInformacionCamas)
+                    .addComponent(jLabel1)))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -243,8 +302,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addComponent(lbDescripCama))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btAgregarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -267,11 +325,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(lbCodAreaCama, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btAgregarCama))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btAgregarCama)
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -473,7 +529,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,7 +623,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(campoNumIdenUsu)
                             .addComponent(campoDirUsu)
                             .addComponent(registrarTelefono))))
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -846,6 +902,10 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso",
                 JOptionPane.INFORMATION_MESSAGE);
+                        
+            Object[] infoCamas = {numeroCama, descripcion, cod_area, true, true};
+            
+            modeloTablaCamas.addRow(infoCamas);
 
             comboAreasCama.setSelectedIndex(0);
             campoNumeroCama.setText("");
@@ -861,6 +921,48 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btAgregarCamaActionPerformed
+
+    private void actualizarInformacionCamasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarInformacionCamasActionPerformed
+        
+        if (tablaInformacionCamas.getRowCount() > 0){
+            
+            try {
+                
+                ArrayList<Cama> camas = new ArrayList<>();
+        
+                for (int i = 0; i < tablaInformacionCamas.getRowCount(); i++) {
+
+                    String codigo = tablaInformacionCamas.getValueAt(i, 0).toString();
+                    String descrip = tablaInformacionCamas.getValueAt(i, 1).toString();
+                    System.err.println(descrip);
+                    String area = tablaInformacionCamas.getValueAt(i, 2).toString();
+                    boolean estado = (Boolean) tablaInformacionCamas.getValueAt(i, 3);
+                    boolean activo=(Boolean) tablaInformacionCamas.getValueAt(i, 4);
+
+                    Cama nuevaCama = new Cama(descrip, estado, codigo, area, activo);
+
+                    driverCama.actualizarInformacionCamas(nuevaCama);
+
+                }
+                
+                agregarCamillasInformacion();
+                
+                JOptionPane.showMessageDialog(this, "Información actualizada correctamente", "Actualización exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                
+                System.err.println(ex.getMessage());
+            }
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(this, "No hay camas registradas", "Error editando", JOptionPane.ERROR_MESSAGE);
+            
+        }
+
+        
+    }//GEN-LAST:event_actualizarInformacionCamasActionPerformed
 
     private void cargarAreas () {
         
@@ -911,6 +1013,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextArea AreaDescripCama;
     private javax.swing.JTextArea AreaDescripMedicamento;
     private javax.swing.JLabel LbTipoUsu;
+    private javax.swing.JButton actualizarInformacionCamas;
     private javax.swing.JTextArea areaDescripArea;
     private javax.swing.JButton btAgregarArea;
     private javax.swing.JButton btAgregarCama;
@@ -933,7 +1036,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JComboBox comboAreasCama;
     private javax.swing.JComboBox comboTipoIdent;
     private javax.swing.JComboBox combotipoUsu;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -950,7 +1053,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbCodAreaCama;
     private javax.swing.JLabel lbCodigoArea;
@@ -975,5 +1077,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel lbTipoIdenUsu;
     private javax.swing.JLabel lbUser;
     private javax.swing.JButton registrarTelefono;
+    private javax.swing.JTable tablaInformacionCamas;
     // End of variables declaration//GEN-END:variables
 }

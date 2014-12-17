@@ -37,7 +37,16 @@ public class DriverCama {
             
     }
     
+    public ArrayList<Cama> listarCamasActivas () throws SQLException {
+        
+        return daoCama.listarCamasActivas();
+    }
     
+    
+    public void actualizarInformacionCamas (Cama cama) throws SQLException {
+        
+        daoCama.actualizarInformacionCamas(cama);
+    }
     
     
 }
