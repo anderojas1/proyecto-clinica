@@ -398,7 +398,10 @@ INSERT INTO Historia_c VALUES
 ('2005-01-25', '123');
 
 INSERT INTO Agenda_cita VALUES
-('1224775', '123', '2014-12-16 14:00', 'asignada');
+('1325228', '12345', '2014-05-06 14:00', 'asistida'),
+('1325228', '12345', '2015-03-05 12:00', 'asignada'),
+('1224775', '123', '2015-01-01 13:00', 'asignada'),
+('1224612', '123', '2014-12-31 10:00', 'asignada');
 
 UPDATE AccesoSistema SET pass = '1325228' WHERE identificacion = '1325228';
 UPDATE AccesoSistema SET pass = '1224775' WHERE identificacion = '1224775';
