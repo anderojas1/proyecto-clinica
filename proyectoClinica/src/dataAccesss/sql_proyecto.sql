@@ -318,7 +318,7 @@ INSERT INTO Persona VALUES
 ('123453',  'Paciente', 'carlos', 'gaona', 'cuevas', 'Calle 72W # 7EBIS-25', true),
 
 ('12345', 'Paciente', 'Angel', 'cruz', 'paz', 'Calle 72W # 7EBIS-25', true),
-('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true);
 
 
 INSERT INTO AccesoSistema VALUES ('admin', '12345', 'administrador');
