@@ -8,6 +8,7 @@ package controlador;
 import dataAccesss.*;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Empleado;
 import logica.Enfermera;
 import logica.Telefono;
@@ -37,6 +38,28 @@ public class DriverEnfermera {
         datosEnfermera.registrarEnfermera(nuevaEnfermera);
         datosEnfermera.registrarHabilidadesEnfermera(nuevaEnfermera, habilidades);
         
+    }
+    
+     public boolean estaEnfermera(String identificacion){
+         boolean respuesta = false;
+         
+         try{
+            respuesta = datosEnfermera.estaEnfermera(identificacion);
+         }catch(SQLException e){
+             JOptionPane.showMessageDialog(null, "Error al consultar identificacion enfermera");
+         }
+         return respuesta;
+     }
+     
+     public ArrayList<String> consultarEnfermera(String identificacion){
+        ArrayList<String> enfermera = new ArrayList();
+        
+        try{
+            enfermera=datosEnfermera.consultarEnfermera(identificacion);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar medico");
+        }
+        return enfermera;
     }
     
 }

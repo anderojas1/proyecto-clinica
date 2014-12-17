@@ -87,4 +87,42 @@ public class DaoEnfermera {
         
     }
     
+     public boolean estaEnfermera(String identificacion) throws SQLException{
+        boolean respuesta = false;
+        
+        sentenciaSql="SELECT identificacion FROM Enfermera WHERE identificacion='"+identificacion+"';";
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            respuesta = true;
+        }
+        
+        return respuesta;
+    }
+     
+     public ArrayList<String> consultarEnfermera(String identificacion) throws SQLException{
+        ArrayList<String> enfermera = new ArrayList();
+        
+        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN ENFERMERA WHERE identificacion = '"+identificacion+"';";
+        
+        ejecutarConsulta();
+        
+        while(registros.next()){
+            
+            enfermera.add(registros.getString(3));
+            enfermera.add(registros.getString(4));
+            enfermera.add(registros.getString(5));
+            enfermera.add(registros.getString(6));
+            enfermera.add(registros.getString(8));
+            enfermera.add(registros.getString(9));
+            enfermera.add(registros.getString(10));
+            enfermera.add(registros.getString(11));
+            enfermera.add(registros.getString(12));
+            enfermera.add(registros.getString(13));
+        
+        }
+        
+        return enfermera;
+    }
+    
 }

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="352" max="32767" attributes="0"/>
+              <Component id="jLAnios" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTAnios" min="-2" pref="155" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLIdentificacion" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLNombres" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLApellido_uno" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLApellido_dos" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLSalario" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLCargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="124" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jTNombres" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTApellido_dos" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTDireccion" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTArea" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTSalario" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTemail" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTCargo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTApellido_uno" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jTIdentificacion" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jBBuscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="jLJefe" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jTJefe" pref="154" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jBAtras" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLAnios" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTAnios" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="276" max="32767" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="jLIdentificacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTIdentificacion" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jLJefe" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTJefe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jBBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLApellido_uno" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTApellido_uno" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLApellido_dos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTApellido_dos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLSalario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTSalario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTemail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBAtras" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JTextField" name="jTIdentificacion">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLIdentificacion">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Identificacion: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLNombres">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombres:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Consultar Medico"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTNombres">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLApellido_uno">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Primer Apellido:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTApellido_uno">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLApellido_dos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Segundo Apellido:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTApellido_dos">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLDireccion">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTDireccion">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLArea">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Codigo &#xe1;rea:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTArea">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLSalario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salario:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTSalario">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jEmail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="E-mail:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTemail">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLCargo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTCargo">
+    </Component>
+    <Component class="javax.swing.JButton" name="jBBuscar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBBuscarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLJefe">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jefe:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTJefe">
+    </Component>
+    <Component class="javax.swing.JButton" name="jBAtras">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Atras"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAtrasActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLAnios">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;os Experiencia:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTAnios">
+    </Component>
+  </SubComponents>
+</Form>

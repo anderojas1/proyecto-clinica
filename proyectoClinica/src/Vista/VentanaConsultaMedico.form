@@ -50,7 +50,7 @@
                   <Component id="jTemail" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTCargo" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTApellido_uno" max="32767" attributes="0"/>
-                  <Component id="jTIdentificacion" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jTIdentificacion" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">

@@ -178,7 +178,7 @@ public class VentanaConsultaMedico extends javax.swing.JFrame {
                     .addComponent(jTemail, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTCargo, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTApellido_uno)
-                    .addComponent(jTIdentificacion))
+                    .addComponent(jTIdentificacion, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
