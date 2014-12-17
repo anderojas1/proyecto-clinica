@@ -28,12 +28,14 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private Persona sesion;
     private Validador validar = new Validador();
     private DriverArea area;
+    private DriverCausa causa;
     private DriverCama driverCama = new DriverCama();
     private ArrayList<String[]> infoAreas;
     private DefaultTableModel modeloTablaCamas;
     private DefaultTableModel modeloTablaMedicamento;
     private ArrayList<Cama> camilla = new ArrayList<>();
     private ArrayList<ArrayList<String>>areas = new ArrayList<>();
+    private ArrayList<ArrayList<String>>causas = new ArrayList<>();
     
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
@@ -91,11 +93,13 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         };
         
         initComponents();
+        causa = new DriverCausa();
         area = new DriverArea();
         cargarAreas();
         agregarCamillasInformacion();
         cargarMedicamentos();
-        actualizarArea(true);
+        actualizarArea(false);
+        actualizarCausa(false);
         
     }
     
@@ -164,6 +168,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         
     }
     
+    public void registrarCausa () {
+        
+        String codigo = campoCodigoCausa.getText();
+        String nombre = campoNombreCausa.getText();
+        String descripcion = areaDescripCausa.getText();
+        causa.registrarCausa(codigo, nombre, descripcion);
+        JOptionPane.showMessageDialog(this, "Se ha registrado la causa correctamente",
+                "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+        actualizarCausa(false);
+        
+    }
+    
     public void actualizarArea(boolean flag){
         DefaultTableModel modelArea = (DefaultTableModel) tablaArea.getModel();
         if(modelArea.getRowCount()>0&&flag){
@@ -171,6 +187,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 if(tablaArea.getValueAt(i, 1).toString()!=areas.get(i).get(1)
                  ||tablaArea.getValueAt(i, 2).toString()!=areas.get(i).get(2)){
                     area.editarArea(areas.get(i).get(0), tablaArea.getValueAt(i, 1).toString(), tablaArea.getValueAt(i, 2).toString(), true);
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                 }
             }
         }
@@ -183,6 +200,30 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         int sizeArea=areas.size();
         for(int i=0;i<sizeArea;i++){
             modelArea.addRow(new Object[]{areas.get(i).get(0), areas.get(i).get(1), areas.get(i).get(2)});
+        }
+        }
+    }
+    
+    public void actualizarCausa(boolean flag){
+        DefaultTableModel modelCausa = (DefaultTableModel) tablaCausa.getModel();
+        if(modelCausa.getRowCount()>0&&flag){
+            for(int i=0;i<modelCausa.getRowCount();i++){
+                if(tablaCausa.getValueAt(i, 1).toString()!=causas.get(i).get(1)
+                 ||tablaCausa.getValueAt(i, 2).toString()!=causas.get(i).get(2)){
+                    causa.editarCausa(causas.get(i).get(0), tablaCausa.getValueAt(i, 1).toString(), tablaCausa.getValueAt(i, 2).toString());
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                }
+            }
+        }
+        
+        else{
+        
+        causas = causa.listarCausas();
+        
+        while(modelCausa.getRowCount()>0){modelCausa.removeRow(0);}
+        int sizeCausa=causas.size();
+        for(int i=0;i<sizeCausa;i++){
+            modelCausa.addRow(new Object[]{causas.get(i).get(0), causas.get(i).get(1), causas.get(i).get(2)});
         }
         }
     }
@@ -277,8 +318,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         lbCodigoCausa = new javax.swing.JLabel();
         lbDescripCausa = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        areaDescripArea1 = new javax.swing.JTextArea();
+        areaDescripCausa = new javax.swing.JTextArea();
         btAgregarCausa = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tablaCausa = new javax.swing.JTable();
+        btActualizarCausa = new javax.swing.JButton();
+        btEliminarCausa = new javax.swing.JButton();
         lbLogo = new javax.swing.JLabel();
         btCerrarSesion = new javax.swing.JButton();
         lbBienvenido = new javax.swing.JLabel();
@@ -870,11 +915,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
         lbDescripCausa.setText("Descripcion");
 
-        areaDescripArea1.setColumns(20);
-        areaDescripArea1.setLineWrap(true);
-        areaDescripArea1.setRows(5);
-        areaDescripArea1.setWrapStyleWord(true);
-        jScrollPane5.setViewportView(areaDescripArea1);
+        areaDescripCausa.setColumns(20);
+        areaDescripCausa.setLineWrap(true);
+        areaDescripCausa.setRows(5);
+        areaDescripCausa.setWrapStyleWord(true);
+        jScrollPane5.setViewportView(areaDescripCausa);
 
         btAgregarCausa.setText("Agregar");
         btAgregarCausa.addActionListener(new java.awt.event.ActionListener() {
@@ -883,52 +928,92 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        tablaCausa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre", "Descripción"
+            }
+        ));
+        jScrollPane8.setViewportView(tablaCausa);
+
+        btActualizarCausa.setText("Actualizar Datos");
+        btActualizarCausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActualizarCausaActionPerformed(evt);
+            }
+        });
+
+        btEliminarCausa.setText("Eliminar Registro");
+        btEliminarCausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarCausaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNombreCausa)
+                    .addComponent(lbCodigoCausa)
+                    .addComponent(lbDescripCausa)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btAgregarCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoNombreCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbSubTituloCausa)
+                                .addComponent(campoCodigoCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(lbSubTituloCausa))
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                            .addComponent(lbNombreCausa)
-                            .addGap(143, 143, 143)
-                            .addComponent(campoNombreCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbCodigoCausa)
-                                .addComponent(lbDescripCausa))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoCodigoCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(btAgregarCausa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(671, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(btActualizarCausa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btEliminarCausa)))
+                .addGap(354, 354, 354))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(lbSubTituloCausa)
-                .addGap(49, 49, 49)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNombreCausa)
-                    .addComponent(campoNombreCausa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCodigoCausa)
-                    .addComponent(campoCodigoCausa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDescripCausa)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbNombreCausa)
+                            .addComponent(campoNombreCausa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(lbCodigoCausa))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(campoCodigoCausa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(lbDescripCausa))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(btAgregarCausa)
-                .addGap(37, 37, 37))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAgregarCausa)
+                    .addComponent(btActualizarCausa)
+                    .addComponent(btEliminarCausa))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Causas de consulta", jPanel8);
@@ -1346,7 +1431,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btAgregarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCausaActionPerformed
-        // TODO add your handling code here:
+        registrarCausa ();
+        actualizarCausa(false);
+        campoNombreCausa.setText("");
+        campoCodigoCausa.setText("");
+        areaDescripCausa.setText("");
     }//GEN-LAST:event_btAgregarCausaActionPerformed
 
     private void btEditarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarAreaActionPerformed
@@ -1358,6 +1447,15 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private void btActualizarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarAreaActionPerformed
         actualizarArea(true);// TODO add your handling code here:
     }//GEN-LAST:event_btActualizarAreaActionPerformed
+
+    private void btActualizarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarCausaActionPerformed
+        actualizarCausa(true);
+    }//GEN-LAST:event_btActualizarCausaActionPerformed
+
+    private void btEliminarCausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCausaActionPerformed
+        causa.eliminarCausa(tablaCausa.getValueAt(tablaCausa.getSelectedRow(), 0).toString());
+        actualizarCausa(false);
+    }//GEN-LAST:event_btEliminarCausaActionPerformed
 
     private void cargarAreas () {
         
@@ -1411,8 +1509,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel LbTipoUsu;
     private javax.swing.JButton actualizarInformacionCamas;
     private javax.swing.JTextArea areaDescripArea;
-    private javax.swing.JTextArea areaDescripArea1;
+    private javax.swing.JTextArea areaDescripCausa;
     private javax.swing.JButton btActualizarArea;
+    private javax.swing.JButton btActualizarCausa;
     private javax.swing.JButton btAgregarArea;
     private javax.swing.JButton btAgregarCama;
     private javax.swing.JButton btAgregarCausa;
@@ -1421,6 +1520,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btCerrarSesion;
     private javax.swing.JButton btCuentasEmpleados;
     private javax.swing.JButton btEditarArea;
+    private javax.swing.JButton btEliminarCausa;
     private javax.swing.JButton btListaEmpleados;
     private javax.swing.JTextField campoCodigoArea;
     private javax.swing.JTextField campoCodigoCausa;
@@ -1460,6 +1560,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbCodAreaCama;
@@ -1490,6 +1591,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel lbUser;
     private javax.swing.JButton registrarTelefono;
     private javax.swing.JTable tablaArea;
+    private javax.swing.JTable tablaCausa;
     private javax.swing.JTable tablaInformacionCamas;
     private javax.swing.JTable tablaInformacionMedicamentos;
     // End of variables declaration//GEN-END:variables

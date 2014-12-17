@@ -76,4 +76,17 @@ public class DriverCausa {
         
         return daoCausa.consultarCausasRegistradas();
     }
+    
+    public ArrayList<ArrayList<String>> listarCausas(){
+        ArrayList<ArrayList<String>>causas = new ArrayList<>();
+        
+        try{
+            causas = daoCausa.listarCausas();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al listar causas. Por favor intente nuevamente");
+        }
+        
+        return causas;
+    }
 }

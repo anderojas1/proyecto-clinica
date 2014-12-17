@@ -110,4 +110,21 @@ public class DaoCausa {
         
         return causas;
     }
+    
+     public ArrayList<ArrayList<String>> listarCausas()throws SQLException{
+             ArrayList<ArrayList<String>>causas = new ArrayList<>();
+             
+             sentenciaSql = "SELECT codigo,nombre,descripcion FROM Causa WHERE estado = true;";
+        
+        ejecutarConsulta();
+        while (registros.next()) {
+            ArrayList<String>tmp = new ArrayList<>(); 
+            tmp.add(registros.getString(1));
+            tmp.add(registros.getString(2));
+            tmp.add(registros.getString(3));
+            causas.add(tmp);
+        }
+             
+             return causas;
+     }
 }
