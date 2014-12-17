@@ -308,10 +308,10 @@ INSERT INTO Persona VALUES
 ('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'calle 45 #23-232', true),
 ('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'carrera 45 #4-432', true),
 
-('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'transversal 67 #3-34', true),
-('1234567', 'Enfermera', 'farina', 'romero', 'alvarez', 'transversal 67 #3-34', true),
-('1234567', 'Enfermera', 'amparo', 'torres', 'enao', 'transversal 67 #3-34', true),
-('1234567', 'Enfermera', 'cristina', 'lopez', 'carvajal', 'transversal 67 #3-34', true),
+('1234517', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'transversal 67 #3-34', true),
+('1234527', 'Enfermera', 'farina', 'romero', 'alvarez', 'transversal 67 #3-34', true),
+('1234537', 'Enfermera', 'amparo', 'torres', 'enao', 'transversal 67 #3-34', true),
+('1234547', 'Enfermera', 'cristina', 'lopez', 'carvajal', 'transversal 67 #3-34', true),
 
 ('123451', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 ('123452', 'Paciente', 'carol', 'cuevas', 'pinerez', 'Calle 72W # 7EBIS-25', true),
@@ -326,7 +326,11 @@ INSERT INTO AccesoSistema (identificacion, perfil) VALUES
 ('1224775', 'Medico'),
 ('1224612', 'Medico'),
 
-('1234567', 'Enfermera'),
+('1234517', 'Enfermera'),
+('1234527', 'Enfermera'),
+('1234537', 'Enfermera'),
+('1234547', 'Enfermera'),
+
 
 ('12345', 'Paciente'),
 ('123', 'Paciente'),
