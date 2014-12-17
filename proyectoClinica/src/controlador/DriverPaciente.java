@@ -188,4 +188,26 @@ public class DriverPaciente {
         
         return historia;
     }
+    
+    public ArrayList<String> consultarPaciente2(String identificacion){
+        ArrayList<String> pacienteL = new ArrayList();
+        
+        try{
+            pacienteL=paciente.consultarPaciente2(identificacion);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar medico");
+        }
+        return pacienteL;
+    }
+    
+     public boolean estaPaciente2(String identificacion){
+         boolean respuesta = false;
+         
+         try{
+            respuesta = paciente.estaPaciente2(identificacion);
+         }catch(SQLException e){
+             JOptionPane.showMessageDialog(null, "Error al consultar identificacion medico");
+         }
+         return respuesta;
+     }
 }

@@ -102,7 +102,7 @@ public class VentanaConsultaEnfermera extends javax.swing.JFrame {
 
         jLNombres.setText("Nombres:");
 
-        jLabel1.setText("Consultar Medico");
+        jLabel1.setText("Consultar Enfermera");
 
         jLApellido_uno.setText("Primer Apellido:");
 
@@ -163,7 +163,7 @@ public class VentanaConsultaEnfermera extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(0, 124, Short.MAX_VALUE))
+                            .addGap(0, 116, Short.MAX_VALUE))
                         .addComponent(jTNombres, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTApellido_dos, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTDireccion, javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +180,7 @@ public class VentanaConsultaEnfermera extends javax.swing.JFrame {
                             .addGap(23, 23, 23)
                             .addComponent(jLJefe)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTJefe, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                            .addComponent(jTJefe, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
                         .addComponent(jBAtras))
                     .addContainerGap()))
         );

@@ -85,7 +85,7 @@ public class DaoMedico {
     public ArrayList<String> consultarMedico(String identificacion) throws SQLException{
         ArrayList<String> medico = new ArrayList();
         
-        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN MEDICO WHERE identificacion = '"+identificacion+"';";
+        sentenciaSql = "SELECT * FROM PERSONA NATURAL JOIN EMPLEADO NATURAL JOIN MEDICO WHERE identificacion = '"+identificacion+"' AND estado = 'true';";
         
         ejecutarConsulta();
         
