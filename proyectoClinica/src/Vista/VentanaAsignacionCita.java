@@ -222,7 +222,7 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtrasMouseClicked
 
     private void btConsultarDispActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarDispActionPerformed
-        if (!SelecFechaCita.getCalendar().after(Calendar.getInstance())) {
+        if (!SelecFechaCita.getCalendar().before(Calendar.getInstance())) {
             
             JOptionPane.showMessageDialog(this, "La fecha de debe ser posterior a la fecha actual", 
                     "Error", JOptionPane.ERROR_MESSAGE);
