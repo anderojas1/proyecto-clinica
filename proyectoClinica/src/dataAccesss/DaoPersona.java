@@ -155,4 +155,28 @@ public class DaoPersona {
     }
     
     
+    public boolean consultarPersonaEditar(String identificacion)throws SQLException{
+        boolean respuesta = false;
+        
+        sentenciaSql = "SELECT * FROM Persona where identificacion = '" + identificacion + "';";
+        
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+            respuesta = true;
+        
+        }
+        return respuesta;
+    }
+    
+    
+    public void editarPersona(String identificacion, String nombres, String apellido_uno, String apellido_dos, String direccion) throws SQLException{
+        sentenciaSql = "UPDATE Persona SET nombres = '"+nombres+"', apellido_uno = '"+apellido_uno+"', apellido_dos = '"+apellido_dos+"', direccion = '"+direccion+"' \n"+
+                       "WHERE identificacion='"+identificacion+"'";
+        
+        ejecutarUpdate();
+    }
+    
+    
 }

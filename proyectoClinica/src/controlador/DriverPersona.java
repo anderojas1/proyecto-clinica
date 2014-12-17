@@ -8,6 +8,7 @@ package controlador;
 import logica.Persona;
 import dataAccesss.DaoPersona;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,4 +44,24 @@ public class DriverPersona {
         daoPersona.configurarCuentaAcceso(id, pass);
         
     }
+    
+     public boolean consultarPersonaEditar(String identificacion){
+        boolean respuesta = false;
+        
+        try{
+            respuesta = daoPersona.consultarPersonaEditar(identificacion);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar la persona");
+        }
+        return respuesta;
+    }
+     
+      public void editarPersona(String identificacion, String nombres, String apellido_uno, String apellido_dos, String direccion){
+          
+          try{
+              daoPersona.editarPersona(identificacion, nombres, apellido_uno, apellido_dos, direccion);
+          }catch(SQLException e){
+              
+          }
+      }
 }
