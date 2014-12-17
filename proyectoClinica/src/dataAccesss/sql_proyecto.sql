@@ -304,11 +304,20 @@ on update cascade on delete no action
 INSERT INTO Persona VALUES 
 ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true),
 ('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
-('12345', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+
+('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'calle 45 #23-232', true),
+('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'carrera 45 #4-432', true),
+
+('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'transversal 67 #3-34', true),
+('1234567', 'Enfermera', 'farina', 'romero', 'alvarez', 'transversal 67 #3-34', true),
+('1234567', 'Enfermera', 'amparo', 'torres', 'enao', 'transversal 67 #3-34', true),
+('1234567', 'Enfermera', 'cristina', 'lopez', 'carvajal', 'transversal 67 #3-34', true),
+
+('123451', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
+('123452', 'Paciente', 'carol', 'cuevas', 'pinerez', 'Calle 72W # 7EBIS-25', true),
+('123453',  'Paciente', 'carlos', 'gaona', 'cuevas', 'Calle 72W # 7EBIS-25', true),
+('12345', 'Paciente', 'Angel', 'cruz', 'paz', 'Calle 72W # 7EBIS-25', true),
 ('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
-('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'La Huaca', true),
-('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'Callejón', true),
-('1234567', 'Enfermera', 'Maria Alejandra', 'Popayan', 'farra', 'Callejón 666', true);
 
 
 INSERT INTO AccesoSistema VALUES ('admin', '12345', 'administrador');
@@ -316,9 +325,14 @@ INSERT INTO AccesoSistema (identificacion, perfil) VALUES
 ('1325228', 'Medico'),
 ('1224775', 'Medico'),
 ('1224612', 'Medico'),
+
 ('1234567', 'Enfermera'),
+
 ('12345', 'Paciente'),
-('123', 'Paciente');
+('123', 'Paciente'),
+('123451', 'Paciente'),
+('123452', 'Paciente'),
+('123453', 'Paciente');
 
 INSERT INTO Area VALUES ('001', 'Ginecologia', 'La Unidad Estratégica de Servicios de Ginecología y Obstetricia 
 es un área de atención para las Gestantes y sus recién nacidos al igual que manejo y hospitalización de usuarias con 
