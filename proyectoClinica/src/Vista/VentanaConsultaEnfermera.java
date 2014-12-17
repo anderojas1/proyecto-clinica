@@ -7,6 +7,7 @@
 package Vista;
 
 import controlador.DriverEnfermera;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -24,6 +25,7 @@ public class VentanaConsultaEnfermera extends javax.swing.JFrame {
     public VentanaConsultaEnfermera() {
         initComponents();
         contEnfermera = new DriverEnfermera();
+        getContentPane().setBackground(Color.WHITE);
         
     jEmail.setVisible(false);
     jLApellido_dos.setVisible(false);

@@ -6,8 +6,10 @@
 package controlador;
 
 import dataAccesss.*;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import logica.Paciente;
 import logica.Telefono;
@@ -80,12 +82,12 @@ public class DriverPaciente {
         horasF.add("11:30:00");
         horasF.add("12:00:00");
         horasF.add("12:30:00");
-        horasF.add("01:00:00");
-        horasF.add("01:30:00");
-        horasF.add("02:00:00");
-        horasF.add("02:30:00");
-        horasF.add("03:00:00");
-        horasF.add("03:30:00");
+        horasF.add("13:00:00");
+        horasF.add("13:30:00");
+        horasF.add("14:00:00");
+        horasF.add("14:30:00");
+        horasF.add("15:00:00");
+        horasF.add("15:30:00");
         return horasF;
     }
     
@@ -104,7 +106,7 @@ public class DriverPaciente {
         ArrayList<String> fechasM = new ArrayList();
         ArrayList<String[]> lista = new ArrayList();
         ArrayList<String> horasDia = horas();
-        
+        Calendar calendario = Calendar.getInstance();;
         
          try{
             medicos = paciente.ConsultarMedicoCita();
