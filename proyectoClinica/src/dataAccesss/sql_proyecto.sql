@@ -303,8 +303,8 @@ on update cascade on delete no action
 
 INSERT INTO Persona VALUES 
 ('admin', 'admin', 'Anderson', 'Enriquez', 'Rojas', '----', true),
-('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 
+('1325228', 'Medico', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 ('1224775', 'Medico', 'Julián', 'Canacuán', 'Valenzuela', 'calle 45 #23-232', true),
 ('1224612', 'Medico', 'Mario Alejandro', 'Payán', 'Viáfara', 'carrera 45 #4-432', true),
 
@@ -316,6 +316,7 @@ INSERT INTO Persona VALUES
 ('123451', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 ('123452', 'Paciente', 'carol', 'cuevas', 'pinerez', 'Calle 72W # 7EBIS-25', true),
 ('123453',  'Paciente', 'carlos', 'gaona', 'cuevas', 'Calle 72W # 7EBIS-25', true),
+
 ('12345', 'Paciente', 'Angel', 'cruz', 'paz', 'Calle 72W # 7EBIS-25', true),
 ('123', 'Paciente', 'Kellys', 'Santa', 'Gutiérrez', 'Calle 72W # 7EBIS-25', true),
 
@@ -334,6 +335,7 @@ INSERT INTO AccesoSistema (identificacion, perfil) VALUES
 
 ('12345', 'Paciente'),
 ('123', 'Paciente'),
+
 ('123451', 'Paciente'),
 ('123452', 'Paciente'),
 ('123453', 'Paciente');
@@ -355,7 +357,10 @@ realizan prácticas en la UES de Neurocirugía. Mantener ambiente de cordialidad
 
 INSERT INTO Paciente VALUES
 ('12345', 'Comerciante', '100011100', '1963-12-10'),
-('123', 'Ganadero', '10012121', '1950-02-24');
+('123', 'Ganadero', '10012121', '1995-12-24'),
+('123451', 'Tendero', '932423448', '1956-04-01'),
+('123452', 'Ama de casa', '5345345734', '1990-01-01'),
+('123453', 'Obrero', '238472362', '1999-09-09');
 
 INSERT INTO Empleado VALUES
 ('1325228', '004', 4500000, 'kellys.santa@correounivalle.edu.co', 'Medico', '1325228'),
