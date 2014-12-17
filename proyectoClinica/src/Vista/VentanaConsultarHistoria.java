@@ -62,10 +62,7 @@ public class VentanaConsultarHistoria extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
@@ -138,6 +135,10 @@ public class VentanaConsultarHistoria extends javax.swing.JFrame {
             ArrayList<String[]> lista = new ArrayList();
             lista = contPaciente.consultarHistoria(numH);
             
+            if(lista.size() == 0){
+                JOptionPane.showMessageDialog(null, "No se encontró registros, por favor verifique el número de historia");
+            }else{
+            
             jTable1.setModel(modeloTabla = new DefaultTableModel(
             new Object [][] {
 
@@ -173,6 +174,7 @@ public class VentanaConsultarHistoria extends javax.swing.JFrame {
            
         
         
+        }
         }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
