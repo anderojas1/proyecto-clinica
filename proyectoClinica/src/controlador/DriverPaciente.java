@@ -64,6 +64,7 @@ public class DriverPaciente {
         
         try{
             paciente.AsignarCita(id_medico, id_paciente, fecha);
+            JOptionPane.showMessageDialog(null, "Se asignó la cita");
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Error al asignar cita. Por favor intente nuevamente");

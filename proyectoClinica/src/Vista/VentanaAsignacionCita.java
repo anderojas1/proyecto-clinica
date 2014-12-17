@@ -305,6 +305,7 @@ public void guardarCita(){
         String fecha= new SimpleDateFormat("yyyy-MM-dd").format(SelecFechaCita.getDate())+" "+(String)jTable1.getValueAt(jTable1.getSelectedRow(), 2);
         System.out.print("fecha: "+fecha);
         contPaciente.AsignarCita(id_medico, identificacion, fecha);
+        
         }else{
             JOptionPane.showMessageDialog(null, "Verifique la identificación del paciente y vuelva a intentar");
         }
