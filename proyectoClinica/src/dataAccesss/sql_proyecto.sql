@@ -360,7 +360,11 @@ INSERT INTO Paciente VALUES
 INSERT INTO Empleado VALUES
 ('1325228', '004', 4500000, 'kellys.santa@correounivalle.edu.co', 'Medico', '1325228'),
 ('1224775', '001', 4500000, 'julian.canacuan.valenzuela@correounivalle.edu.co', 'Medico', '1325228'),
-('1224612', '003', 4500000, 'mario.payan@correounivalle.edu.co', 'Medico', '1325228');
+('1224612', '003', 4500000, 'mario.payan@correounivalle.edu.co', 'Medico', '1325228'),
+('1234517', '002', 1500000, 'maria@enfermera.com', 'Enfermera', '1224775'),
+('1234527', '001', 2000000, 'romero.henao@enfermera.com', 'Enfermera', '1224612'),
+('1234537', '004', 3000000, 'amparotorres@enfermera.com', 'Enfermera', '1325228'),
+('1234547', '004', 3000000, 'cristina@gmail.com', 'Enfermera', '1325228');
 
 INSERT INTO Medico VALUES
 ('1325228', 'Cirujía neuronal', 'Universidad del Valle', '1121212'),
@@ -368,7 +372,10 @@ INSERT INTO Medico VALUES
 ('1224612', 'Atención al adulto mayor', 'Universidad del Valle', '1010100');
 
 INSERT INTO Enfermera VALUES
-('1234567', 3);
+('1234517', 2),
+('1234527', 4),
+('1234537', 12),
+('1234547', 8);
 
 INSERT INTO Cama VALUES
 ('0000001', 'Cama de uso general', true, '001', true),
