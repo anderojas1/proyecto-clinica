@@ -385,7 +385,8 @@ INSERT INTO Enfermera VALUES
 INSERT INTO Cama VALUES
 ('0000001', 'Cama de uso general', true, '001', true),
 ('0010001', 'Cama para tomología', true, '004', true),
-('0010011', 'Cama para atención general', true, '002', true);
+('0010011', 'Cama para atención general', true, '002', true),
+('0010111', 'Cama dura', true, '003', true);
 
 INSERT INTO Medicamento VALUES
 ('0001', 'BETAMETASONA', 12450, 'Medicamento 1', true),
