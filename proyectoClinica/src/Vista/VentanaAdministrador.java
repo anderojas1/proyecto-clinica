@@ -77,7 +77,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, false
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -205,6 +205,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaInformacionMedicamentos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        EliminarMedicamento = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         lbSubTituloArea = new javax.swing.JLabel();
         lbNombreArea = new javax.swing.JLabel();
@@ -410,6 +411,18 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jScrollPane6.setViewportView(tablaInformacionMedicamentos);
 
         jButton2.setText("Actualizar información");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        EliminarMedicamento.setText("Eliminar medicamento");
+        EliminarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarMedicamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -419,7 +432,10 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EliminarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30))
         );
         jPanel11Layout.setVerticalGroup(
@@ -428,7 +444,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(EliminarMedicamento))
                 .addContainerGap())
         );
 
@@ -1055,6 +1073,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
 
     public void cargarMedicamentos () {
         
+        for (int i = tablaInformacionMedicamentos.getRowCount(); i > 0; i--) {
+            
+            modeloTablaMedicamento.removeRow(i-1);
+            
+        }
+        
         DriverMedicamento consultarMedicamento = new DriverMedicamento();
         try {
             
@@ -1116,6 +1140,71 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btAgregarMedicamentoActionPerformed
 
+    private void EliminarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarMedicamentoActionPerformed
+        
+        int index = tablaInformacionMedicamentos.getSelectedRow();
+        
+        if (index != -1) {
+            
+            String codigo = tablaInformacionMedicamentos.getValueAt(index, 0).toString();
+            
+            DriverMedicamento eliminar = new DriverMedicamento();
+            try {
+                
+                eliminar.eliminarMedicamento(codigo);            
+            
+                cargarMedicamentos();
+            
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el medicamento exitosamente", 
+                    "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+                
+            } catch (SQLException ex) {
+                
+                System.err.println(ex.getMessage());
+            }
+        }
+        
+        else {
+            
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningún medicamento para eliminar", 
+                    "Seleccione un medicamento", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_EliminarMedicamentoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        int index = tablaInformacionMedicamentos.getSelectedRow();
+        
+        if (index != -1) {
+            
+            String codigo = tablaInformacionMedicamentos.getValueAt(index, 0).toString();
+            String nombre = tablaInformacionMedicamentos.getValueAt(index, 1).toString();
+            String descripcion = tablaInformacionMedicamentos.getValueAt(index, 2).toString();
+            double costo = Double.parseDouble(tablaInformacionMedicamentos.getValueAt(index, 3).toString());
+            
+            DriverMedicamento driverMedicamento = new DriverMedicamento();
+            try {
+                
+                driverMedicamento.editarMedicamento(codigo, nombre, costo, descripcion);
+                cargarMedicamentos();
+            
+                JOptionPane.showMessageDialog(this, "Se ha actualizado la información del medicamento", 
+                    "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException | NumberFormatException ex) {
+                System.err.println(ex.getMessage());
+                
+            } 
+            
+        }
+            
+        
+        else {
+            
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningún medicamento para eliminar", 
+                    "Seleccione un medicamento", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void cargarAreas () {
         
         comboAreasCama.removeAllItems();
@@ -1164,6 +1253,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AreaDescripCama;
     private javax.swing.JTextArea AreaDescripMedicamento;
+    private javax.swing.JButton EliminarMedicamento;
     private javax.swing.JLabel LbTipoUsu;
     private javax.swing.JButton actualizarInformacionCamas;
     private javax.swing.JTextArea areaDescripArea;
