@@ -245,7 +245,12 @@ public class VentanaLogin extends javax.swing.JFrame {
                 dispose();
             
             
-            } else {
+            } else if ("Paciente".equals(perfil)) {
+                
+                
+            }
+            
+            else {
                 
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", JOptionPane.ERROR_MESSAGE);
                 jpfcontraseña.setText("");

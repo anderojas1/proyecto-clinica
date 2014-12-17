@@ -1,4 +1,4 @@
-﻿/*drop table PERSONA cascade;
+drop table PERSONA cascade;
 DROP table AccesoSistema cascade;
 DROP table AREA cascade;
 DROP table PACIENTE cascade;
@@ -401,7 +401,7 @@ INSERT INTO Historia_c VALUES
 INSERT INTO Causa VALUES
 ('001001', 'irritación cutánea', 'ronchas en la piel, piel rojiza', true),
 ('011101', 'dermatitis', 'dermatitis', true);
-*/
+
 INSERT INTO Agenda_cita VALUES
 ('1325228', '12345', '2014-05-06 14:00', 'asistida'),
 ('1325228', '12345', '2015-03-05 12:00', 'asignada'),
