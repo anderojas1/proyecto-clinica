@@ -5,6 +5,15 @@
  */
 package Vista;
 
+import controlador.DriverPaciente;
+import dataAccesss.DaoPaciente;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author julian
@@ -12,12 +21,35 @@ package Vista;
 public class VentanaModificarCita extends javax.swing.JFrame {
 
    private VentanaAdminEnfermera ventAdminEnfer;
-            
+   private DaoPaciente daoPaciente;
+   private DefaultTableModel modeloTabla;        
+   
     /**
      * Creates new form VentanaModificarCita
      */
-    public VentanaModificarCita() {
+    public VentanaModificarCita() throws SQLException {
+        
         initComponents();
+        daoPaciente = new DaoPaciente();
+        
+        tablaCitas.setModel(modeloTabla = new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Medico", "Fecha - Hora", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        
+               
     }
 
     /**
@@ -30,21 +62,55 @@ public class VentanaModificarCita extends javax.swing.JFrame {
     
         this.ventAdminEnfer = ventAdminEnfer;
     
+        
     }
+      
+     public void cargarCitas() throws SQLException{
+     
+         ArrayList <String[]> citasProgramadas = new ArrayList();
+         
+         if(campoIdPaciente.getText() != null){
+            
+             citasProgramadas = daoPaciente.mostrarCitasPacientes(campoIdPaciente.getText());
+             
+             JOptionPane.showMessageDialog(null,"tama;o citas"+citasProgramadas.size());
+         
+         }
+         
+         for(int i = 0; i < citasProgramadas.size(); i++){
+             
+             String idMedico = citasProgramadas.get(i)[0];
+             String fecha = citasProgramadas.get(i)[1];
+             String estado = citasProgramadas.get(i)[2];
+             
+             modeloTabla.addRow(new Object[]{idMedico,fecha,estado});
+        
+         }
+     
+     }
+     
+     public void limpiarTabla(){
+    
+        int numFilas = tablaCitas.getRowCount();
+        for(int i = 0; i< numFilas; i++){
+        
+            modeloTabla.removeRow(0);
+            //modeloTabla.removeRow(1);
+       }
+     }
+      
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        campoIdMedico = new javax.swing.JTextField();
         campoIdPaciente = new javax.swing.JTextField();
         btVerCitas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCitas = new javax.swing.JTable();
-        btGuardarModifi = new javax.swing.JButton();
+        btCancelarCita = new javax.swing.JButton();
         btAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,30 +119,39 @@ public class VentanaModificarCita extends javax.swing.JFrame {
 
         jLabel1.setText("Modificar Cita");
 
-        jLabel2.setText("Identificacion Medico");
-
         jLabel3.setText("Identificacion Paciente");
 
         btVerCitas.setText("Ver Citas");
+        btVerCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btVerCitasMouseClicked(evt);
+            }
+        });
 
         tablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Fecha", "Hora", "Estado"
+                "ID Medico", "Fecha - Hora", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaCitas);
 
-        btGuardarModifi.setText("Guardar Modificaciones");
+        btCancelarCita.setText("Cancelar cita");
+        btCancelarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btCancelarCitaMouseClicked(evt);
+            }
+        });
 
         btAtras.setText("Atras");
         btAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,62 +164,45 @@ public class VentanaModificarCita extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(159, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(85, 85, 85)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(btVerCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
-                        .addComponent(btGuardarModifi))
+                        .addGap(80, 80, 80)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(82, 82, 82)
+                                .addComponent(campoIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btVerCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(359, 359, 359)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(127, 127, 127))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(campoIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(campoIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btGuardarModifi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btVerCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btVerCitas)
+                    .addComponent(jLabel3)
+                    .addComponent(campoIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,7 +215,7 @@ public class VentanaModificarCita extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +227,45 @@ public class VentanaModificarCita extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btAtrasMouseClicked
 
+    private void btVerCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVerCitasMouseClicked
+      
+       try {
+      
+           if(campoIdPaciente.getText() != null || !"".equals(campoIdPaciente.getText())){
+           
+               limpiarTabla();
+               cargarCitas();
+           
+           }
+           
+       } catch (SQLException ex) {
+       
+           JOptionPane.showMessageDialog(null, "Error en la consulta");
+       
+       }
+    }//GEN-LAST:event_btVerCitasMouseClicked
+
+    private void btCancelarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCancelarCitaMouseClicked
+        
+        if(campoIdPaciente.getText() != null && campoIdPaciente.getText() != ""){
+        
+            try {
+           
+                daoPaciente.cancelarCita(campoIdPaciente.getText(), (String)tablaCitas.getValueAt(tablaCitas.getSelectedRow(), 0), (String)tablaCitas.getValueAt(tablaCitas.getSelectedRow(), 1));
+            
+                JOptionPane.showMessageDialog(null, "Actualizacion exitosa");
+                
+                limpiarTabla();
+                cargarCitas();
+            } catch (SQLException ex) {
+            
+                JOptionPane.showMessageDialog(null, "Error en la consulta SQL");
+            
+            }
+        }
+    }//GEN-LAST:event_btCancelarCitaMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -199,19 +296,29 @@ public class VentanaModificarCita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaModificarCita().setVisible(true);
+                try {
+              
+                    new VentanaModificarCita().setVisible(true);
+                
+                } catch (SQLException ex) {
+                
+                    JOptionPane.showMessageDialog(null, "Error en la consulta");
+                
+                }catch (NullPointerException np){
+                
+                    JOptionPane.showMessageDialog(null, "el fallo era aca");
+                    
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtras;
-    private javax.swing.JButton btGuardarModifi;
+    private javax.swing.JButton btCancelarCita;
     private javax.swing.JButton btVerCitas;
-    private javax.swing.JTextField campoIdMedico;
     private javax.swing.JTextField campoIdPaciente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

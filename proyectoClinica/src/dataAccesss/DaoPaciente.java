@@ -7,6 +7,7 @@ package dataAccesss;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Medico;
 import logica.Paciente;
 import logica.Telefono;
@@ -87,30 +88,36 @@ public class DaoPaciente {
        return pacientes;
     }
     
-    /*public Paciente consultarPaciente(String identificacion) throws SQLException{
-        Paciente usuario = new Paciente();
-        
-        String doc_id, tipo, nombre, apellido1, apellido2, direccion_residencia, num_seguridad, actividad, fecha_nac; 
-        ArrayList<Telefono> num_telefonos; 
-        boolean estado, activo;
-        sentenciaSql = "SELECT * FROM Paciente WHERE identificacion = '"+identificacion+"'"; 
-        
-        while (registros.next()) {
+ public ArrayList<String[]> mostrarCitasPacientes(String idPaciente) throws SQLException{
+ 
+     ArrayList<String[]> citasPaciente = new ArrayList();
 
-            String nombre = registros.getString(2);
-            String descripcion = registros.getString(3);
-            boolean estado = registros.getBoolean(4);
-            
-            area = new Area(codigo, descripcion, nombre, estado);
-            
-            return area;
+     sentenciaSql = "SELECT id_medico, fecha_hora, estado FROM agenda_cita WHERE (estado <> 'asistida' AND estado <> 'cancelada') AND id_paciente = '"+idPaciente+"' ;";
 
-        }
-            
-        return area;
-        return usuario;
-    }*/
-    
+     //JOptionPane.showMessageDialog(null, sentenciaSql);
+     
+     ejecutarConsulta();
+     
+     while(registros.next()){
+     
+         String idMedico = registros.getString(1);
+         String fecha_hora = registros.getString(2);
+         String estado = registros.getString(3);
+         
+         String [] cita = {idMedico,fecha_hora,estado};
+         
+         citasPaciente.add(cita);
+     }
+ 
+        return citasPaciente;
+ }   
+ 
+ public void cancelarCita(String idPaciente, String idMedico, String hora_fecha) throws SQLException{
+     
+      sentenciaSql = "UPDATE agenda_cita SET estado = 'cancelada' WHERE id_paciente = '"+idPaciente+"' AND id_medico = '"+ idMedico+"' AND fecha_hora = '"+hora_fecha+"';";
+ 
+      ejecutarUpdate();
+ }
     
     public boolean consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
         
@@ -213,15 +220,7 @@ public class DaoPaciente {
        return pacientes;
     }
     
-     /*public static void main(String args[]) {
-         DaoPaciente paciente = new DaoPaciente();
-         try{
-         paciente.mostrarCitasFechas("123", "13");
-         }catch(SQLException e){
-             
-         }
-     }*/
-    
+        
     public void registrarFormulaMedicaPaciente (String id_medico, String id_paciente, ArrayList<Object[]>cod_medicamento, 
             String fecha_hora) throws SQLException {
         

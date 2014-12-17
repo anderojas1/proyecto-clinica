@@ -243,11 +243,19 @@ public class VentanaAdminEnfermera extends javax.swing.JFrame {
 
     private void btModificarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btModificarCitaMouseClicked
        
-        VentanaModificarCita ventModiCita = new VentanaModificarCita();
+        VentanaModificarCita ventModiCita;
+        try {
+            
+            ventModiCita = new VentanaModificarCita();
+            ventModiCita.setVisible(true);
+            ventModiCita.setLocationRelativeTo(null);
+            ventModiCita.acomodarVentana(this);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdminEnfermera.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        ventModiCita.setVisible(true);
-        ventModiCita.setLocationRelativeTo(null);
-        ventModiCita.acomodarVentana(this);
+       
         
        dispose();
                 
