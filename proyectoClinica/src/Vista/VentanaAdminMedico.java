@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logica.Persona;
+import controlador.DriverCampana;
+import javax.swing.JOptionPane;
 
 /**
  * 
@@ -17,12 +19,14 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
 
     private VentanaLogin ventLog;
     private Persona sesion;
+    private DriverCampana campana;
     
     /**
      * Creates new form VentanaAdminMedico
      */
     public VentanaAdminMedico() {
         initComponents();
+        campana = new DriverCampana();
     }
 
     public void acomodarVentana(VentanaLogin ventLog){
@@ -94,6 +98,11 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                 btAgendaMouseClicked(evt);
             }
         });
+        btAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgendaActionPerformed(evt);
+            }
+        });
 
         lbAgenda.setText("Ver Agenda");
 
@@ -117,6 +126,11 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
                 btAdminCampMouseClicked(evt);
             }
         });
+        btAdminCamp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdminCampActionPerformed(evt);
+            }
+        });
 
         lbAdminCamp.setText("Administrar campaña ");
 
@@ -135,6 +149,11 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         btConsultasMes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btConsultasMesMouseClicked(evt);
+            }
+        });
+        btConsultasMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultasMesActionPerformed(evt);
             }
         });
 
@@ -282,7 +301,9 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btCrearCampMouseClicked
 
     private void btAdminCampMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAdminCampMouseClicked
-       
+        int countCampanas = campana.listaCampanas().size();
+        System.out.println(countCampanas);
+        if(countCampanas!=0){
         VentanaRegistroCampPaciente ventRegCampPac = null;
         try {
             ventRegCampPac = new VentanaRegistroCampPaciente();
@@ -295,7 +316,10 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         ventRegCampPac.acomodarVentana(this);
         
         dispose();
-        
+       }else{
+            JOptionPane.showMessageDialog(this, "Debe crear primero una campaña para poder editarlas",
+                "Edición de campaña", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btAdminCampMouseClicked
 
     private void btConsultasMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btConsultasMesMouseClicked
@@ -308,6 +332,18 @@ public class VentanaAdminMedico extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btConsultasMesMouseClicked
+
+    private void btAdminCampActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdminCampActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAdminCampActionPerformed
+
+    private void btConsultasMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultasMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btConsultasMesActionPerformed
+
+    private void btAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAgendaActionPerformed
 
     /**
      * @param args the command line arguments
