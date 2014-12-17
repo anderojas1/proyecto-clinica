@@ -253,4 +253,31 @@ public class DaoPaciente {
         
     }
     
+    public ArrayList<String[]> consultarHistoria(String num_historia)throws SQLException{
+         
+        ArrayList<String[]> paciente = new ArrayList();
+        
+        sentenciaSql = "SELECT  L.nombres, L.apellido_uno, L.apellido_dos, C.nombre, L.fecha_hora FROM Causa C JOIN (\n" +
+"SELECT P.nombres, P.apellido_uno, P.apellido_dos, R.codigo_causa, R.fecha_hora FROM Registro R \n" +
+"JOIN Persona P ON R.id_medico = P.identificacion WHERE R.num_historia = '"+num_historia+"' AND R.estado = 'true') As L ON C.codigo = L.codigo_causa;";
+              
+
+        ejecutarConsulta();
+               
+        while(registros.next()){
+        
+
+            String medico = registros.getString(1)+" "+registros.getString(2)+" "+registros.getString(3);
+            String causa = registros.getString(4);
+            String fecha = registros.getString(5);
+            
+            String [] datos = {medico,causa,fecha};
+            
+            paciente.add(datos);
+        
+        }
+        
+       return paciente;
+    }
+    
 }

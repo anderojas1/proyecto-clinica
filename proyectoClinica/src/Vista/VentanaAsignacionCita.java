@@ -93,6 +93,11 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
                 btAtrasMouseClicked(evt);
             }
         });
+        btAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtrasActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -266,6 +271,10 @@ public class VentanaAsignacionCita extends javax.swing.JFrame {
         // TODO add your handling code here:
         guardarCita();
     }//GEN-LAST:event_btAsignarActionPerformed
+
+    private void btAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtrasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAtrasActionPerformed
 
 public void guardarCita(){
     String identificacion = campoIdenPaciente.getText();

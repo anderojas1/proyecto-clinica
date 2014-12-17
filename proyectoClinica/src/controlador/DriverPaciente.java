@@ -174,4 +174,16 @@ public class DriverPaciente {
         paciente.asistirCita(id_paciente, id_medico, fecha_hora, estado);
         
     }
+    
+    public ArrayList<String []> consultarHistoria(String num_historia){
+        ArrayList<String[]> historia = new ArrayList();
+        
+        try{
+            historia = paciente.consultarHistoria(num_historia);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al consultar historia clinia");
+        }
+        
+        return historia;
+    }
 }
