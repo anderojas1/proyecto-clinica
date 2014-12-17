@@ -23,15 +23,12 @@ public class DriverMedicamento {
         
     }
     
-    public void registrarMedicamento (String codigo, String nombre, Double costo, String descripcion){
+    public void registrarMedicamento (String codigo, String nombre, Double costo, String descripcion) throws SQLException {
         
         Medicamento medicamento = new Medicamento(codigo, nombre, costo, descripcion);
-        try{
+        
         daoMedicamento.registrarMedicamento(medicamento);
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al registrar medicamento. Por favor intente nuevamente");
-        }
+        
         
     }
     
@@ -74,5 +71,12 @@ public class DriverMedicamento {
     public ArrayList<Object[]> consultarMedicamentos () throws SQLException {
         
         return daoMedicamento.consultarMedicamentosDisponibles();
+    }
+    
+    
+    public ArrayList<Medicamento> consultarDatosMedicamentos () throws SQLException {
+        
+        return daoMedicamento.consultarMedicamentos();
+        
     }
 }
