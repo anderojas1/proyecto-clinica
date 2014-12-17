@@ -111,4 +111,27 @@ public class DaoMedicamento {
         
         return medicamentos;
     }
+    
+    
+    public ArrayList<Medicamento> consultarMedicamentos () throws SQLException {
+        
+        sentenciaSql = "SELECT * FROM medicamento where estado = true;";
+        ejecutarConsulta();
+        
+        ArrayList<Medicamento> medicamentos = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String codigo = registros.getString(1);
+            String nombre = registros.getString(2);
+            double costo = registros.getDouble(3);
+            String descrip = registros.getString(4);
+            
+            Medicamento medicina = new Medicamento(codigo, nombre, costo, descrip);
+            medicamentos.add(medicina);
+            
+        }
+        
+        return medicamentos;
+    }
 }

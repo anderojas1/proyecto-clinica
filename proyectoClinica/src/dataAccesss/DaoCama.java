@@ -151,5 +151,49 @@ public class DaoCama {
        
     }
     
+    
+    public ArrayList<Cama> listarCamasActivas () throws SQLException {
+        
+        ArrayList<Cama> camillas = new ArrayList<>();
+        
+        sentenciaSql = "SELECT * FROM Cama where dardebaja = true ORDER BY estado";
+        
+        ejecutarConsulta();
+        
+        while (registros.next()) {
+            
+            String num_inv = registros.getString(1);
+            String descr = registros.getString(2);
+            boolean estado = registros.getBoolean(3);
+            String area = registros.getString(4);
+            boolean activo = registros.getBoolean(5);
+            
+            Cama camaInventario = new Cama(descr, estado, num_inv, area, activo);
+            
+            camillas.add(camaInventario);
+            
+        }
+        
+        return camillas;
+        
+    }
+    
+    
+    public void actualizarInformacionCamas (Cama cama) throws SQLException {
+        
+        if (cama.getEstado()) {
+            sentenciaSql = "UPDATE Cama SET descripcion = '" + cama.getDescripcion() + "', cod_area = '" + cama.getCod_area()
+                    + "', dardebaja = " + cama.getActivoInventario() + " where numero = '" + cama.getNumeroInventario() + "';";
+                
+        }
+        
+        else sentenciaSql = "UPDATE Cama SET descripcion = '" + cama.getDescripcion() + "' where numero = '" +
+                cama.getNumeroInventario() + "';";
+        
+        System.err.println(sentenciaSql);
+        
+        ejecutarUpdate();
+    }
+    
      
 }

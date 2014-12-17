@@ -23,15 +23,12 @@ public class DriverMedicamento {
         
     }
     
-    public void registrarMedicamento (String codigo, String nombre, Double costo, String descripcion){
+    public void registrarMedicamento (String codigo, String nombre, Double costo, String descripcion) throws SQLException {
         
         Medicamento medicamento = new Medicamento(codigo, nombre, costo, descripcion);
-        try{
+        
         daoMedicamento.registrarMedicamento(medicamento);
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al registrar medicamento. Por favor intente nuevamente");
-        }
+        
         
     }
     
@@ -48,31 +45,33 @@ public class DriverMedicamento {
         
     }
     
-    public void editarMedicamento(String codigo, String nombre, Double costo, String descripcion){
+    public void editarMedicamento(String codigo, String nombre, Double costo, String descripcion) throws SQLException{
         
         Medicamento medicamento = new Medicamento(codigo, nombre, costo, descripcion);
-        try{
+        
         daoMedicamento.editarMedicamento(medicamento);
-        daoMedicamento.estadoMedicamento(codigo, true);
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al editar medicamento. Por favor intente nuevamente");
-        }
+        //daMedicamento.estadoMedicamento(codigo, true);
+        
     }
     
-    public void eliminarMedicamento(String codigo){
+    public void eliminarMedicamento(String codigo) throws SQLException{
         
-        try{
+        
         daoMedicamento.estadoMedicamento(codigo, false);
-        }
-        catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar medicamento. Por favor intente nuevamente");
-        }
+       
+        
     }
     
     
     public ArrayList<Object[]> consultarMedicamentos () throws SQLException {
         
         return daoMedicamento.consultarMedicamentosDisponibles();
+    }
+    
+    
+    public ArrayList<Medicamento> consultarDatosMedicamentos () throws SQLException {
+        
+        return daoMedicamento.consultarMedicamentos();
+        
     }
 }

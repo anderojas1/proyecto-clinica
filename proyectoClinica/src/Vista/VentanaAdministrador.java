@@ -13,6 +13,10 @@ import logica.Telefono;
 import excepciones.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.table.DefaultTableModel;
+import logica.Cama;
+import logica.Medicamento;
 
 /**
  *
@@ -26,6 +30,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private DriverArea area;
     private DriverCama driverCama = new DriverCama();
     private ArrayList<String[]> infoAreas;
+    private DefaultTableModel modeloTablaCamas;
+    private DefaultTableModel modeloTablaMedicamento;
+    private ArrayList<Cama> camilla = new ArrayList<>();
     
     
     private ArrayList <Telefono> telefonos = new ArrayList<>();
@@ -34,9 +41,94 @@ public class VentanaAdministrador extends javax.swing.JFrame {
      * Creates new form VentanaAdministrador
      */
     public VentanaAdministrador() {
+        
+        modeloTablaCamas = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+            },
+            new String [] {
+                "# inventario", "Descripción", "Área", "Estado", "En servicio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, Boolean.class, Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+        
+        modeloTablaMedicamento = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nombre", "Descripción", "Valor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+        
         initComponents();
         area = new DriverArea();
         cargarAreas();
+        agregarCamillasInformacion();
+        cargarMedicamentos();
+        
+    }
+    
+    
+    public void agregarCamillasInformacion () {
+        
+        for (int i = tablaInformacionCamas.getRowCount(); i > 0; i--) {
+            
+            modeloTablaCamas.removeRow(i-1);
+            
+        }
+        
+        try {
+            
+            ArrayList<Cama> camas = driverCama.listarCamasActivas();
+            
+            for (int i = 0; i < camas.size(); i++) {
+                
+                Cama nuevaCama = camas.get(i);
+                
+                Object [] datosCamas = {
+                    
+                    nuevaCama.getNumeroInventario(), nuevaCama.getDescripcion(), nuevaCama.getCod_area(),
+                    nuevaCama.getEstado(), nuevaCama.getActivoInventario()
+                };
+                
+                modeloTablaCamas.addRow(datosCamas);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            System.err.println(ex.getMessage());
+        }
+        
     }
     
     
@@ -59,6 +151,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Se ha registrado el área correctamente",
                 "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             
+            cargarAreas();
+            
+            
         } catch (SQLException ex) {
             
             JOptionPane.showMessageDialog(this, "Error en el registro",
@@ -76,6 +171,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel10 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -87,6 +183,10 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         comboAreasCama = new javax.swing.JComboBox();
         btAgregarCama = new javax.swing.JButton();
         campoNumeroCama = new javax.swing.JTextField();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaInformacionCamas = new javax.swing.JTable();
+        actualizarInformacionCamas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -101,6 +201,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         AreaDescripMedicamento = new javax.swing.JTextArea();
         btAgregarMedicamento = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tablaInformacionMedicamentos = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        EliminarMedicamento = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         lbSubTituloArea = new javax.swing.JLabel();
         lbNombreArea = new javax.swing.JLabel();
@@ -135,10 +240,22 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         btAgregarUsu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         registrarTelefono = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         lbLogo = new javax.swing.JLabel();
         btCerrarSesion = new javax.swing.JButton();
         lbBienvenido = new javax.swing.JLabel();
         lbUser = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 839, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 443, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,57 +282,104 @@ public class VentanaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nueva Cama");
+        jPanel9.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información y edición de camas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(1, 1, 1))); // NOI18N
+
+        tablaInformacionCamas.setModel(modeloTablaCamas);
+        jScrollPane4.setViewportView(tablaInformacionCamas);
+        if (tablaInformacionCamas.getColumnModel().getColumnCount() > 0) {
+            tablaInformacionCamas.getColumnModel().getColumn(0).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(1).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(3).setResizable(false);
+            tablaInformacionCamas.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        actualizarInformacionCamas.setText("Actualizar datos");
+        actualizarInformacionCamas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarInformacionCamasActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 0, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("Las camas cuyo estado sea ocupado, no podrán ser dadas de baja ni cambiadas a otra área");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(202, 202, 202)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(actualizarInformacionCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(actualizarInformacionCamas)
+                    .addComponent(jLabel1)))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAgregarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNumCama)
-                            .addComponent(lbCodAreaCama)
-                            .addComponent(lbDescripCama))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(campoNumeroCama, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(184, 184, 184))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(317, 317, 317)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNumCama)
+                    .addComponent(lbCodAreaCama))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btAgregarCama, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(lbDescripCama)
+                        .addGap(27, 27, 27)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(264, 264, 264))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addGap(41, 41, 41)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbNumCama))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCodAreaCama))
-                .addGap(51, 51, 51)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDescripCama))
-                .addGap(65, 65, 65)
-                .addComponent(btAgregarCama)
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNumCama)
+                            .addComponent(campoNumeroCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDescripCama, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbCodAreaCama, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAreasCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btAgregarCama))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Administracion de camas", jPanel3);
+        jTabbedPane1.addTab("Camas", jPanel3);
 
         jPanel5.setBackground(new java.awt.Color(254, 254, 254));
 
@@ -232,60 +396,118 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         jScrollPane2.setViewportView(AreaDescripMedicamento);
 
         btAgregarMedicamento.setText("Agregar");
+        btAgregarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarMedicamentoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nuevo Medicamento");
+
+        jPanel11.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información sobre medicamentos registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(2, 125, 168))); // NOI18N
+
+        tablaInformacionMedicamentos.setModel(modeloTablaMedicamento);
+        jScrollPane6.setViewportView(tablaInformacionMedicamentos);
+
+        jButton2.setText("Actualizar información");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        EliminarMedicamento.setText("Eliminar medicamento");
+        EliminarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarMedicamentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EliminarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(EliminarMedicamento))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btAgregarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNombreMedicamento)
-                                    .addComponent(lbCodigoMedicamento)
-                                    .addComponent(lbCostoMedicamento)
-                                    .addComponent(lbDescripMedicamento))
-                                .addGap(106, 106, 106)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(campoCostoMedicamento)
-                                    .addComponent(campoNomMedicamento, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoCodigoMedicamento, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(357, 357, 357)
-                        .addComponent(jLabel3)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbNombreMedicamento)
+                                .addComponent(lbCodigoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(69, 69, 69)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoCodigoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoNomMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbCostoMedicamento)
+                                .addComponent(lbDescripMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(44, 44, 44)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btAgregarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(campoCostoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(36, 36, 36)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel3)
-                .addGap(36, 36, 36)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNombreMedicamento)
-                    .addComponent(campoNomMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCodigoMedicamento)
-                    .addComponent(campoCodigoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbCostoMedicamento)
-                    .addComponent(campoCostoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDescripMedicamento)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(btAgregarMedicamento)
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNombreMedicamento)
+                            .addComponent(campoNomMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoCodigoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCodigoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoCostoMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCostoMedicamento))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDescripMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addComponent(btAgregarMedicamento)))
+                .addGap(113, 113, 113))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -348,12 +570,12 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                                 .addComponent(campoCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(btAgregarArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(648, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(96, Short.MAX_VALUE)
                 .addComponent(lbSubTituloArea)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -412,7 +634,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(lbCuentasEmpleados)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(745, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,7 +647,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbListaEmpleados)
                     .addComponent(lbCuentasEmpleados))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
@@ -506,7 +728,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                             .addComponent(campoNumIdenUsu)
                             .addComponent(campoDirUsu)
                             .addComponent(registrarTelefono))))
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 601, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,7 +751,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbPApellidoUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
+                        .addComponent(lbSApellidoUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -557,7 +779,22 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jTabbedPane1.addTab("Administracion de usuarios", jPanel2);
+        jTabbedPane1.addTab("Usuarios", jPanel2);
+
+        jPanel8.setBackground(new java.awt.Color(254, 254, 254));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1298, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 482, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Causas de consulta", jPanel8);
 
         btCerrarSesion.setBackground(new java.awt.Color(254, 254, 254));
         btCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/black-logout-256.png"))); // NOI18N
@@ -598,12 +835,11 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                                 .addComponent(lbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(47, 47, 47)
-                                .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,8 +856,8 @@ public class VentanaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -640,10 +876,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoPApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPApellidoActionPerformed
-
     private void btCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCerrarSesionMouseClicked
        
         ventLog.setVisible(true);
@@ -657,56 +889,20 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btCerrarSesionActionPerformed
 
-    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
-       
-        VentanaListadoEmpleados ventList;
-        try {
-        
-            ventList = new VentanaListadoEmpleados();
-            ventList.setVisible(true);
-            ventList.setLocationRelativeTo(null);
-            ventList.acomodarVentana(this);
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        dispose();
-    }//GEN-LAST:event_btListaEmpleadosMouseClicked
-
-    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
-       
-        ventanaCuentas ventCuen = new ventanaCuentas();
-        ventCuen.setVisible(true);
-        ventCuen.setLocationRelativeTo(null);
-        ventCuen.acomodarVentana(this);
-        
-        dispose();
-        
-        
-    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
-
-    private void btAgregarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAreaActionPerformed
-        
-        registrarArea();
-        
-    }//GEN-LAST:event_btAgregarAreaActionPerformed
-
     private void registrarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarTelefonoActionPerformed
-        
+
         VentanaRegistrarTelefono registrarNumeros = new VentanaRegistrarTelefono(telefonos);
         registrarNumeros.setVisible(true);
         registrarNumeros.setVentanaAdministrador(this);
         registrarNumeros.setAlwaysOnTop(true);
         registrarNumeros.setLocationRelativeTo(null);
-        
+
         setEnabled(false);
-        
+
     }//GEN-LAST:event_registrarTelefonoActionPerformed
 
     private void btAgregarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarUsuActionPerformed
-        
+
         String nombre = campoNomUsu.getText();
         String apellido1 = campoPApellido.getText();
         String apellido2 = campoSApellido.getText();
@@ -714,49 +910,300 @@ public class VentanaAdministrador extends javax.swing.JFrame {
         String numeroId = campoNumIdenUsu.getText();
         String direccion = campoDirUsu.getText();
         String tipoUsuario = combotipoUsu.getSelectedItem().toString();
-        
+
         try {
-        
+
             String [] datosValidar = {nombre, apellido1, numeroId, direccion};
-            
+
             validar.validarModulos(datosValidar);
-            
+
             String [] datosPersonales = {nombre, apellido1, apellido2, tipoId, numeroId, direccion, tipoUsuario};
-            
+
             switch (tipoUsuario) {
-                
+
                 case "Paciente": {
-                    
+
                     VentanaRegPaciente registrarPaciente = new VentanaRegPaciente();
                     registrarPaciente.acomodarVentana(this);
                     registrarPaciente.setDatosPersonales(datosPersonales, telefonos);
                     registrarPaciente.setVisible(true);
-                    
+
                     setVisible(false);
-                    
+
                 }; break;
-                    
+
                 case "Empleado": {
-                    
+
                     VentanaRegistroEmpleado registrarEmpleado = new VentanaRegistroEmpleado();
                     registrarEmpleado.acomodarVentana(this);
                     registrarEmpleado.setDatosPersonales(datosPersonales, telefonos);
                     registrarEmpleado.setVisible(true);
-                                        
+
                     setVisible(false);
-                    
+
                 }; break;
             }
-            
+
         } catch (ExcepcionCamposVacios ex) {
-            
+
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos requeridos sin llenar", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }//GEN-LAST:event_btAgregarUsuActionPerformed
+
+    private void campoPApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPApellidoActionPerformed
+
+    private void btCuentasEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCuentasEmpleadosMouseClicked
+
+        ventanaCuentas ventCuen = new ventanaCuentas();
+        ventCuen.setVisible(true);
+        ventCuen.setLocationRelativeTo(null);
+        ventCuen.acomodarVentana(this);
+
+        dispose();
+
+    }//GEN-LAST:event_btCuentasEmpleadosMouseClicked
+
+    private void btListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btListaEmpleadosMouseClicked
+
+        VentanaListadoEmpleados ventList;
+        try {
+
+            ventList = new VentanaListadoEmpleados();
+            ventList.setVisible(true);
+            ventList.setLocationRelativeTo(null);
+            ventList.acomodarVentana(this);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dispose();
+    }//GEN-LAST:event_btListaEmpleadosMouseClicked
+
+    private void btAgregarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAreaActionPerformed
+
+        registrarArea();
+
+    }//GEN-LAST:event_btAgregarAreaActionPerformed
+
+    private void btAgregarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCamaActionPerformed
+
+        String numeroCama = campoNumeroCama.getText();
+        String cod_area = infoAreas.get(comboAreasCama.getSelectedIndex())[0];
+        String descripcion = AreaDescripCama.getText();
+
+        String datosCama[] = {numeroCama, cod_area, descripcion};
+
+        try {
+
+            validar.validarModulos(datosCama);
+
+            driverCama.guardarCama(numeroCama, descripcion, cod_area);
+
+            JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso",
+                JOptionPane.INFORMATION_MESSAGE);
+                        
+            Object[] infoCamas = {numeroCama, descripcion, cod_area, true, true};
+            
+            modeloTablaCamas.addRow(infoCamas);
+
+            comboAreasCama.setSelectedIndex(0);
+            campoNumeroCama.setText("");
+            AreaDescripCama.setText("");
+
+        } catch (ExcepcionCamposVacios ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btAgregarCamaActionPerformed
+
+    private void actualizarInformacionCamasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarInformacionCamasActionPerformed
+        
+        if (tablaInformacionCamas.getRowCount() > 0){
+            
+            try {
+                
+                ArrayList<Cama> camas = new ArrayList<>();
+        
+                for (int i = 0; i < tablaInformacionCamas.getRowCount(); i++) {
+
+                    String codigo = tablaInformacionCamas.getValueAt(i, 0).toString();
+                    String descrip = tablaInformacionCamas.getValueAt(i, 1).toString();
+                    String area = tablaInformacionCamas.getValueAt(i, 2).toString();
+                    boolean estado = (Boolean) tablaInformacionCamas.getValueAt(i, 3);
+                    boolean activo=(Boolean) tablaInformacionCamas.getValueAt(i, 4);
+                    
+                    String [] camposvalidar = {descrip, area};
+                    
+                    validar.validarModulos(camposvalidar);
+
+                    Cama nuevaCama = new Cama(descrip, estado, codigo, area, activo);
+
+                    driverCama.actualizarInformacionCamas(nuevaCama);
+
+                }
+                
+                agregarCamillasInformacion();
+                
+                JOptionPane.showMessageDialog(this, "Información actualizada correctamente", "Actualización exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException | ExcepcionCamposVacios ex) {
+                
+                System.err.println(ex.getMessage());
+            }
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(this, "No hay camas registradas", "Error editando", JOptionPane.ERROR_MESSAGE);
+            
+        }
+
+        
+    }//GEN-LAST:event_actualizarInformacionCamasActionPerformed
+
+    public void cargarMedicamentos () {
+        
+        for (int i = tablaInformacionMedicamentos.getRowCount(); i > 0; i--) {
+            
+            modeloTablaMedicamento.removeRow(i-1);
             
         }
         
+        DriverMedicamento consultarMedicamento = new DriverMedicamento();
+        try {
+            
+            ArrayList<Medicamento> medicamentos = consultarMedicamento.consultarDatosMedicamentos();
+            
+            for (Medicamento medicina : medicamentos) {
+                
+                String codigo = medicina.getCodigo();
+                String nombre = medicina.getNombre();
+                double costo = medicina.getCosto();
+                String descripcion = medicina.getDescripcion();
+                
+                Object datosMedicamentos [] = {codigo, nombre, descripcion, costo};
+                
+                modeloTablaMedicamento.addRow(datosMedicamentos);
+                
+            }
+            
+        } catch (SQLException ex) {
+            
+            System.err.println(ex.getMessage());
+        }
         
         
-    }//GEN-LAST:event_btAgregarUsuActionPerformed
+    }
+    
+    private void btAgregarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarMedicamentoActionPerformed
+        
+        String nombreMedicamento = campoNomMedicamento.getText();
+        String codigoMedicamento = campoCodigoMedicamento.getText();
+        String descripcionMedicamento = AreaDescripMedicamento.getText();
+        String costoMedicamento = campoCostoMedicamento.getText();
+        
+        try {
+            
+            String [] validarDatos = {codigoMedicamento, nombreMedicamento, descripcionMedicamento, costoMedicamento};            
+            validar.validarModulos(validarDatos);
+            
+            double valorMedicamento = Double.parseDouble(costoMedicamento);
+            
+            DriverMedicamento driverMedicamento = new DriverMedicamento();
+            
+            driverMedicamento.registrarMedicamento(codigoMedicamento, nombreMedicamento, valorMedicamento, descripcionMedicamento);
+            
+            modeloTablaMedicamento.addRow(validarDatos);
+            
+            JOptionPane.showMessageDialog(this, "El medicamento se ha registrado exitosamente", "Registro con éxito", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            campoCodigoMedicamento.setText("");
+            campoNomMedicamento.setText("");
+            campoCostoMedicamento.setText("");
+            AreaDescripMedicamento.setText("");
+            
+        } catch (ExcepcionCamposVacios | SQLException | NumberFormatException ex) {
+            
+            System.err.println(ex.getMessage());
+            
+        }
+    }//GEN-LAST:event_btAgregarMedicamentoActionPerformed
+
+    private void EliminarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarMedicamentoActionPerformed
+        
+        int index = tablaInformacionMedicamentos.getSelectedRow();
+        
+        if (index != -1) {
+            
+            String codigo = tablaInformacionMedicamentos.getValueAt(index, 0).toString();
+            
+            DriverMedicamento eliminar = new DriverMedicamento();
+            try {
+                
+                eliminar.eliminarMedicamento(codigo);            
+            
+                cargarMedicamentos();
+            
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el medicamento exitosamente", 
+                    "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+                
+            } catch (SQLException ex) {
+                
+                System.err.println(ex.getMessage());
+            }
+        }
+        
+        else {
+            
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningún medicamento para eliminar", 
+                    "Seleccione un medicamento", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_EliminarMedicamentoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        int index = tablaInformacionMedicamentos.getSelectedRow();
+        
+        if (index != -1) {
+            
+            String codigo = tablaInformacionMedicamentos.getValueAt(index, 0).toString();
+            String nombre = tablaInformacionMedicamentos.getValueAt(index, 1).toString();
+            String descripcion = tablaInformacionMedicamentos.getValueAt(index, 2).toString();
+            double costo = Double.parseDouble(tablaInformacionMedicamentos.getValueAt(index, 3).toString());
+            
+            DriverMedicamento driverMedicamento = new DriverMedicamento();
+            try {
+                
+                driverMedicamento.editarMedicamento(codigo, nombre, costo, descripcion);
+                cargarMedicamentos();
+            
+                JOptionPane.showMessageDialog(this, "Se ha actualizado la información del medicamento", 
+                    "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException | NumberFormatException ex) {
+                System.err.println(ex.getMessage());
+                
+            } 
+            
+        }
+            
+        
+        else {
+            
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningún medicamento para eliminar", 
+                    "Seleccione un medicamento", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cargarAreas () {
         
@@ -782,38 +1229,6 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }
     
     
-    private void btAgregarCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarCamaActionPerformed
-       
-        String numeroCama = campoNumeroCama.getText();
-        String cod_area = infoAreas.get(comboAreasCama.getSelectedIndex())[0];
-        String descripcion = AreaDescripCama.getText();
-        
-        String datosCama[] = {numeroCama, cod_area, descripcion};
-        
-        try {
-            
-            validar.validarModulos(datosCama);
-            
-            driverCama.guardarCama(numeroCama, descripcion, cod_area);
-            
-            JOptionPane.showMessageDialog(this, "Se ha registrado la cama correctamente", "Registro exitoso", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            
-            comboAreasCama.setSelectedIndex(0);
-            campoNumeroCama.setText("");
-            AreaDescripCama.setText("");
-            
-        } catch (ExcepcionCamposVacios ex) {
-            
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", JOptionPane.ERROR_MESSAGE);
-            
-        } catch (SQLException ex) {
-            
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Registro fallido", JOptionPane.ERROR_MESSAGE);
-            
-        }
-    }//GEN-LAST:event_btAgregarCamaActionPerformed
-
     
     public void limpiarCampos () {
         
@@ -838,7 +1253,9 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AreaDescripCama;
     private javax.swing.JTextArea AreaDescripMedicamento;
+    private javax.swing.JButton EliminarMedicamento;
     private javax.swing.JLabel LbTipoUsu;
+    private javax.swing.JButton actualizarInformacionCamas;
     private javax.swing.JTextArea areaDescripArea;
     private javax.swing.JButton btAgregarArea;
     private javax.swing.JButton btAgregarCama;
@@ -861,19 +1278,26 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JComboBox comboAreasCama;
     private javax.swing.JComboBox comboTipoIdent;
     private javax.swing.JComboBox combotipoUsu;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbCodAreaCama;
@@ -899,5 +1323,7 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel lbTipoIdenUsu;
     private javax.swing.JLabel lbUser;
     private javax.swing.JButton registrarTelefono;
+    private javax.swing.JTable tablaInformacionCamas;
+    private javax.swing.JTable tablaInformacionMedicamentos;
     // End of variables declaration//GEN-END:variables
 }
