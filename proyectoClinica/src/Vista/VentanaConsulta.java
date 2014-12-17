@@ -111,8 +111,6 @@ public class VentanaConsulta extends javax.swing.JFrame {
         btGuardarConsulta = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
         consultarCita = new javax.swing.JButton();
-        comboHoras = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,10 +182,6 @@ public class VentanaConsulta extends javax.swing.JFrame {
             }
         });
 
-        comboHoras.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30" }));
-
-        jLabel4.setText("Hora consulta");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -217,24 +211,17 @@ public class VentanaConsulta extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(67, 67, 67)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(consultarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addGap(3, 3, 3)
-                                                .addComponent(jLabel8)
-                                                .addGap(28, 28, 28)
-                                                .addComponent(campoCantidadMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(89, 89, 89)
+                                        .addComponent(jLabel8)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(campoCantidadMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(consultarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -264,12 +251,9 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoIDHClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(consultarCita))
                 .addGap(18, 18, 18)
+                .addComponent(consultarCita)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -328,9 +312,8 @@ public class VentanaConsulta extends javax.swing.JFrame {
             validar.validarCampo(numHistoria);
             
             String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            String horaConsulta = comboHoras.getSelectedItem().toString();
             
-            fecha_hora = fecha + " " + horaConsulta;
+            fecha_hora = fecha;
             
             boolean asignado = paciente.consultarCitasPaciente(numHistoria, sesionActiva.getIdentificacion(), fecha_hora);
             
@@ -342,7 +325,7 @@ public class VentanaConsulta extends javax.swing.JFrame {
                 consultarCita.setEnabled(false);
                 campoIDHClinica.setEditable(false);
                 
-            } else JOptionPane.showMessageDialog(this, "No hay citas para el " + fecha + " a las "+ horaConsulta + " para el paciente " 
+            } else JOptionPane.showMessageDialog(this, "No hay citas para el " + fecha + " para el paciente " 
                     +  numHistoria, "No hay citas registradas", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (ExcepcionCamposVacios ex) {
@@ -522,13 +505,11 @@ public class VentanaConsulta extends javax.swing.JFrame {
     private javax.swing.JTextField campoCantidadMedica;
     private javax.swing.JTextField campoIDHClinica;
     private javax.swing.JComboBox comboCausas;
-    private javax.swing.JComboBox comboHoras;
     private javax.swing.JComboBox comboMedicamentos;
     private javax.swing.JButton consultarCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
