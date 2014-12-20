@@ -119,15 +119,15 @@ public class DaoPaciente {
       ejecutarUpdate();
  }
     
-    public boolean consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
+    public String consultarCitasPaciente (String id_paciente, String id_medico, String fecha) throws SQLException {
         
         sentenciaSql = "SELECT * FROM Agenda_cita WHERE id_medico = '" + id_medico + "' AND id_paciente = '" + id_paciente + "' "
                 + "AND estado = 'asignada' AND fecha_hora >= '" + fecha + " 07:00:00' AND fecha_hora <= '" + fecha + " 18:00:00';";
         ejecutarConsulta();
         
-        if (registros.next()) return true;
+        if (registros.next()) return registros.getString(3);
         
-        return false;
+        return null;
     }
     
     public void AsignarCita(String id_medico, String id_paciente, String fecha)throws SQLException{

@@ -313,13 +313,13 @@ public class VentanaConsulta extends javax.swing.JFrame {
             
             String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             
-            fecha_hora = fecha;
+            String asignado = paciente.consultarCitasPaciente(numHistoria, sesionActiva.getIdentificacion(), fecha);
             
-            boolean asignado = paciente.consultarCitasPaciente(numHistoria, sesionActiva.getIdentificacion(), fecha_hora);
-            
-            activarCampos ();
-            
-            if (asignado) {
+            if (asignado != null) {
+                
+                fecha_hora = asignado;
+                
+                activarCampos ();
                 
                 JOptionPane.showMessageDialog(this, "Cita encontrada", "Consulta exitosa", JOptionPane.INFORMATION_MESSAGE);
                 consultarCita.setEnabled(false);

@@ -204,7 +204,7 @@ id_paciente VARCHAR(30) NOT NULL,
 
 CONSTRAINT campana_paciente_pk PRIMARY KEY (cod_campana, id_paciente),
 
-CONSTRAINT cod_camapana_fk FOREIGN KEY (cod_campana)
+CONSTRAINT cod_campana_fk FOREIGN KEY (cod_campana)
 REFERENCES Campana (codigo)
 on update cascade on delete no action,
 

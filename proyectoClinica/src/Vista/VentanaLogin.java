@@ -247,7 +247,12 @@ public class VentanaLogin extends javax.swing.JFrame {
             
             } else if ("Paciente".equals(perfil)) {
                 
+                VentanaPaciente paciente = new VentanaPaciente();
+                paciente.setLocationRelativeTo(null);
+                paciente.setVisible(true);
+                paciente.datosPaciente(controladorPersona.consultarPersona(jtfUsuario.getText()));
                 
+                dispose();
             }
             
             else {

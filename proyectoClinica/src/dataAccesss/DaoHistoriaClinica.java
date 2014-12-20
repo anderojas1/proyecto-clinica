@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import logica.Paciente;
 
@@ -82,5 +83,27 @@ public class DaoHistoriaClinica {
             ejecutarUpdate();
             
         }
+    }
+    
+    public ArrayList<Object[]> consultarHistoria (String id) throws SQLException {
+        
+        sentenciaSql = "SELECT * FROM Registro WHERE num_historia = '" + id + "';";
+        ejecutarConsulta();
+        
+        ArrayList<Object[]>historia = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            String id_medico = registros.getString(1);
+            String fecha = registros.getString(4);
+            double costo = registros.getDouble(5);
+            
+            Object[] registros = {id_medico, fecha, costo};
+            
+            historia.add(registros);
+            
+        }
+        
+        return historia;
     }
 }
