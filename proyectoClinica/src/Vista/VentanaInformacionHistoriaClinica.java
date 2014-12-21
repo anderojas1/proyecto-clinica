@@ -6,8 +6,14 @@
 package Vista;
 
 import controlador.DriverHistoriaClinica;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
 import logica.Persona;
 
@@ -20,11 +26,22 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
     private Persona sesion;
     private DefaultTableModel modeloRegistro;
     private DriverHistoriaClinica consultarHistoria = new DriverHistoriaClinica();
-
+    private VentanaPaciente paciente;
+    private JPopupMenu menuOpciones;
+    private JMenuItem causas = new JMenuItem("Ver causas");
+    private JMenuItem medicamentos = new JMenuItem ("Ver medicamentos");
     /**
      * Creates new form VentanaInformacionHistoriaClinica
      */
     public VentanaInformacionHistoriaClinica() {
+        
+        menuOpciones = new JPopupMenu("Opciones");
+        
+        menuOpciones.add(causas);
+        menuOpciones.add(medicamentos);
+        
+        causas.addActionListener(this::causasRegistroHistoria);
+        medicamentos.addActionListener(this::medicamentosRegistrosHistoria);
         
         modeloRegistro = new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -41,22 +58,54 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
                 false, false, false
             };
 
+            @Override
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         };
-        initComponents();
+        initComponents();  
+        
+        
     }
     
-    public void configurarDatosPersonales (Persona persona) {
+    private void causasRegistroHistoria(ActionEvent evt) {
+        
+        
+        
+    }
+    
+    private void medicamentosRegistrosHistoria(ActionEvent evt) {
+        
+        String fecha = tablaRegistrosHistoria.getValueAt(tablaRegistrosHistoria.getSelectedRow(), 1).toString();
+        String medico_id = tablaRegistrosHistoria.getValueAt(tablaRegistrosHistoria.getSelectedRow(), 0).toString();
+        
+        try {
+            
+            ArrayList<String> causas = consultarHistoria.consultarCausasCita(fecha, sesion.getIdentificacion(), medico_id);
+            
+        } catch (SQLException ex) {
+            
+            System.err.println(ex.getMessage());
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            
+            JOptionPane.showMessageDialog(this, "No hay regsitros seleccionados", "Selección de registro", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+    }
+    
+    public void configurarDatosPersonales (Persona persona, VentanaPaciente pac) {
         
         sesion = persona;        
-        
         lbUsuario.setText("@" + sesion.getNombre());
+        
+        paciente = pac;
         
     }
     
@@ -66,11 +115,9 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
             
             ArrayList<Object[]> historiaClinica = consultarHistoria.consultarHistoriaClinica(sesion.getIdentificacion());
             
-            for (Object[] datos : historiaClinica) {
-                
+            historiaClinica.stream().forEach((datos) -> {
                 modeloRegistro.addRow(datos);
-                
-            }
+            });
             
         } catch (SQLException ex) {
             
@@ -93,10 +140,10 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lbUsuario = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRegistrosHistoria = new javax.swing.JTable();
+        jbCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,20 +167,15 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
 
         jLabel2.setText("Bienvenido");
 
-        jButton1.setText("Cerrar Sesión");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(4, 4, 4)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -143,14 +185,13 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Información historia clínica"));
 
         tablaRegistrosHistoria.setModel(modeloRegistro);
+        tablaRegistrosHistoria.setComponentPopupMenu(menuOpciones);
         jScrollPane1.setViewportView(tablaRegistrosHistoria);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -169,6 +210,13 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jbCerrar.setText("Cerrar");
+        jbCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -182,6 +230,10 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(278, 278, 278)
+                .addComponent(jbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +244,9 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jbCerrar)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,10 +263,16 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCerrarActionPerformed
+        
+        paciente.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jbCerrarActionPerformed
+
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -220,6 +280,7 @@ public class VentanaInformacionHistoriaClinica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbCerrar;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JTable tablaRegistrosHistoria;
     // End of variables declaration//GEN-END:variables

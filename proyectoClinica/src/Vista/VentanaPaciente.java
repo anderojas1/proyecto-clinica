@@ -193,11 +193,11 @@ public class VentanaPaciente extends javax.swing.JFrame {
     private void jbHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHistoriaClinicaActionPerformed
         
         VentanaInformacionHistoriaClinica historia = new VentanaInformacionHistoriaClinica();
-        historia.configurarDatosPersonales(datosPersona);
+        historia.configurarDatosPersonales(datosPersona, this);
         historia.consultarHistoriaClinica();
         historia.setVisible(true);
         
-        dispose();
+        setVisible(false);
         
     }//GEN-LAST:event_jbHistoriaClinicaActionPerformed
 

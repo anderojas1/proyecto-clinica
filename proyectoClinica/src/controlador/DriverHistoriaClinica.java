@@ -23,4 +23,11 @@ public class DriverHistoriaClinica {
         
     }
     
+    
+    public ArrayList<String> consultarCausasCita (String fecha, String id_pac, String id_med) throws SQLException {
+        
+        return historial.consultarCausasCita(fecha, id_pac, id_med);
+        
+    }
+    
 }

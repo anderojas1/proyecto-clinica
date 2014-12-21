@@ -87,23 +87,45 @@ public class DaoHistoriaClinica {
     
     public ArrayList<Object[]> consultarHistoria (String id) throws SQLException {
         
-        sentenciaSql = "SELECT * FROM Registro WHERE num_historia = '" + id + "';";
+        sentenciaSql = "SELECT nombres, apellido_uno, apellido_dos, fecha_hora, valor FROM Persona INNER JOIN Registro "
+                + "ON id_medico = identificacion WHERE num_historia = '" + id + "';";
         ejecutarConsulta();
         
         ArrayList<Object[]>historia = new ArrayList<>();
         
         while (registros.next()) {
             
-            String id_medico = registros.getString(1);
+            String nombres = registros.getString(1);
+            String apellido1 = registros.getString(2);
+            String apellido2 = registros.getString(3);
             String fecha = registros.getString(4);
             double costo = registros.getDouble(5);
             
-            Object[] registros = {id_medico, fecha, costo};
+            String nombre = nombres + " " + apellido1 + " " + apellido2;
+            
+            Object[] registros = {nombre , fecha, costo};
             
             historia.add(registros);
             
         }
         
         return historia;
+    }
+    
+    public ArrayList<String> consultarCausasCita (String fecha, String id_paciente, String id_medico) throws SQLException {
+        
+        sentenciaSql = "SELECT nombre FROM Causa INNER JOIN Registro ON codigo = codigo_causa WHERE fecha_hora = "
+                + "'" + fecha + "' AND num_historia = '" + id_paciente + "' AND id_medico = '" + id_medico + "';";
+        ejecutarConsulta();
+        
+        ArrayList<String>causas = new ArrayList<>();
+        
+        while (registros.next()) {
+            
+            causas.add(registros.getString(1));
+            
+        }
+        
+        return causas;
     }
 }
